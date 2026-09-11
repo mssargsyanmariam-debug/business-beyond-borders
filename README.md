@@ -1,6 +1,6 @@
 # Business Beyond Borders
 
-Landing page for the Business Beyond Borders LinkedIn growth and global business networking community. It's a static site (plain HTML, CSS and JS with no build step), hosted on GitHub Pages.
+Landing page for Business Beyond Borders, a global business network and LinkedIn growth community. It's a static site (plain HTML, CSS and JS with no build step), hosted on GitHub Pages, in English, Armenian, German and Russian.
 
 Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 
@@ -8,17 +8,25 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 
 | What | File |
 | --- | --- |
-| Contact email, LinkedIn URL, prices, checkout links per currency, payment provider names, newsletter endpoint | `assets/js/main.js` (the `CONFIG` block at the top) |
-| All wording, English and Armenian | `assets/js/i18n.js` |
-| Page structure and search-engine structured data (JSON-LD) | `index.html` |
+| Email, WhatsApp, LinkedIn, Instagram, prices, checkout links per currency, payment providers | `assets/js/main.js` (the `CONFIG` block at the top) |
+| Form delivery key (contact, feedback, toolkit) | `CONFIG.forms.web3formsKey`. Get a free key at web3forms.com |
+| Newsletter endpoint (e.g. Kit) | `CONFIG.newsletter.action` |
+| Free toolkit PDFs (lead magnet) | Put files in `assets/materials/`, then set `file` in `CONFIG.materials` |
+| Published testimonials | `CONFIG.testimonials` (only with the person's permission) |
+| Wording | `assets/js/lang/en.js`, `hy.js`, `de.js`, `ru.js` (same keys in each) |
+| Page structure and structured data (JSON-LD) | `index.html` |
 | Colours, fonts, layout | `assets/css/styles.css` |
-| Founder photo | `assets/img/founder.webp`, then swap the placeholder in `index.html` |
-| Legal pages | `privacy.html`, `terms.html` |
+| Founder photo | `assets/img/founder.jpg` |
+| Legal pages | `privacy.html`, `terms.html` (refund guarantee under `#refunds`) |
 | Keyword research | `research/keywords.md` |
 
 ## How location-based pricing works
 
 On load, the site guesses the currency from the visitor's time zone, then asks `https://api.country.is/` for their country. US visitors see USD, Armenia sees AMD (paid via ACBA Bank), and everyone else sees EUR. If visitors pick a currency themselves, their choice is remembered.
+
+## Forms without a Web3Forms key
+
+The contact and feedback forms open a pre-filled email to the owner. The toolkit form says the toolkit opens soon.
 
 ## Preview locally
 

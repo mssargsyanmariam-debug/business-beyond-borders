@@ -3,9 +3,10 @@
  * The CONFIG block below is the only thing you normally need to edit.
  */
 const CONFIG = {
-  // TODO: replace with your real contact email.
-  email: "hello@example.com",
+  email: "ms.sargsyanmariam@gmail.com",
   linkedin: "https://www.linkedin.com/in/mariamsargsyan-business-enthusiast/",
+  instagram: "https://www.instagram.com/manch_sargsyan_/",
+  whatsapp: "13479920079", // international format, digits only
 
   // Prices per currency. "month" = billed monthly, "quarter" = billed every 3 months.
   prices: {
@@ -29,6 +30,23 @@ const CONFIG = {
   // (field "email_address"). While empty, the form explains that sign-up opens soon.
   newsletter: { action: "", emailField: "email_address" },
 
+  // TODO: free access key from https://web3forms.com (sent to your email). Contact, feedback
+  // and toolkit forms deliver to your inbox with it. While empty, contact/feedback open a
+  // pre-filled email instead.
+  forms: { web3formsKey: "" },
+
+  // Free toolkit (lead magnet). Put PDFs in assets/materials/ and set "file" to the path.
+  // Items without a file show "Coming soon".
+  materials: [
+    { title: "materials.m1.title", text: "materials.m1.text", file: "" },
+    { title: "materials.m2.title", text: "materials.m2.text", file: "" },
+    { title: "materials.m3.title", text: "materials.m3.text", file: "" },
+  ],
+
+  // Published testimonials (only with the person's permission).
+  // Example: { name: "Anna K.", role: "Founder, Studio X", text: "…", rating: 5 }
+  testimonials: [],
+
   // Visitor country lookup (returns {"country":"US"}); falls back to the time zone.
   geoEndpoint: "https://api.country.is/",
 };
@@ -39,10 +57,13 @@ const CURRENCIES = {
   AMD: { symbol: "֏", decimals: 0 },
 };
 const PLAN_NAMES = { mastermind: "The Mastermind", beyond: "Beyond Mastermind" };
-const LANGS = ["en", "hy"];
+const LANGS = ["en", "hy", "de", "ru"];
 const LANG_KEY = "bbb-lang";
 const CURRENCY_KEY = "bbb-currency";
 const COUNTRY_KEY = "bbb-country";
+const TOOLKIT_KEY = "bbb-toolkit";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_RE = /^\+?[0-9\s().-]{7,20}$/;
 
 let lang = "en";
 let billing = "month";
@@ -72,7 +93,8 @@ function initialLang() {
   if (LANGS.includes(fromUrl)) return fromUrl;
   const saved = stored(LANG_KEY);
   if (LANGS.includes(saved)) return saved;
-  return (navigator.language || "").toLowerCase().startsWith("hy") ? "hy" : "en";
+  const browser = (navigator.language || "").slice(0, 2).toLowerCase();
+  return LANGS.includes(browser) ? browser : "en";
 }
 
 /* ---------- Location-based currency ---------- */
@@ -139,7 +161,7 @@ function applyLang(next) {
   document.title = t("meta.title");
   document.querySelector('meta[name="description"]').setAttribute("content", t("meta.description"));
 
-  // Strings come only from our own i18n.js, so innerHTML (for links) is safe here.
+  // Strings come only from our own language files, so innerHTML (for links/highlights) is safe.
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     el.innerHTML = t(el.dataset.i18n);
   });
@@ -148,6 +170,9 @@ function applyLang(next) {
   });
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     el.setAttribute("placeholder", t(el.dataset.i18nPlaceholder));
+  });
+  document.querySelectorAll("[data-star]").forEach((el) => {
+    el.textContent = t("feedback.star").replace("{n}", el.dataset.star);
   });
   document.querySelectorAll("[data-lang]").forEach((btn) => {
     btn.setAttribute("aria-pressed", String(btn.dataset.lang === lang));
@@ -232,6 +257,225 @@ function initCheckout() {
   });
 }
 
+/* ---------- Form helpers ---------- */
+function fieldProblem(el) {
+  const value = el.value.trim();
+  if (el.required && !value) return "form.required";
+  if (el.type === "email" && value && !EMAIL_RE.test(value)) return "news.error.invalid";
+  if (el.dataset.validate === "phone" && value && !PHONE_RE.test(value)) return "form.phone";
+  return "";
+}
+
+function showFieldProblem(el, key) {
+  const error = document.querySelector(`[data-error-for="${el.id}"]`);
+  if (error) {
+    error.textContent = key ? t(key) : "";
+    error.hidden = !key;
+  }
+  el.setAttribute("aria-invalid", String(Boolean(key)));
+}
+
+function validateForm(form) {
+  let first = null;
+  form.querySelectorAll(".field input:not([type=radio]):not([type=checkbox]), .field textarea").forEach((el) => {
+    const key = fieldProblem(el);
+    showFieldProblem(el, key);
+    if (key && !first) first = el;
+  });
+  if (first) first.focus();
+  return !first;
+}
+
+function wireLiveValidation(form) {
+  form.querySelectorAll(".field input, .field textarea").forEach((el) => {
+    el.addEventListener("blur", () => {
+      if (el.value.trim()) showFieldProblem(el, fieldProblem(el));
+    });
+    el.addEventListener("input", () => {
+      if (el.getAttribute("aria-invalid") === "true") showFieldProblem(el, fieldProblem(el));
+    });
+  });
+}
+
+function setStatus(form, key, state) {
+  const status = form.querySelector("[data-status]");
+  status.textContent = key ? t(key) : "";
+  status.dataset.state = state || "";
+}
+
+async function withLoading(form, task) {
+  const button = form.querySelector('button[type="submit"]');
+  const label = button.querySelector("[data-i18n]");
+  button.disabled = true;
+  if (label) label.textContent = t("form.sending");
+  try {
+    return await task();
+  } finally {
+    button.disabled = false;
+    if (label) label.innerHTML = t(label.dataset.i18n);
+  }
+}
+
+async function sendToWeb3Forms(data) {
+  const res = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ access_key: CONFIG.forms.web3formsKey, ...data }),
+  });
+  const json = await res.json();
+  if (!json.success) throw new Error(json.message || "Form service error");
+}
+
+function openMailDraft(subject, fields) {
+  const body = Object.entries(fields)
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join("\n");
+  location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// Sends via Web3Forms when a key is set, otherwise opens a pre-filled email.
+async function deliver(form, subject, fields, successKey) {
+  if (form.botcheck && form.botcheck.checked) return;
+  if (!CONFIG.forms.web3formsKey) {
+    openMailDraft(subject, fields);
+    setStatus(form, "form.fallback", "info");
+    return;
+  }
+  try {
+    await withLoading(form, () => sendToWeb3Forms({ subject, from_name: fields.Name || "Website visitor", ...fields }));
+    setStatus(form, successKey, "success");
+    form.reset();
+  } catch (err) {
+    setStatus(form, "news.error.network", "error");
+  }
+}
+
+/* ---------- Contact form ---------- */
+function initContact() {
+  const form = document.querySelector('[data-form="contact"]');
+  wireLiveValidation(form);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    setStatus(form, "");
+    if (!validateForm(form)) return;
+    const fields = {
+      Name: form.name.value.trim(),
+      Email: form.email.value.trim(),
+      Phone: form.phone.value.trim(),
+      Message: form.message.value.trim(),
+    };
+    deliver(form, "New contact request: Business Beyond Borders", { ...fields, email: fields.Email }, "contact.success");
+  });
+}
+
+/* ---------- Feedback / testimonials ---------- */
+function renderTestimonials() {
+  const list = document.querySelector("[data-testimonials]");
+  const empty = document.querySelector("[data-testimonials-empty]");
+  list.replaceChildren();
+  CONFIG.testimonials.forEach((item) => {
+    const card = document.createElement("figure");
+    card.className = "testimonial";
+    const stars = "★".repeat(Math.max(0, Math.min(5, item.rating || 0)));
+    card.innerHTML = '<svg class="icon testimonial__quote" aria-hidden="true"><use href="#i-quote"/></svg><blockquote></blockquote><figcaption><strong></strong><span></span></figcaption>';
+    card.querySelector("blockquote").textContent = item.text;
+    card.querySelector("strong").textContent = item.name;
+    card.querySelector("figcaption span").textContent = [item.role, stars].filter(Boolean).join("  ");
+    list.appendChild(card);
+  });
+  list.hidden = CONFIG.testimonials.length === 0;
+  empty.hidden = CONFIG.testimonials.length > 0;
+}
+
+function initFeedback() {
+  const dialog = document.getElementById("feedback-dialog");
+  const form = dialog.querySelector('[data-form="feedback"]');
+  document.querySelectorAll("[data-open-feedback]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      setStatus(form, "");
+      dialog.showModal();
+    })
+  );
+  dialog.querySelector("[data-close-feedback]").addEventListener("click", () => dialog.close());
+  wireLiveValidation(form);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    setStatus(form, "");
+    if (!validateForm(form)) return;
+    const rating = form.querySelector('input[name="rating"]:checked');
+    const fields = {
+      Name: form.name.value.trim(),
+      Role: form.role.value.trim(),
+      Rating: rating ? `${rating.value}/5` : "",
+      Feedback: form.message.value.trim(),
+      "May publish": form.consent.checked ? "Yes" : "No",
+    };
+    deliver(form, "New feedback: Business Beyond Borders", fields, "feedback.success");
+  });
+}
+
+/* ---------- Free toolkit (lead magnet) ---------- */
+function renderMaterials() {
+  const list = document.querySelector("[data-materials]");
+  list.replaceChildren();
+  CONFIG.materials.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "material";
+    li.innerHTML =
+      '<span class="material__icon"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>' +
+      `<div><h3 data-i18n="${item.title}"></h3><p data-i18n="${item.text}"></p></div>`;
+    if (item.file) {
+      const a = document.createElement("a");
+      a.className = "btn btn--light btn--sm material__download";
+      a.href = item.file;
+      a.setAttribute("download", "");
+      a.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span data-i18n="materials.download"></span>';
+      li.appendChild(a);
+    } else {
+      const badge = document.createElement("span");
+      badge.className = "material__badge";
+      badge.dataset.i18n = "materials.soon";
+      li.appendChild(badge);
+    }
+    list.appendChild(li);
+  });
+  const unlocked = stored(TOOLKIT_KEY) === "1";
+  document.querySelector("[data-materials-root]").classList.toggle("is-unlocked", unlocked);
+}
+
+function initToolkit() {
+  const form = document.querySelector('[data-form="toolkit"]');
+  wireLiveValidation(form);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    setStatus(form, "");
+    if (!validateForm(form) || form.botcheck.checked) return;
+    if (!CONFIG.forms.web3formsKey) {
+      setStatus(form, "materials.soonForm", "info");
+      return;
+    }
+    const email = form.email.value.trim();
+    const optin = form.optin.checked;
+    try {
+      await withLoading(form, async () => {
+        await sendToWeb3Forms({ subject: "Toolkit download: Business Beyond Borders", from_name: "Toolkit sign-up", email, "Newsletter opt-in": optin ? "Yes" : "No" });
+        if (optin && CONFIG.newsletter.action) {
+          const body = new FormData();
+          body.append(CONFIG.newsletter.emailField, email);
+          await fetch(CONFIG.newsletter.action, { method: "POST", body, mode: "no-cors" }).catch(() => {});
+        }
+      });
+      save(TOOLKIT_KEY, "1");
+      document.querySelector("[data-materials-root]").classList.add("is-unlocked");
+      const hasFiles = CONFIG.materials.some((m) => m.file);
+      setStatus(form, hasFiles ? "materials.unlocked" : "materials.none", "success");
+    } catch (err) {
+      setStatus(form, "news.error.network", "error");
+    }
+  });
+}
+
 /* ---------- Newsletter ---------- */
 function initNewsletter() {
   const form = document.querySelector("[data-newsletter]");
@@ -244,7 +488,7 @@ function initNewsletter() {
   const validate = () => {
     const value = input.value.trim();
     if (!value) return "news.error.empty";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return "news.error.invalid";
+    if (!EMAIL_RE.test(value)) return "news.error.invalid";
     return "";
   };
   const showError = (key) => {
@@ -252,7 +496,7 @@ function initNewsletter() {
     error.hidden = !key;
     input.setAttribute("aria-invalid", String(Boolean(key)));
   };
-  const setStatus = (key, state) => {
+  const setNewsStatus = (key, state) => {
     status.textContent = key ? t(key) : "";
     status.dataset.state = state || "";
   };
@@ -262,7 +506,7 @@ function initNewsletter() {
   });
   input.addEventListener("input", () => {
     if (input.getAttribute("aria-invalid") === "true") showError(validate());
-    setStatus("");
+    setNewsStatus("");
   });
 
   form.addEventListener("submit", async (e) => {
@@ -274,7 +518,7 @@ function initNewsletter() {
       return;
     }
     if (!CONFIG.newsletter.action) {
-      setStatus("news.soon", "info");
+      setNewsStatus("news.soon", "info");
       return;
     }
     button.disabled = true;
@@ -283,10 +527,10 @@ function initNewsletter() {
       const body = new FormData();
       body.append(CONFIG.newsletter.emailField, input.value.trim());
       await fetch(CONFIG.newsletter.action, { method: "POST", body, mode: "no-cors" });
-      setStatus("news.success", "success");
+      setNewsStatus("news.success", "success");
       form.reset();
     } catch (err) {
-      setStatus("news.error.network", "error");
+      setNewsStatus("news.error.network", "error");
     } finally {
       button.disabled = false;
       label.textContent = t("news.button");
@@ -342,13 +586,20 @@ function initLinks() {
     a.href = `mailto:${CONFIG.email}${subject}`;
   });
   document.querySelectorAll("[data-linkedin]").forEach((a) => (a.href = CONFIG.linkedin));
+  document.querySelectorAll("[data-instagram]").forEach((a) => (a.href = CONFIG.instagram));
+  document.querySelectorAll("[data-whatsapp]").forEach((a) => (a.href = `https://wa.me/${CONFIG.whatsapp}`));
   document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 }
 
 initCurrency();
 initLinks();
+renderMaterials();
+renderTestimonials();
 initPlanControls();
 initCheckout();
+initContact();
+initFeedback();
+initToolkit();
 initNewsletter();
 initTiles();
 initLangSwitch();

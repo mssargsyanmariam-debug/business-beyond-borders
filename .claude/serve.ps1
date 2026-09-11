@@ -28,7 +28,8 @@ while ($listener.IsListening) {
       $ext = [IO.Path]::GetExtension($file).ToLower()
       $res.ContentType = if ($mime.ContainsKey($ext)) { $mime[$ext] } else { 'application/octet-stream' }
       $res.Headers.Add('Cache-Control', 'no-store')
-      $res.OutputStream.Write($bytes, 0, $bytes.Length)
+      $res.ContentLength64 = $bytes.Length
+      if ($ctx.Request.HttpMethod -ne 'HEAD') { $res.OutputStream.Write($bytes, 0, $bytes.Length) }
       Write-Host "200 /$rel"
     } else {
       $res.StatusCode = 404
