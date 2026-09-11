@@ -1,23 +1,23 @@
 /* ==========================================================================
    Business Beyond Borders: styles
-   Palette from the Visual A mockup: deep navy, burgundy, gold.
+   Brand palette: main blue #0D152C, dark red accent.
    ========================================================================== */
 
 :root {
-  --ink: #0b2a4f;          /* deep navy: hero, header, footer */
-  --ink-deep: #071f3b;
-  --navy: #134a87;         /* Mastermind */
-  --navy-dark: #0f3a6b;
-  --burgundy: #8b1e2d;     /* Beyond Mastermind */
-  --burgundy-dark: #6b1522;
-  --gold: #f2b632;         /* accent on dark grounds */
-  --paper: #f4f6fa;        /* cool off-white page ground */
+  --ink: #0d152c;          /* main blue: header, hero, footer, Mastermind */
+  --ink-deep: #080d1c;
+  --navy: #1b2a52;         /* lighter step of the main blue: icons, outlines */
+  --accent: #9b1b30;       /* dark red: buttons, badges, Beyond Mastermind */
+  --accent-hover: #b3223a;
+  --accent-dark: #76131f;
+  --accent-light: #e5566a; /* red that stays readable on the main blue */
+  --paper: #f4f5f8;        /* cool off-white page ground */
   --white: #ffffff;
-  --text: #16202e;
-  --muted: #4a5668;
-  --line: #d8dfe9;
+  --text: #141a2b;
+  --muted: #4a5266;
+  --line: #d9dde7;
   --on-dark: #ffffff;
-  --on-dark-muted: #c4d2e6;
+  --on-dark-muted: #c3cadb;
 
   --focus: var(--navy);
 
@@ -92,8 +92,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   top: -60px;
   z-index: 100;
   padding: 12px 18px;
-  background: var(--gold);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--white);
   font-weight: 700;
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -130,23 +130,30 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .btn--lg { min-height: 56px; padding: 14px 30px; font-size: 1.1rem; }
 .btn--block { width: 100%; }
 
-.btn--gold { background: var(--gold); color: var(--ink); }
-.btn--gold:hover { background: #ffc94f; }
+/* Primary action: dark red (class name kept for markup stability) */
+.btn--gold { background: var(--accent); color: var(--white); }
+.btn--gold:hover { background: var(--accent-hover); }
 
 .btn--ghost { border-color: rgba(255, 255, 255, 0.45); color: var(--on-dark); }
 .btn--ghost:hover { border-color: var(--white); background: rgba(255, 255, 255, 0.08); }
 
-.btn--navy { background: var(--navy-dark); color: var(--white); }
+.btn--navy { background: var(--ink); color: var(--white); }
 .btn--navy:hover { background: var(--navy); }
 
-/* Dark grounds use a gold focus ring */
+/* On red grounds the primary button turns white so it stays visible */
+.plan--burgundy .plan__foot .btn--gold,
+.events .btn--gold { background: var(--white); color: var(--accent); }
+.plan--burgundy .plan__foot .btn--gold:hover,
+.events .btn--gold:hover { background: #f6e8ea; }
+
+/* Dark grounds use a white focus ring */
 .site-header,
 .hero,
 .plan__head,
 .plan__foot,
 .events,
 .final-cta,
-.site-footer { --focus: var(--gold); }
+.site-footer { --focus: var(--white); }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -157,7 +164,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   color: var(--on-dark);
   transition: box-shadow 0.2s var(--ease-out);
 }
-.site-header.is-scrolled { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(4, 18, 38, 0.35); }
+.site-header.is-scrolled { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(4, 8, 20, 0.45); }
 
 .header-inner {
   display: flex;
@@ -178,12 +185,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   font-size: 1.125rem;
   white-space: nowrap;
 }
-.brand b { font-weight: 800; color: var(--gold); }
+.brand b { font-weight: 800; color: var(--accent-light); }
 .brand__mark {
   width: 28px;
   height: 28px;
   fill: none;
-  stroke: var(--gold);
+  stroke: var(--accent-light);
   stroke-width: 1.6;
 }
 
@@ -250,7 +257,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 70% 60% at 78% 40%, rgba(46, 111, 183, 0.35), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 78% 40%, rgba(52, 82, 150, 0.35), transparent 70%),
     var(--ink);
   color: var(--on-dark);
 }
@@ -261,8 +268,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   inset: auto -20% 0 -20%;
   height: 55%;
   background-image:
-    linear-gradient(rgba(127, 166, 214, 0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(127, 166, 214, 0.22) 1px, transparent 1px);
+    linear-gradient(rgba(127, 150, 214, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 150, 214, 0.18) 1px, transparent 1px);
   background-size: 56px 56px;
   transform: perspective(600px) rotateX(58deg);
   transform-origin: bottom center;
@@ -284,9 +291,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   margin-bottom: 18px;
   font-weight: 600;
   font-size: 1rem;
-  color: var(--navy);
+  color: var(--accent);
 }
-.eyebrow--light { color: var(--gold); }
+.eyebrow--light { color: var(--accent-light); }
 
 .hero__title {
   font-size: clamp(2.75rem, 5vw + 1rem, 5rem);
@@ -341,8 +348,8 @@ html[lang="hy"] .hero__title {
 .globe__arcs path:nth-child(5) { animation-delay: 1s; }
 
 .globe__nodes circle {
-  fill: var(--gold);
-  stroke: rgba(242, 182, 50, 0.35);
+  fill: var(--accent-light);
+  stroke: rgba(229, 86, 106, 0.3);
   stroke-width: 8;
   opacity: 0;
   animation: node-in 0.5s var(--ease-out) forwards;
@@ -355,9 +362,9 @@ html[lang="hy"] .hero__title {
   align-items: center;
   gap: 10px;
   padding: 10px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius);
-  background: rgba(11, 42, 79, 0.72);
+  background: rgba(13, 21, 44, 0.78);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font-size: 0.9rem;
@@ -366,7 +373,7 @@ html[lang="hy"] .hero__title {
   opacity: 0;
   animation: card-in 0.6s var(--ease-out) forwards;
 }
-.float-card .icon { color: var(--gold); }
+.float-card .icon { color: var(--accent-light); }
 .float-card--a { top: 12%; left: -6%; animation-delay: 1.3s; }
 .float-card--b { top: 48%; right: -8%; animation-delay: 1.5s; }
 .float-card--c { bottom: 8%; left: 8%; animation-delay: 1.7s; }
@@ -406,8 +413,8 @@ html[lang="hy"] .hero__title {
   width: 52px;
   height: 52px;
   border-radius: var(--radius);
-  background: rgba(19, 74, 135, 0.09);
-  color: var(--navy);
+  background: rgba(155, 27, 48, 0.08);
+  color: var(--accent);
 }
 .feature__icon .icon { width: 26px; height: 26px; }
 .feature h3 { margin-bottom: 8px; }
@@ -418,7 +425,6 @@ html[lang="hy"] .hero__title {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
-  counter-reset: none;
 }
 .step { position: relative; }
 .step__num {
@@ -427,10 +433,10 @@ html[lang="hy"] .hero__title {
   width: 56px;
   height: 56px;
   margin-bottom: 20px;
-  border: 2px solid var(--navy);
+  border: 2px solid var(--ink);
   border-radius: 50%;
   background: var(--white);
-  color: var(--navy);
+  color: var(--ink);
   font-size: 1.5rem;
   font-weight: 800;
   position: relative;
@@ -488,8 +494,8 @@ html[lang="hy"] .hero__title {
 .save-badge {
   padding: 2px 10px;
   border-radius: 999px;
-  background: var(--gold);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--white);
   font-size: 0.8rem;
   font-weight: 800;
 }
@@ -504,22 +510,22 @@ html[lang="hy"] .hero__title {
 }
 
 .plan {
-  --plan: var(--navy);
-  --plan-dark: var(--navy-dark);
+  --plan: var(--ink);
+  --plan-dark: var(--ink-deep);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--white);
-  box-shadow: 0 1px 2px rgba(11, 42, 79, 0.06), 0 18px 40px -18px rgba(11, 42, 79, 0.35);
+  box-shadow: 0 1px 2px rgba(13, 21, 44, 0.06), 0 18px 40px -18px rgba(13, 21, 44, 0.4);
 }
-.plan--burgundy { --plan: var(--burgundy); --plan-dark: var(--burgundy-dark); }
-.plan--featured { outline: 3px solid var(--gold); outline-offset: -3px; }
+.plan--burgundy { --plan: var(--accent); --plan-dark: var(--accent-dark); }
+.plan--featured { outline: 3px solid var(--accent); outline-offset: -3px; }
 
 .plan__head {
   padding: 32px 28px 28px;
   background:
-    radial-gradient(ellipse 80% 90% at 50% 0%, rgba(255, 255, 255, 0.14), transparent 70%),
+    radial-gradient(ellipse 80% 90% at 50% 0%, rgba(255, 255, 255, 0.12), transparent 70%),
     var(--plan);
   color: var(--on-dark);
   text-align: center;
@@ -530,11 +536,11 @@ html[lang="hy"] .hero__title {
   padding: 4px 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
-  color: var(--gold);
+  color: var(--white);
   font-size: 0.875rem;
   font-weight: 700;
 }
-.plan--featured .plan__badge { background: var(--gold); color: var(--ink); }
+.plan--featured .plan__badge { background: var(--white); color: var(--accent); }
 .plan__name { font-size: clamp(1.75rem, 1.2vw + 1.3rem, 2.2rem); font-stretch: 82%; }
 .plan__tagline { margin-top: 8px; color: rgba(255, 255, 255, 0.86); }
 
@@ -569,7 +575,7 @@ html[lang="hy"] .hero__title {
   font-variant-numeric: tabular-nums;
 }
 .plan__period { font-weight: 600; color: var(--on-dark-muted); }
-.plan__perday { margin: 8px 0 20px; color: var(--gold); font-weight: 700; }
+.plan__perday { margin: 8px 0 20px; color: var(--white); font-weight: 700; }
 .plan__saving { margin: -14px 0 20px; font-size: 0.925rem; color: var(--on-dark-muted); }
 
 .plans-note {
@@ -591,8 +597,8 @@ html[lang="hy"] .hero__title {
   padding: clamp(28px, 4vw, 44px);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(ellipse 60% 120% at 100% 0%, rgba(242, 182, 50, 0.18), transparent 60%),
-    var(--burgundy);
+    radial-gradient(ellipse 60% 120% at 100% 0%, rgba(255, 255, 255, 0.1), transparent 60%),
+    var(--accent);
   color: var(--on-dark);
 }
 .events__icon {
@@ -601,12 +607,12 @@ html[lang="hy"] .hero__title {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--gold);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--white);
 }
 .events__icon .icon { width: 30px; height: 30px; }
 .events h2 { font-size: clamp(1.5rem, 1.2vw + 1.1rem, 2rem); }
-.events p { margin-top: 10px; max-width: 62ch; color: rgba(255, 255, 255, 0.88); }
+.events p { margin-top: 10px; max-width: 62ch; color: rgba(255, 255, 255, 0.9); }
 
 /* ---------- Founder ---------- */
 .founder {
@@ -632,7 +638,7 @@ html[lang="hy"] .hero__title {
   font-weight: 600;
 }
 .founder__placeholder .icon { width: 56px; height: 56px; stroke-width: 1.4; }
-.founder__role { margin-top: 8px; font-weight: 600; color: var(--burgundy); }
+.founder__role { margin-top: 8px; font-weight: 600; color: var(--accent); }
 .founder__bio { margin-top: 20px; max-width: 60ch; font-size: 1.125rem; color: var(--muted); }
 .founder__topics-title { margin-top: 32px; font-size: 1rem; font-stretch: 100%; }
 
@@ -663,7 +669,7 @@ html[lang="hy"] .hero__title {
   list-style: none;
 }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary .icon { color: var(--navy); transition: transform 0.2s var(--ease-out); }
+.faq summary .icon { color: var(--accent); transition: transform 0.2s var(--ease-out); }
 .faq details[open] summary .icon { transform: rotate(180deg); }
 .faq details p { padding-bottom: 22px; max-width: 65ch; color: var(--muted); }
 
@@ -673,7 +679,7 @@ html[lang="hy"] .hero__title {
   overflow: hidden;
   padding-block: clamp(72px, 9vw, 112px);
   background:
-    radial-gradient(ellipse 50% 80% at 50% 110%, rgba(46, 111, 183, 0.45), transparent 70%),
+    radial-gradient(ellipse 50% 80% at 50% 110%, rgba(155, 27, 48, 0.35), transparent 70%),
     var(--ink);
   color: var(--on-dark);
   text-align: center;
@@ -711,13 +717,13 @@ html[lang="hy"] .hero__title {
   width: min(100% - 40px, 460px);
   padding: 32px;
   border: 0;
-  border-top: 6px solid var(--gold);
+  border-top: 6px solid var(--accent);
   border-radius: var(--radius-lg);
   background: var(--white);
   color: var(--text);
-  box-shadow: 0 24px 60px rgba(4, 18, 38, 0.45);
+  box-shadow: 0 24px 60px rgba(4, 8, 20, 0.5);
 }
-.modal::backdrop { background: rgba(7, 31, 59, 0.65); }
+.modal::backdrop { background: rgba(8, 13, 28, 0.7); }
 .modal h2 { font-size: 1.6rem; }
 .modal p { margin: 12px 0 24px; color: var(--muted); }
 
@@ -729,7 +735,7 @@ html[lang="hy"] .hero__title {
 .legal ul { list-style: disc; padding-left: 1.4em; }
 .legal .notice {
   padding: 16px 20px;
-  border-left: 4px solid var(--gold);
+  border-left: 4px solid var(--accent);
   background: var(--white);
   border-radius: var(--radius-sm);
   color: var(--text);
@@ -759,7 +765,7 @@ html[lang="hy"] .hero__title {
     padding: 8px 20px 20px;
     background: var(--ink);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 16px 32px rgba(4, 18, 38, 0.4);
+    box-shadow: 0 16px 32px rgba(4, 8, 20, 0.5);
   }
   .site-header.is-open .site-nav { display: flex; }
   .site-nav a { min-height: 52px; font-size: 1.0625rem; }

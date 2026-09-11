@@ -3,9 +3,9 @@
  * The CONFIG block below is the only thing you normally need to edit.
  */
 const CONFIG = {
-  // TODO: replace with your real contact email and LinkedIn profile URL.
+  // TODO: replace with your real contact email.
   email: "hello@example.com",
-  linkedin: "https://www.linkedin.com/",
+  linkedin: "https://www.linkedin.com/in/mariamsargsyan-business-enthusiast/",
 
   // Prices per currency. "month" = billed monthly, "quarter" = billed every 3 months.
   prices: {
