@@ -111,6 +111,10 @@ window.I18N = {
     "faq.q5": "Can I attend an event without subscribing?",
     "faq.a5": "Yes. Selected events are open to non-members for a one-off fee. Get in touch to hear about the next one.",
 
+    "soon.title": "Online sign-up opens soon",
+    "soon.text": "Secure card payment for {plan} is being set up. Please check back soon.",
+    "soon.close": "Close",
+
     "cta.title": "Ready to grow beyond borders?",
     "cta.text": "Pick your plan and join a community of ambitious professionals from around the world.",
     "cta.button": "Choose your plan",
@@ -228,6 +232,10 @@ window.I18N = {
     "faq.a4": "Կստանաք էլ. նամակ՝ համայնքին միանալու հրավերով և առաջիկա հանդիպումների օրացույցով։",
     "faq.q5": "Կարո՞ղ եմ մասնակցել միջոցառմանը առանց բաժանորդագրվելու",
     "faq.a5": "Այո՛։ Որոշ միջոցառումներ բաց են ոչ անդամների համար՝ առանձին վճարով։ Կապվեք մեզ հետ՝ հաջորդի մասին իմանալու համար։",
+
+    "soon.title": "Առցանց գրանցումը շուտով կբացվի",
+    "soon.text": "{plan} փաթեթի անվտանգ քարտային վճարումը կարգավորվում է։ Խնդրում ենք շուտով կրկին այցելել։",
+    "soon.close": "Փակել",
 
     "cta.title": "Պատրա՞ստ եք աճել սահմաններից դուրս",
     "cta.text": "Ընտրեք ձեր փաթեթը և միացեք աշխարհի տարբեր ծայրերից նպատակասլաց մասնագետների համայնքին։",

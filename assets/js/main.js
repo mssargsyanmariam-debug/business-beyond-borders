@@ -14,7 +14,7 @@ const CONFIG = {
   },
 
   // TODO: paste your 4 Stripe Payment Links here (https://buy.stripe.com/...).
-  // While a link is empty, the button opens an email to you instead.
+  // While a link is empty, the button shows a "sign-up opens soon" message.
   stripe: {
     mastermind: { month: "", quarter: "" },
     beyond: { month: "", quarter: "" },
@@ -77,11 +77,22 @@ function applyLang(next) {
 const euro = (n) => "€" + n.toFixed(2);
 
 function checkoutHref(plan) {
-  const link = CONFIG.stripe[plan][billing];
-  if (link) return link;
-  const period = billing === "month" ? "monthly" : "3 months";
-  const subject = encodeURIComponent(`Join ${PLAN_NAMES[plan]} (${period})`);
-  return `mailto:${CONFIG.email}?subject=${subject}`;
+  return CONFIG.stripe[plan][billing] || "#plans";
+}
+
+// Until a Stripe link is set, the button explains that sign-up opens soon.
+function initCheckout() {
+  const dialog = document.getElementById("checkout-soon");
+  document.querySelectorAll("[data-checkout]").forEach((cta) => {
+    cta.addEventListener("click", (e) => {
+      const plan = cta.closest("[data-plan]").dataset.plan;
+      if (CONFIG.stripe[plan][billing]) return;
+      e.preventDefault();
+      const period = t(billing === "month" ? "plans.monthly" : "plans.quarterly");
+      dialog.querySelector("[data-soon-text]").textContent = t("soon.text").replace("{plan}", `${PLAN_NAMES[plan]} (${period})`);
+      dialog.showModal();
+    });
+  });
 }
 
 function renderPrices() {
@@ -183,6 +194,7 @@ function initLinks() {
 document.documentElement.classList.add("js");
 initLinks();
 initBilling();
+initCheckout();
 initLangSwitch();
 initMenu();
 applyLang(initialLang());

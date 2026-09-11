@@ -697,6 +697,21 @@ html[lang="hy"] .hero__title {
   font-size: 0.875rem;
 }
 
+/* ---------- Sign-up-soon dialog ---------- */
+.modal {
+  width: min(100% - 40px, 460px);
+  padding: 32px;
+  border: 0;
+  border-top: 6px solid var(--gold);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  color: var(--text);
+  box-shadow: 0 24px 60px rgba(4, 18, 38, 0.45);
+}
+.modal::backdrop { background: rgba(7, 31, 59, 0.65); }
+.modal h2 { font-size: 1.6rem; }
+.modal p { margin: 12px 0 24px; color: var(--muted); }
+
 /* ---------- Legal pages ---------- */
 .legal { padding-block: 64px 96px; }
 .legal h1 { font-size: clamp(2.2rem, 3vw + 1rem, 3.2rem); margin-bottom: 24px; }
