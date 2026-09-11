@@ -476,6 +476,15 @@ html[lang="hy"] .hero__title {
   transition: background-color 0.18s var(--ease-out), color 0.18s var(--ease-out);
 }
 .billing button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.plan-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.plan-controls .billing { margin: 0; }
+.currency button { padding: 0 16px; }
 .save-badge {
   padding: 2px 10px;
   border-radius: 999px;

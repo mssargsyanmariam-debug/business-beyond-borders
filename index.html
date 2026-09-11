@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=3">
 </head>
 <body>
   <!-- Icon sprite (Lucide-style line icons) -->
@@ -87,7 +87,7 @@
                          </a>
             <a class="btn btn--ghost btn--lg" href="#features" data-i18n="hero.cta2">What's included</a>
           </div>
-          <p class="hero__note" data-i18n="hero.note">From €0.67 a day · Monthly or 3-month plans</p>
+          <p class="hero__note" data-hero-note>From €0.67 a day, billed monthly or every 3 months</p>
         </div>
 
         <div class="hero__visual" aria-hidden="true">
@@ -194,12 +194,19 @@
           <p class="section-lead" data-i18n="plans.lead"></p>
         </header>
 
-        <div class="billing" role="group" aria-label="Billing period">
+        <div class="plan-controls">
+        <div class="billing" role="group" data-i18n-aria="plans.billing" aria-label="Billing period">
           <button type="button" data-billing="month" aria-pressed="true" data-i18n="plans.monthly">Monthly</button>
           <button type="button" data-billing="quarter" aria-pressed="false">
             <span data-i18n="plans.quarterly">3 months</span>
             <span class="save-badge" data-i18n="plans.save">Save 17%</span>
           </button>
+        </div>
+        <div class="billing currency" role="group" data-i18n-aria="plans.currency" aria-label="Currency">
+          <button type="button" data-currency="EUR" aria-pressed="true">€ EUR</button>
+          <button type="button" data-currency="USD" aria-pressed="false">$ USD</button>
+          <button type="button" data-currency="AMD" aria-pressed="false">֏ AMD</button>
+        </div>
         </div>
 
         <div class="plans">
@@ -249,7 +256,7 @@
 
         <p class="plans-note">
           <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>
-          <span data-i18n="plans.note">Secure checkout by Stripe. Prices in EUR.</span>
+          <span data-price-note>Secure card checkout. Prices in EUR.</span>
         </p>
       </div>
     </section>
@@ -356,7 +363,8 @@
     </form>
   </dialog>
 
-  <script src="assets/js/i18n.js"></script>
-  <script src="assets/js/main.js"></script>
+  <!-- Bump ?v= on every deploy so browsers fetch fresh files -->
+  <script src="assets/js/i18n.js?v=3"></script>
+  <script src="assets/js/main.js?v=3"></script>
 </body>
 </html>
