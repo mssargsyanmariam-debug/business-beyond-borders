@@ -204,6 +204,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   color: var(--muted);
   text-decoration: none;
   font-weight: 500;
+  white-space: nowrap;
   border-radius: var(--r-sm);
   transition: color 0.15s, background-color 0.15s;
 }
