@@ -57,7 +57,13 @@ const CURRENCIES = {
   AMD: { symbol: "֏", decimals: 0 },
 };
 const PLAN_NAMES = { mastermind: "The Mastermind", beyond: "Beyond Mastermind" };
-const LANGS = ["en", "hy", "de", "ru"];
+const LANGS = ["en", "hy", "de", "ru", "es", "fr", "zh", "vi", "ar"];
+const RTL_LANGS = ["ar"];
+// Scripts Archivo doesn't cover; loaded only when that language is chosen.
+const SCRIPT_FONTS = {
+  zh: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400..800&display=swap",
+  ar: "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400..800&display=swap",
+};
 const LANG_KEY = "bbb-lang";
 const CURRENCY_KEY = "bbb-currency";
 const COUNTRY_KEY = "bbb-country";
@@ -155,9 +161,21 @@ function initCurrency() {
 }
 
 /* ---------- Language ---------- */
+function ensureScriptFont(code) {
+  const href = SCRIPT_FONTS[code];
+  if (!href || document.querySelector(`link[data-font="${code}"]`)) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+  link.dataset.font = code;
+  document.head.appendChild(link);
+}
+
 function applyLang(next) {
   lang = next;
   document.documentElement.lang = lang;
+  document.documentElement.dir = RTL_LANGS.includes(lang) ? "rtl" : "ltr";
+  ensureScriptFont(lang);
   document.title = t("meta.title");
   document.querySelector('meta[name="description"]').setAttribute("content", t("meta.description"));
 
@@ -174,9 +192,7 @@ function applyLang(next) {
   document.querySelectorAll("[data-star]").forEach((el) => {
     el.textContent = t("feedback.star").replace("{n}", el.dataset.star);
   });
-  document.querySelectorAll("[data-lang]").forEach((btn) => {
-    btn.setAttribute("aria-pressed", String(btn.dataset.lang === lang));
-  });
+  document.querySelector("[data-lang-select]").value = lang;
 
   renderPrices();
 }
@@ -197,9 +213,9 @@ function renderPrices() {
     const price = prices[plan][billing];
     const days = billing === "month" ? 30 : 90;
 
+    card.querySelector("[data-perday-amount]").textContent = money(price / days);
     card.querySelector("[data-amount]").textContent = money(price);
     card.querySelector("[data-period]").textContent = t(billing === "month" ? "plans.per.month" : "plans.per.quarter");
-    card.querySelector("[data-perday]").textContent = t("plans.perday").replace("{x}", money(price / days));
 
     const saving = card.querySelector("[data-saving]");
     saving.hidden = billing === "month";
@@ -540,7 +556,7 @@ function initNewsletter() {
 
 /* ---------- Small interactions ---------- */
 function initTiles() {
-  document.querySelectorAll(".tile").forEach((tile) => {
+  document.querySelectorAll(".tile, .training").forEach((tile) => {
     tile.addEventListener("pointermove", (e) => {
       const r = tile.getBoundingClientRect();
       tile.style.setProperty("--mx", `${e.clientX - r.left}px`);
@@ -549,12 +565,25 @@ function initTiles() {
   });
 }
 
+// Spatial depth: hero layers drift slightly with the pointer.
+function initHeroDepth() {
+  const hero = document.querySelector(".hero");
+  if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  hero.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    hero.style.setProperty("--px", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+    hero.style.setProperty("--py", ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+  });
+  hero.addEventListener("pointerleave", () => {
+    hero.style.setProperty("--px", "0");
+    hero.style.setProperty("--py", "0");
+  });
+}
+
 function initLangSwitch() {
-  document.querySelectorAll("[data-lang]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      save(LANG_KEY, btn.dataset.lang);
-      applyLang(btn.dataset.lang);
-    });
+  document.querySelector("[data-lang-select]").addEventListener("change", (e) => {
+    save(LANG_KEY, e.target.value);
+    applyLang(e.target.value);
   });
 }
 
@@ -602,6 +631,7 @@ initFeedback();
 initToolkit();
 initNewsletter();
 initTiles();
+initHeroDepth();
 initLangSwitch();
 initMenu();
 applyLang(initialLang());

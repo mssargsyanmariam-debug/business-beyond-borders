@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
   <!-- Bump ?v= on every deploy so browsers fetch fresh files -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=6">
+  <link rel="stylesheet" href="assets/css/styles.css?v=7">
 
   <script type="application/ld+json">
   {
@@ -118,16 +118,26 @@
         <a href="#features" data-i18n="nav.features">What you get</a>
         <a href="#plans" data-i18n="nav.plans">Plans</a>
         <a href="#materials" data-i18n="nav.materials">Free toolkit</a>
+        <a href="#trainings" data-i18n="nav.trainings">Trainings</a>
         <a href="#founder" data-i18n="nav.founder">Founder</a>
         <a href="#contact" class="nav-contact" data-i18n="nav.contact">Contact us</a>
       </nav>
 
       <div class="header-actions">
-        <div class="lang-switch" role="group" data-i18n-aria="nav.lang" aria-label="Change language">
-          <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button>
-          <button type="button" data-lang="hy" aria-pressed="false" lang="hy" aria-label="Հայերեն">ՀԱՅ</button>
-          <button type="button" data-lang="de" aria-pressed="false" lang="de" aria-label="Deutsch">DE</button>
-          <button type="button" data-lang="ru" aria-pressed="false" lang="ru" aria-label="Русский">RU</button>
+        <div class="lang-picker">
+          <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
+          <label class="sr-only" for="lang-select" data-i18n="nav.lang">Change language</label>
+          <select id="lang-select" data-lang-select>
+            <option value="en" lang="en">English</option>
+            <option value="hy" lang="hy">Հայերեն</option>
+            <option value="de" lang="de">Deutsch</option>
+            <option value="ru" lang="ru">Русский</option>
+            <option value="es" lang="es">Español</option>
+            <option value="fr" lang="fr">Français</option>
+            <option value="zh" lang="zh">中文</option>
+            <option value="vi" lang="vi">Tiếng Việt</option>
+            <option value="ar" lang="ar">العربية</option>
+          </select>
         </div>
         <a class="btn btn--primary btn--sm header-cta" href="#plans" data-i18n="nav.join">Join now</a>
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" data-i18n-aria="nav.menu" aria-label="Menu">
@@ -322,8 +332,8 @@
               <li><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><div><strong data-i18n="plan1.i4.t"></strong><span data-i18n="plan1.i4.d"></span></div></li>
             </ul>
             <div class="plan__foot">
+              <p class="plan__perday"><span class="plan__perday-amount" data-perday-amount>€0.67</span><span class="plan__perday-label" data-i18n="plans.perdayLabel">a day</span></p>
               <p class="plan__price"><span class="plan__amount" data-amount>€19.99</span> <span class="plan__period" data-period>/ month</span></p>
-              <p class="plan__perday" data-perday></p>
               <p class="plan__saving" data-saving hidden></p>
               <a class="btn btn--primary btn--block" data-checkout href="#plans" data-i18n="plan1.cta">Join The Mastermind</a>
             </div>
@@ -341,8 +351,8 @@
               <li><svg class="icon" aria-hidden="true"><use href="#i-handshake"/></svg><div><strong data-i18n="plan2.i3.t"></strong><span data-i18n="plan2.i3.d"></span></div></li>
             </ul>
             <div class="plan__foot">
+              <p class="plan__perday"><span class="plan__perday-amount" data-perday-amount>€1.67</span><span class="plan__perday-label" data-i18n="plans.perdayLabel">a day</span></p>
               <p class="plan__price"><span class="plan__amount" data-amount>€49.99</span> <span class="plan__period" data-period>/ month</span></p>
-              <p class="plan__perday" data-perday></p>
               <p class="plan__saving" data-saving hidden></p>
               <a class="btn btn--light btn--block" data-checkout href="#plans" data-i18n="plan2.cta">Go Beyond</a>
             </div>
@@ -472,6 +482,60 @@
             </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- TRAININGS & TALKS -->
+    <section class="section" id="trainings" aria-labelledby="trainings-title">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <div>
+            <h2 id="trainings-title" data-i18n="trainings.title">Trainings &amp; talks</h2>
+            <p class="section-lead" data-i18n="trainings.lead"></p>
+          </div>
+          <a class="btn btn--ghost" href="#contact">
+            <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+            <span data-i18n="trainings.cta">Book a training for your team</span>
+          </a>
+        </header>
+        <ul class="trainings">
+          <li class="training training--lead">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg></span>
+            <div><h3 data-i18n="tr.1.name"></h3><p data-i18n="tr.1.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></span>
+            <div><h3 data-i18n="tr.2.name"></h3><p data-i18n="tr.2.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+            <div><h3 data-i18n="tr.3.name"></h3><p data-i18n="tr.3.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+            <div><h3 data-i18n="tr.4.name"></h3><p data-i18n="tr.4.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
+            <div><h3 data-i18n="tr.5.name"></h3><p data-i18n="tr.5.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></span>
+            <div><h3 data-i18n="tr.6.name"></h3><p data-i18n="tr.6.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></span>
+            <div><h3 data-i18n="tr.7.name"></h3><p data-i18n="tr.7.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></span>
+            <div><h3 data-i18n="tr.8.name"></h3><p data-i18n="tr.8.detail"></p></div>
+          </li>
+          <li class="training">
+            <span class="training__icon"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></span>
+            <div><h3 data-i18n="tr.9.name"></h3><p data-i18n="tr.9.detail"></p></div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -676,10 +740,15 @@
     </form>
   </dialog>
 
-  <script src="assets/js/lang/en.js?v=6"></script>
-  <script src="assets/js/lang/hy.js?v=6"></script>
-  <script src="assets/js/lang/de.js?v=6"></script>
-  <script src="assets/js/lang/ru.js?v=6"></script>
-  <script src="assets/js/main.js?v=6"></script>
+  <script src="assets/js/lang/en.js?v=7"></script>
+  <script src="assets/js/lang/hy.js?v=7"></script>
+  <script src="assets/js/lang/de.js?v=7"></script>
+  <script src="assets/js/lang/ru.js?v=7"></script>
+  <script src="assets/js/lang/es.js?v=7"></script>
+  <script src="assets/js/lang/fr.js?v=7"></script>
+  <script src="assets/js/lang/zh.js?v=7"></script>
+  <script src="assets/js/lang/vi.js?v=7"></script>
+  <script src="assets/js/lang/ar.js?v=7"></script>
+  <script src="assets/js/main.js?v=7"></script>
 </body>
 </html>
