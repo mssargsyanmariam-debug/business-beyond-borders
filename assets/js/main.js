@@ -293,7 +293,7 @@ function showFieldProblem(el, key) {
 
 function validateForm(form) {
   let first = null;
-  form.querySelectorAll(".field input:not([type=radio]):not([type=checkbox]), .field textarea").forEach((el) => {
+  form.querySelectorAll(".field input:not([type=radio]):not([type=checkbox]), .field textarea, .field select").forEach((el) => {
     const key = fieldProblem(el);
     showFieldProblem(el, key);
     if (key && !first) first = el;
@@ -303,11 +303,14 @@ function validateForm(form) {
 }
 
 function wireLiveValidation(form) {
-  form.querySelectorAll(".field input, .field textarea").forEach((el) => {
+  form.querySelectorAll(".field input, .field textarea, .field select").forEach((el) => {
     el.addEventListener("blur", () => {
       if (el.value.trim()) showFieldProblem(el, fieldProblem(el));
     });
     el.addEventListener("input", () => {
+      if (el.getAttribute("aria-invalid") === "true") showFieldProblem(el, fieldProblem(el));
+    });
+    el.addEventListener("change", () => {
       if (el.getAttribute("aria-invalid") === "true") showFieldProblem(el, fieldProblem(el));
     });
   });
@@ -375,13 +378,16 @@ function initContact() {
     e.preventDefault();
     setStatus(form, "");
     if (!validateForm(form)) return;
+    const topic = form.topic.selectedOptions[0] ? form.topic.selectedOptions[0].textContent.trim() : "";
     const fields = {
       Name: form.name.value.trim(),
       Email: form.email.value.trim(),
+      Company: form.company.value.trim(),
+      Topic: topic,
       Phone: form.phone.value.trim(),
       Message: form.message.value.trim(),
     };
-    deliver(form, "New contact request: Business Beyond Borders", { ...fields, email: fields.Email }, "contact.success");
+    deliver(form, `New enquiry: ${topic || "Business Beyond Borders"}`, { ...fields, email: fields.Email }, "contact.success");
   });
 }
 
@@ -630,8 +636,72 @@ initContact();
 initFeedback();
 initToolkit();
 initNewsletter();
+// Thin progress bar across the top of the page.
+function initScrollProgress() {
+  const bar = document.querySelector("[data-scroll-progress]");
+  if (!bar) return;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = `${max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0}%`;
+  };
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
+// Numbers count up the first time they scroll into view.
+function initCounters() {
+  const els = document.querySelectorAll("[data-count]");
+  if (!els.length) return;
+  const render = (el, value) => (el.textContent = value + (el.dataset.suffix || ""));
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced || !("IntersectionObserver" in window)) {
+    els.forEach((el) => render(el, el.dataset.count));
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        io.unobserve(el);
+        const target = Number(el.dataset.count);
+        const started = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - started) / 1200);
+          render(el, Math.round(target * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    },
+    { rootMargin: "0px 0px -15% 0px" }
+  );
+  els.forEach((el) => {
+    render(el, 0);
+    io.observe(el);
+    // Safety net: if the browser never reports the element as visible,
+    // show the real number rather than leaving a zero on the page.
+    setTimeout(() => {
+      if (el.textContent === "0" + (el.dataset.suffix || "")) {
+        io.unobserve(el);
+        render(el, el.dataset.count);
+      }
+    }, 2500);
+  });
+}
+
+// Stop the pulses travelling along the globe when reduced motion is requested.
+function initGlobePulses() {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".globe animateMotion").forEach((a) => a.endElement && a.endElement());
+}
+
 initTiles();
 initHeroDepth();
+initScrollProgress();
+initCounters();
+initGlobePulses();
 initLangSwitch();
 initMenu();
 applyLang(initialLang());

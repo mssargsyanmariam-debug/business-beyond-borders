@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
   <!-- Bump ?v= on every deploy so browsers fetch fresh files -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=7">
+  <link rel="stylesheet" href="assets/css/styles.css?v=8">
 
   <script type="application/ld+json">
   {
@@ -105,6 +105,8 @@
     </defs>
   </svg>
 
+  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -151,6 +153,7 @@
   <main id="main">
     <!-- HERO -->
     <section class="hero" id="top">
+      <div class="hero__beams" aria-hidden="true"></div>
       <div class="hero__aurora" aria-hidden="true"></div>
       <div class="hero__grid-bg" aria-hidden="true"></div>
       <div class="container hero__inner">
@@ -189,11 +192,17 @@
             </g>
             <circle cx="210" cy="210" r="186" fill="none" stroke="#8FA3D9" stroke-opacity=".18" stroke-dasharray="2 8"/>
             <g class="globe__arcs" fill="none" stroke="url(#g-arc)" stroke-width="2" stroke-linecap="round">
-              <path d="M95 170 Q170 60 280 120"/>
-              <path d="M280 120 Q360 200 300 290"/>
-              <path d="M130 280 Q200 360 300 290"/>
-              <path d="M95 170 Q90 250 130 280"/>
-              <path d="M180 200 Q240 150 280 120"/>
+              <path id="arc1" d="M95 170 Q170 60 280 120"/>
+              <path id="arc2" d="M280 120 Q360 200 300 290"/>
+              <path id="arc3" d="M130 280 Q200 360 300 290"/>
+              <path id="arc4" d="M95 170 Q90 250 130 280"/>
+              <path id="arc5" d="M180 200 Q240 150 280 120"/>
+            </g>
+            <g class="globe__pulses" fill="#7AA8FF">
+              <circle r="4"><animateMotion dur="4.5s" begin="1.4s" repeatCount="indefinite"><mpath href="#arc1"/></animateMotion></circle>
+              <circle r="4"><animateMotion dur="5.5s" begin="2.1s" repeatCount="indefinite"><mpath href="#arc2"/></animateMotion></circle>
+              <circle r="3.5" fill="#FF6B80"><animateMotion dur="6s" begin="2.6s" repeatCount="indefinite"><mpath href="#arc3"/></animateMotion></circle>
+              <circle r="3.5"><animateMotion dur="5s" begin="3.1s" repeatCount="indefinite"><mpath href="#arc5"/></animateMotion></circle>
             </g>
             <g class="globe__nodes">
               <circle cx="95" cy="170" r="6"/><circle cx="280" cy="120" r="7"/>
@@ -216,6 +225,14 @@
         </div>
       </div>
     </section>
+
+    <!-- Proof ticker (names repeat twice for a seamless loop) -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Accelerator Circle, New York</span><span>Leipzig University MBA</span><span>PicsArt</span><span>4u.am</span><span>American University of Armenia</span><span>Born Global Meetup</span><span>YETI</span><span>Armenian State University of Economics</span>
+        <span>Accelerator Circle, New York</span><span>Leipzig University MBA</span><span>PicsArt</span><span>4u.am</span><span>American University of Armenia</span><span>Born Global Meetup</span><span>YETI</span><span>Armenian State University of Economics</span>
+      </div>
+    </div>
 
     <!-- WHAT YOU GET (bento) -->
     <section class="section section--deep" id="features" aria-labelledby="features-title">
@@ -420,7 +437,7 @@
       <div class="container founder">
         <div class="founder__photo">
           <img src="assets/img/founder.jpg" alt="Mariam Sargsyan" width="800" height="800" loading="lazy">
-          <p class="founder__stat"><strong>22K+</strong> <span data-i18n="founder.statLabel">followers on LinkedIn</span></p>
+          <p class="founder__stat"><strong data-count="22" data-suffix="K+">22K+</strong> <span data-i18n="founder.statLabel">followers on LinkedIn</span></p>
         </div>
         <div class="founder__copy">
           <h2 id="founder-name" data-i18n="founder.name">Mariam Sargsyan, MBA</h2>
@@ -640,10 +657,30 @@
               <p class="field__error" id="contact-email-error" data-error-for="contact-email" hidden></p>
             </div>
           </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="contact-phone" data-i18n="contact.phone">Phone or WhatsApp (optional)</label>
+              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" data-validate="phone" placeholder="+1 347 000 0000" aria-describedby="contact-phone-error">
+              <p class="field__error" id="contact-phone-error" data-error-for="contact-phone" hidden></p>
+            </div>
+            <div class="field">
+              <label for="contact-company" data-i18n="contact.company">Company or organisation (optional)</label>
+              <input id="contact-company" name="company" type="text" autocomplete="organization">
+            </div>
+          </div>
           <div class="field">
-            <label for="contact-phone" data-i18n="contact.phone">Phone or WhatsApp (optional)</label>
-            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" data-validate="phone" placeholder="+1 347 000 0000" aria-describedby="contact-phone-error">
-            <p class="field__error" id="contact-phone-error" data-error-for="contact-phone" hidden></p>
+            <label for="contact-subject" data-i18n="contact.subject">What is this about?</label>
+            <select id="contact-subject" name="topic" required aria-describedby="contact-subject-error">
+              <option value="" selected disabled data-i18n="contact.subject.choose">Choose an option</option>
+              <option value="training" data-i18n="contact.subject.training">Team training</option>
+              <option value="keynote" data-i18n="contact.subject.keynote">Keynote or event speaking</option>
+              <option value="branding" data-i18n="contact.subject.branding">Personal LinkedIn branding</option>
+              <option value="membership" data-i18n="contact.subject.membership">Community membership</option>
+              <option value="partnership" data-i18n="contact.subject.partnership">Partnership or collaboration</option>
+              <option value="media" data-i18n="contact.subject.media">Media, podcast or interview</option>
+              <option value="other" data-i18n="contact.subject.other">Something else</option>
+            </select>
+            <p class="field__error" id="contact-subject-error" data-error-for="contact-subject" hidden></p>
           </div>
           <div class="field">
             <label for="contact-message" data-i18n="contact.message">How can we help?</label>
@@ -740,15 +777,15 @@
     </form>
   </dialog>
 
-  <script src="assets/js/lang/en.js?v=7"></script>
-  <script src="assets/js/lang/hy.js?v=7"></script>
-  <script src="assets/js/lang/de.js?v=7"></script>
-  <script src="assets/js/lang/ru.js?v=7"></script>
-  <script src="assets/js/lang/es.js?v=7"></script>
-  <script src="assets/js/lang/fr.js?v=7"></script>
-  <script src="assets/js/lang/zh.js?v=7"></script>
-  <script src="assets/js/lang/vi.js?v=7"></script>
-  <script src="assets/js/lang/ar.js?v=7"></script>
-  <script src="assets/js/main.js?v=7"></script>
+  <script src="assets/js/lang/en.js?v=8"></script>
+  <script src="assets/js/lang/hy.js?v=8"></script>
+  <script src="assets/js/lang/de.js?v=8"></script>
+  <script src="assets/js/lang/ru.js?v=8"></script>
+  <script src="assets/js/lang/es.js?v=8"></script>
+  <script src="assets/js/lang/fr.js?v=8"></script>
+  <script src="assets/js/lang/zh.js?v=8"></script>
+  <script src="assets/js/lang/vi.js?v=8"></script>
+  <script src="assets/js/lang/ar.js?v=8"></script>
+  <script src="assets/js/main.js?v=8"></script>
 </body>
 </html>
