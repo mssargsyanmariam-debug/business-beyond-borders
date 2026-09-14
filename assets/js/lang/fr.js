@@ -163,6 +163,8 @@ window.I18N.fr = {
   "topic.16": "Visibilité dans la recherche IA (GEO)",
   "topic.17": "Numérisation",
 
+  "videos.title": "À regarder",
+  "videos.lead": "Conférences, formations et sessions en vidéo.",
   "trainings.title": "Formations et conférences",
   "trainings.lead": "La preuve sur le terrain : les accélérateurs, universités et entreprises où j'interviens et forme depuis 2022.",
   "trainings.cta": "Demander une formation pour votre équipe",

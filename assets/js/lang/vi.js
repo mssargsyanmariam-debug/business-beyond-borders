@@ -163,6 +163,8 @@ window.I18N.vi = {
   "topic.16": "Hiển thị trong tìm kiếm AI (GEO)",
   "topic.17": "Chuyển đổi số",
 
+  "videos.title": "Xem",
+  "videos.lead": "Bài nói, khóa đào tạo và các buổi trực tiếp.",
   "trainings.title": "Đào tạo & diễn thuyết",
   "trainings.lead": "Bằng chứng thực tế: các vườn ươm, trường đại học và công ty nơi tôi đã đào tạo và diễn thuyết từ năm 2022.",
   "trainings.cta": "Đặt một buổi đào tạo cho đội của bạn",

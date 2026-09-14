@@ -163,6 +163,8 @@ window.I18N.de = {
   "topic.16": "Sichtbarkeit in der KI-Suche (GEO)",
   "topic.17": "Digitalisierung",
 
+  "videos.title": "Ansehen",
+  "videos.lead": "Vorträge, Trainings und Sessions als Video.",
   "trainings.title": "Trainings & Vorträge",
   "trainings.lead": "Der Beweis aus der Praxis: Acceleratoren, Universitäten und Unternehmen, in denen ich seit 2022 geschult und gesprochen habe.",
   "trainings.cta": "Training für Ihr Team anfragen",

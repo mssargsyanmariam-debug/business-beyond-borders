@@ -163,6 +163,8 @@ window.I18N.zh = {
   "topic.16": "AI 搜索可见度（GEO）",
   "topic.17": "数字化",
 
+  "videos.title": "观看",
+  "videos.lead": "演讲、培训与直播回放。",
   "trainings.title": "培训与演讲",
   "trainings.lead": "现场为证：自 2022 年起我培训与演讲过的加速器、大学和企业。",
   "trainings.cta": "为你的团队预约培训",

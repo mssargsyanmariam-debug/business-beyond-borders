@@ -166,6 +166,8 @@ window.I18N.en = {
   "topic.16": "AI search visibility (GEO)",
   "topic.17": "Digitalization",
 
+  "videos.title": "Watch",
+  "videos.lead": "Talks, trainings and sessions on video.",
   "trainings.title": "Trainings & talks",
   "trainings.lead": "Proof from the room: the accelerators, universities and companies where I've trained and spoken since 2022.",
   "trainings.cta": "Book a training for your team",

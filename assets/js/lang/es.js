@@ -163,6 +163,8 @@ window.I18N.es = {
   "topic.16": "Visibilidad en la búsqueda con IA (GEO)",
   "topic.17": "Digitalización",
 
+  "videos.title": "Ver",
+  "videos.lead": "Ponencias, formaciones y sesiones en vídeo.",
   "trainings.title": "Formaciones y ponencias",
   "trainings.lead": "La prueba está en la sala: aceleradoras, universidades y empresas donde he formado y hablado desde 2022.",
   "trainings.cta": "Solicitar una formación para tu equipo",

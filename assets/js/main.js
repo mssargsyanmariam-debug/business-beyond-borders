@@ -76,7 +76,38 @@ let billing = "month";
 let currency = "EUR";
 let currencySource = "location"; // "location" | "manual" | "url"
 
-const t = (key) => (window.I18N[lang] && window.I18N[lang][key]) || window.I18N.en[key] || "";
+// Content managed from /admin (photos, videos, testimonials, text and price overrides).
+let CONTENT = { gallery: [], videos: [], testimonials: [], text: {}, prices: {} };
+
+async function loadSiteContent() {
+  try {
+    const res = await fetch(`content.json?t=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) return;
+    CONTENT = { ...CONTENT, ...(await res.json()) };
+  } catch (e) {
+    /* no content file yet, or offline: the built-in text is used */
+  }
+}
+
+// Prices set in the admin panel win over the defaults above.
+function applyContentPrices() {
+  Object.entries(CONTENT.prices || {}).forEach(([currencyCode, plans]) => {
+    if (!CONFIG.prices[currencyCode]) return;
+    Object.entries(plans).forEach(([plan, periods]) => {
+      if (!CONFIG.prices[currencyCode][plan]) return;
+      Object.entries(periods).forEach(([period, value]) => {
+        const amount = Number(value);
+        if (Number.isFinite(amount) && amount > 0) CONFIG.prices[currencyCode][plan][period] = amount;
+      });
+    });
+  });
+}
+
+const t = (key) => {
+  const override = CONTENT.text && CONTENT.text[key];
+  if (override && override[lang]) return override[lang];
+  return (window.I18N[lang] && window.I18N[lang][key]) || window.I18N.en[key] || "";
+};
 
 function stored(key, store = localStorage) {
   try {
@@ -395,8 +426,10 @@ function initContact() {
 function renderTestimonials() {
   const list = document.querySelector("[data-testimonials]");
   const empty = document.querySelector("[data-testimonials-empty]");
+  const published = (CONTENT.testimonials || []).filter((item) => item.published);
+  const items = published.length ? published : CONFIG.testimonials;
   list.replaceChildren();
-  CONFIG.testimonials.forEach((item) => {
+  items.forEach((item) => {
     const card = document.createElement("figure");
     card.className = "testimonial";
     const stars = "★".repeat(Math.max(0, Math.min(5, item.rating || 0)));
@@ -406,8 +439,85 @@ function renderTestimonials() {
     card.querySelector("figcaption span").textContent = [item.role, stars].filter(Boolean).join("  ");
     list.appendChild(card);
   });
-  list.hidden = CONFIG.testimonials.length === 0;
-  empty.hidden = CONFIG.testimonials.length > 0;
+  list.hidden = items.length === 0;
+  empty.hidden = items.length > 0;
+}
+
+/* ---------- Gallery and videos (managed in /admin) ---------- */
+function renderGallery() {
+  const list = document.querySelector("[data-gallery]");
+  if (!list) return;
+  const items = CONTENT.gallery || [];
+  list.replaceChildren();
+  list.hidden = items.length === 0;
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "gallery__item";
+    const img = document.createElement("img");
+    img.src = item.file;
+    img.alt = item.caption || "";
+    img.loading = "lazy";
+    li.appendChild(img);
+    if (item.caption) {
+      const caption = document.createElement("span");
+      caption.textContent = item.caption;
+      li.appendChild(caption);
+    }
+    list.appendChild(li);
+  });
+}
+
+function embedUrl(url) {
+  const youtube = url.match(/(?:youtu\.be\/|[?&]v=|embed\/|shorts\/)([\w-]{6,})/);
+  if (youtube) return `https://www.youtube-nocookie.com/embed/${youtube[1]}`;
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
+  return "";
+}
+
+function renderVideos() {
+  const section = document.querySelector("[data-videos-section]");
+  const list = document.querySelector("[data-videos]");
+  if (!section || !list) return;
+  const all = CONTENT.videos || [];
+  const featured = all.filter((v) => v.featured);
+  const items = featured.length ? featured : all;
+  list.replaceChildren();
+  section.hidden = items.length === 0;
+  items.forEach((item) => {
+    const card = document.createElement("figure");
+    card.className = "video";
+    const embed = embedUrl(item.url || "");
+    if (embed) {
+      const frame = document.createElement("iframe");
+      frame.src = embed;
+      frame.title = item.title || "Video";
+      frame.loading = "lazy";
+      frame.allow = "accelerometer; clipboard-write; encrypted-media; picture-in-picture; fullscreen";
+      frame.allowFullscreen = true;
+      card.appendChild(frame);
+    } else {
+      const link = document.createElement("a");
+      link.className = "video__link";
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-video"/></svg>';
+      link.append(item.title || item.url);
+      card.appendChild(link);
+    }
+    const caption = document.createElement("figcaption");
+    const title = document.createElement("strong");
+    title.textContent = item.title || "";
+    caption.appendChild(title);
+    if (item.note) {
+      const note = document.createElement("span");
+      note.textContent = item.note;
+      caption.appendChild(note);
+    }
+    card.appendChild(caption);
+    list.appendChild(card);
+  });
 }
 
 function initFeedback() {
@@ -626,16 +736,16 @@ function initLinks() {
   document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 }
 
-initCurrency();
-initLinks();
-renderMaterials();
-renderTestimonials();
-initPlanControls();
-initCheckout();
-initContact();
-initFeedback();
-initToolkit();
-initNewsletter();
+async function start() {
+  await loadSiteContent();
+  applyContentPrices();
+  renderGallery();
+  renderVideos();
+  initCurrency();
+  initLinks();
+  renderMaterials();
+  renderTestimonials();
+  initPlanControls();
 // Thin progress bar across the top of the page.
 function initScrollProgress() {
   const bar = document.querySelector("[data-scroll-progress]");
@@ -697,11 +807,19 @@ function initGlobePulses() {
   document.querySelectorAll(".globe animateMotion").forEach((a) => a.endElement && a.endElement());
 }
 
-initTiles();
-initHeroDepth();
-initScrollProgress();
-initCounters();
-initGlobePulses();
-initLangSwitch();
-initMenu();
-applyLang(initialLang());
+  initCheckout();
+  initContact();
+  initFeedback();
+  initToolkit();
+  initNewsletter();
+  initTiles();
+  initHeroDepth();
+  initScrollProgress();
+  initCounters();
+  initGlobePulses();
+  initLangSwitch();
+  initMenu();
+  applyLang(initialLang());
+}
+
+start();
