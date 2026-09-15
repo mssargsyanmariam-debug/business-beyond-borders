@@ -116,6 +116,7 @@ window.I18N.ar = {
   "news.button": "اشترك مجانًا",
   "news.sending": "جارٍ الاشتراك…",
   "news.success": "اقتربنا. تحقق من بريدك وأكّد الاشتراك.",
+  "news.subscribed": "تم الاشتراك. سيصلك العدد القادم على بريدك الإلكتروني.",
   "news.error.empty": "أدخل بريدك الإلكتروني.",
   "news.error.invalid": "أدخل بريدًا إلكترونيًا صحيحًا، مثل name@company.com.",
   "news.error.network": "حدث خطأ ما. تحقق من الاتصال وحاول مرة أخرى.",

@@ -9,7 +9,7 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 | What | File |
 | --- | --- |
 | Email, WhatsApp, LinkedIn, Instagram, prices, checkout links per currency, payment providers | `assets/js/main.js` (the `CONFIG` block at the top) |
-| Form delivery key (contact, feedback, toolkit) | `CONFIG.forms.web3formsKey`. Get a free key at web3forms.com |
+| Where form submissions go (Google Sheet + email alert) | `CONFIG.leads.endpoint`. Setup: `integrations/LEADS-SETUP.md` |
 | Newsletter endpoint (e.g. Kit) | `CONFIG.newsletter.action` |
 | Free toolkit PDFs (lead magnet) | Put files in `assets/materials/`, then set `file` in `CONFIG.materials` |
 | Published testimonials | `CONFIG.testimonials` (only with the person's permission) |
@@ -24,9 +24,9 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 
 On load, the site guesses the currency from the visitor's time zone, then asks `https://api.country.is/` for their country. US visitors see USD, Armenia sees AMD (paid via ACBA Bank), and everyone else sees EUR. If visitors pick a currency themselves, their choice is remembered.
 
-## Forms without a Web3Forms key
+## Forms before the Google Sheet is connected
 
-The contact and feedback forms open a pre-filled email to the owner. The toolkit form says the toolkit opens soon.
+The contact and feedback forms open a pre-filled email to the owner. The toolkit and newsletter forms say sign-up opens soon.
 
 ## Preview locally
 

@@ -116,6 +116,7 @@ window.I18N.de = {
   "news.button": "Kostenlos abonnieren",
   "news.sending": "Wird abonniert…",
   "news.success": "Fast geschafft. Bitte prüfen Sie Ihr Postfach und bestätigen Sie Ihr Abonnement.",
+  "news.subscribed": "Sie sind angemeldet. Die nächste Ausgabe kommt direkt in Ihr Postfach.",
   "news.error.empty": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
   "news.error.invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein, z. B. name@firma.de.",
   "news.error.network": "Etwas ist schiefgelaufen. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",

@@ -116,6 +116,7 @@ window.I18N.ru = {
   "news.button": "Подписаться бесплатно",
   "news.sending": "Подписываем…",
   "news.success": "Почти готово. Проверьте почту и подтвердите подписку.",
+  "news.subscribed": "Вы подписаны. Следующий выпуск придёт вам на почту.",
   "news.error.empty": "Введите ваш email.",
   "news.error.invalid": "Введите корректный email, например name@company.com.",
   "news.error.network": "Что-то пошло не так. Проверьте соединение и попробуйте ещё раз.",

@@ -116,6 +116,7 @@ window.I18N.fr = {
   "news.button": "S'abonner gratuitement",
   "news.sending": "Inscription…",
   "news.success": "Presque terminé. Vérifiez votre boîte mail et confirmez votre inscription.",
+  "news.subscribed": "Inscription confirmée. Le prochain numéro arrivera dans votre boîte mail.",
   "news.error.empty": "Saisissez votre adresse e-mail.",
   "news.error.invalid": "Saisissez une adresse e-mail valide, par exemple nom@entreprise.com.",
   "news.error.network": "Une erreur est survenue. Vérifiez votre connexion et réessayez.",

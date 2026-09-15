@@ -116,6 +116,7 @@ window.I18N.zh = {
   "news.button": "免费订阅",
   "news.sending": "订阅中…",
   "news.success": "就快好了。请查收邮件并确认订阅。",
+  "news.subscribed": "订阅成功。下一期将发送到你的邮箱。",
   "news.error.empty": "请输入你的邮箱地址。",
   "news.error.invalid": "请输入有效的邮箱地址，例如 name@company.com。",
   "news.error.network": "出了点问题。请检查网络后重试。",

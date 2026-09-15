@@ -119,6 +119,7 @@ window.I18N.en = {
   "news.button": "Subscribe free",
   "news.sending": "Subscribing…",
   "news.success": "Almost done. Check your inbox and confirm your subscription.",
+  "news.subscribed": "You're subscribed. The next issue will arrive in your inbox.",
   "news.error.empty": "Enter your email address.",
   "news.error.invalid": "Enter a valid email address, like name@company.com.",
   "news.error.network": "Something went wrong. Check your connection and try again.",

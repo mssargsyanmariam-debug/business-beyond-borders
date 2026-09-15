@@ -116,6 +116,7 @@ window.I18N.es = {
   "news.button": "Suscribirme gratis",
   "news.sending": "Suscribiendo…",
   "news.success": "Casi listo. Revisa tu correo y confirma la suscripción.",
+  "news.subscribed": "Suscripción confirmada. El próximo número llegará a tu correo.",
   "news.error.empty": "Escribe tu dirección de email.",
   "news.error.invalid": "Escribe un email válido, por ejemplo nombre@empresa.com.",
   "news.error.network": "Algo ha fallado. Revisa tu conexión e inténtalo de nuevo.",

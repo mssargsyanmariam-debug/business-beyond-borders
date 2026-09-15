@@ -26,14 +26,14 @@ const CONFIG = {
     AMD: { mastermind: { month: "", quarter: "" }, beyond: { month: "", quarter: "" } },
   },
 
-  // TODO: newsletter form endpoint, e.g. Kit: "https://app.kit.com/forms/<FORM_ID>/subscriptions"
-  // (field "email_address"). While empty, the form explains that sign-up opens soon.
-  newsletter: { action: "", emailField: "email_address" },
+  // TODO: paste the Web app URL of your Google Sheet script (see integrations/LEADS-SETUP.md).
+  // Every form (contact, feedback, toolkit, newsletter) is then saved as a row in the sheet and
+  // emailed to you. While empty, contact/feedback open a pre-filled email instead.
+  leads: { endpoint: "" },
 
-  // TODO: free access key from https://web3forms.com (sent to your email). Contact, feedback
-  // and toolkit forms deliver to your inbox with it. While empty, contact/feedback open a
-  // pre-filled email instead.
-  forms: { web3formsKey: "" },
+  // Optional: also add newsletter sign-ups to Kit, e.g. "https://app.kit.com/forms/<FORM_ID>/subscriptions"
+  // (field "email_address"). Sign-ups are saved to the sheet either way.
+  newsletter: { action: "", emailField: "email_address" },
 
   // Free toolkit (lead magnet). Put PDFs in assets/materials/ and set "file" to the path.
   // Items without a file show "Coming soon".
@@ -366,34 +366,54 @@ async function withLoading(form, task) {
   }
 }
 
-async function sendToWeb3Forms(data) {
-  const res = await fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ access_key: CONFIG.forms.web3formsKey, ...data }),
+// Saves one form submission as a row in the owner's Google Sheet, which also emails an alert.
+async function sendLead(formName, data) {
+  const body = JSON.stringify({
+    form: formName,
+    ...data,
+    language: lang,
+    country: stored(COUNTRY_KEY, sessionStorage) || "",
+    page: location.href.split("#")[0],
   });
-  const json = await res.json();
-  if (!json.success) throw new Error(json.message || "Form service error");
+  // text/plain keeps this a "simple" request, which Google's script endpoint accepts from any site.
+  const request = { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body };
+  try {
+    const res = await fetch(CONFIG.leads.endpoint, request);
+    const result = await res.json();
+    if (!result.ok) throw new Error(result.error || "lead_rejected");
+  } catch (err) {
+    if (!(err instanceof TypeError)) throw err;
+    // Some browsers block reading Google's reply even though the row was saved.
+    // Send again without reading it; the script ignores repeats within a minute.
+    await fetch(CONFIG.leads.endpoint, { ...request, mode: "no-cors" });
+  }
+}
+
+// Optional: also add an address to the newsletter tool (e.g. Kit).
+async function addToNewsletterList(email) {
+  const body = new FormData();
+  body.append(CONFIG.newsletter.emailField, email);
+  await fetch(CONFIG.newsletter.action, { method: "POST", body, mode: "no-cors" }).catch(() => {});
 }
 
 function openMailDraft(subject, fields) {
   const body = Object.entries(fields)
     .filter(([, v]) => v)
-    .map(([k, v]) => `${k}: ${v}`)
+    .map(([k, v]) => `${k.charAt(0).toUpperCase()}${k.slice(1)}: ${v}`)
     .join("\n");
   location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-// Sends via Web3Forms when a key is set, otherwise opens a pre-filled email.
-async function deliver(form, subject, fields, successKey) {
+// Saves to the sheet when it's connected, otherwise opens a pre-filled email.
+async function deliver(form, formName, subject, lead, successKey) {
   if (form.botcheck && form.botcheck.checked) return;
-  if (!CONFIG.forms.web3formsKey) {
-    openMailDraft(subject, fields);
+  if (!CONFIG.leads.endpoint) {
+    openMailDraft(subject, lead);
     setStatus(form, "form.fallback", "info");
     return;
   }
   try {
-    await withLoading(form, () => sendToWeb3Forms({ subject, from_name: fields.Name || "Website visitor", ...fields }));
+    await withLoading(form, () => sendLead(formName, lead));
     setStatus(form, successKey, "success");
     form.reset();
   } catch (err) {
@@ -410,15 +430,15 @@ function initContact() {
     setStatus(form, "");
     if (!validateForm(form)) return;
     const topic = form.topic.selectedOptions[0] ? form.topic.selectedOptions[0].textContent.trim() : "";
-    const fields = {
-      Name: form.name.value.trim(),
-      Email: form.email.value.trim(),
-      Company: form.company.value.trim(),
-      Topic: topic,
-      Phone: form.phone.value.trim(),
-      Message: form.message.value.trim(),
+    const lead = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      company: form.company.value.trim(),
+      topic,
+      phone: form.phone.value.trim(),
+      message: form.message.value.trim(),
     };
-    deliver(form, `New enquiry: ${topic || "Business Beyond Borders"}`, { ...fields, email: fields.Email }, "contact.success");
+    deliver(form, "Contact", `New enquiry: ${topic || "Business Beyond Borders"}`, lead, "contact.success");
   });
 }
 
@@ -536,14 +556,14 @@ function initFeedback() {
     setStatus(form, "");
     if (!validateForm(form)) return;
     const rating = form.querySelector('input[name="rating"]:checked');
-    const fields = {
-      Name: form.name.value.trim(),
-      Role: form.role.value.trim(),
-      Rating: rating ? `${rating.value}/5` : "",
-      Feedback: form.message.value.trim(),
-      "May publish": form.consent.checked ? "Yes" : "No",
+    const lead = {
+      name: form.name.value.trim(),
+      company: form.role.value.trim(),
+      rating: rating ? `${rating.value}/5` : "",
+      message: form.message.value.trim(),
+      consent: form.consent.checked ? "Yes" : "No",
     };
-    deliver(form, "New feedback: Business Beyond Borders", fields, "feedback.success");
+    deliver(form, "Feedback", "New feedback: Business Beyond Borders", lead, "feedback.success");
   });
 }
 
@@ -583,7 +603,7 @@ function initToolkit() {
     e.preventDefault();
     setStatus(form, "");
     if (!validateForm(form) || form.botcheck.checked) return;
-    if (!CONFIG.forms.web3formsKey) {
+    if (!CONFIG.leads.endpoint) {
       setStatus(form, "materials.soonForm", "info");
       return;
     }
@@ -591,12 +611,8 @@ function initToolkit() {
     const optin = form.optin.checked;
     try {
       await withLoading(form, async () => {
-        await sendToWeb3Forms({ subject: "Toolkit download: Business Beyond Borders", from_name: "Toolkit sign-up", email, "Newsletter opt-in": optin ? "Yes" : "No" });
-        if (optin && CONFIG.newsletter.action) {
-          const body = new FormData();
-          body.append(CONFIG.newsletter.emailField, email);
-          await fetch(CONFIG.newsletter.action, { method: "POST", body, mode: "no-cors" }).catch(() => {});
-        }
+        await sendLead("Toolkit", { email, optin: optin ? "Yes" : "No" });
+        if (optin && CONFIG.newsletter.action) await addToNewsletterList(email);
       });
       save(TOOLKIT_KEY, "1");
       document.querySelector("[data-materials-root]").classList.add("is-unlocked");
@@ -649,17 +665,18 @@ function initNewsletter() {
       input.focus();
       return;
     }
-    if (!CONFIG.newsletter.action) {
+    if (!CONFIG.leads.endpoint && !CONFIG.newsletter.action) {
       setNewsStatus("news.soon", "info");
       return;
     }
     button.disabled = true;
     label.textContent = t("news.sending");
+    const email = input.value.trim();
     try {
-      const body = new FormData();
-      body.append(CONFIG.newsletter.emailField, input.value.trim());
-      await fetch(CONFIG.newsletter.action, { method: "POST", body, mode: "no-cors" });
-      setNewsStatus("news.success", "success");
+      if (CONFIG.leads.endpoint) await sendLead("Newsletter", { email, optin: "Yes" });
+      if (CONFIG.newsletter.action) await addToNewsletterList(email);
+      // Kit sends a confirmation email; the sheet alone subscribes straight away.
+      setNewsStatus(CONFIG.newsletter.action ? "news.success" : "news.subscribed", "success");
       form.reset();
     } catch (err) {
       setNewsStatus("news.error.network", "error");
@@ -746,6 +763,21 @@ async function start() {
   renderMaterials();
   renderTestimonials();
   initPlanControls();
+  initCheckout();
+  initContact();
+  initFeedback();
+  initToolkit();
+  initNewsletter();
+  initTiles();
+  initHeroDepth();
+  initScrollProgress();
+  initCounters();
+  initGlobePulses();
+  initLangSwitch();
+  initMenu();
+  applyLang(initialLang());
+}
+
 // Thin progress bar across the top of the page.
 function initScrollProgress() {
   const bar = document.querySelector("[data-scroll-progress]");
@@ -805,21 +837,6 @@ function initCounters() {
 function initGlobePulses() {
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   document.querySelectorAll(".globe animateMotion").forEach((a) => a.endElement && a.endElement());
-}
-
-  initCheckout();
-  initContact();
-  initFeedback();
-  initToolkit();
-  initNewsletter();
-  initTiles();
-  initHeroDepth();
-  initScrollProgress();
-  initCounters();
-  initGlobePulses();
-  initLangSwitch();
-  initMenu();
-  applyLang(initialLang());
 }
 
 start();

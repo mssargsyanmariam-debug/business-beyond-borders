@@ -116,6 +116,7 @@ window.I18N.vi = {
   "news.button": "Đăng ký miễn phí",
   "news.sending": "Đang đăng ký…",
   "news.success": "Gần xong rồi. Hãy kiểm tra hộp thư và xác nhận đăng ký.",
+  "news.subscribed": "Đăng ký thành công. Số tiếp theo sẽ được gửi đến hộp thư của bạn.",
   "news.error.empty": "Hãy nhập địa chỉ email của bạn.",
   "news.error.invalid": "Hãy nhập email hợp lệ, ví dụ ten@congty.com.",
   "news.error.network": "Đã có lỗi xảy ra. Hãy kiểm tra kết nối và thử lại.",
