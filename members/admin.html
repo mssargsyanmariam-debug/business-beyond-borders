@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Members admin | Business Beyond Borders</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+  <style>
+    :root {
+      --bg: #05070f; --panel: #0b1020; --line: rgba(255,255,255,.1);
+      --text: #f3f6ff; --muted: #98a4c2; --accent: #e11d3c; --electric: #4d8cff;
+      --success: #6fd3a0; --danger: #ff8a95; --r: 12px;
+      --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.55; }
+    a { color: var(--electric); }
+    h2 { font-size: 1.15rem; margin: 0 0 12px; }
+    .wrap { width: min(100% - 32px, 1040px); margin-inline: auto; padding-block: 28px 64px; }
+    header.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+    header.bar h1 { font-size: 1.25rem; margin: 0; }
+    header.bar .who { margin-left: auto; color: var(--muted); font-size: .9rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border: 1px solid transparent; border-radius: var(--r); font: inherit; font-weight: 700; cursor: pointer; text-decoration: none; }
+    .btn--primary { background: linear-gradient(135deg, #ff2e4f, #c1102c); color: #fff; }
+    .btn--ghost { border-color: rgba(255,255,255,.25); background: transparent; color: var(--text); }
+    .btn--small { min-height: 36px; padding: 6px 12px; font-size: .9rem; }
+    .btn--danger { border-color: rgba(255,138,149,.5); color: var(--danger); background: transparent; }
+    .btn[disabled] { opacity: .6; cursor: progress; }
+    label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: 6px; color: #dbe3f7; }
+    input, textarea, select { width: 100%; min-height: 46px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.22); border-radius: var(--r); background: rgba(3,5,12,.6); color: #fff; font: inherit; }
+    textarea { min-height: 90px; resize: vertical; }
+    .field { margin-bottom: 14px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .row--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .card { border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); padding: 20px; margin-bottom: 16px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+    .tabs button { min-height: 42px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; }
+    .tabs button[aria-selected="true"] { background: #fff; color: #05070f; border-color: #fff; }
+    .status { min-height: 24px; font-weight: 600; margin-top: 10px; }
+    .status[data-state="ok"] { color: var(--success); }
+    .status[data-state="error"] { color: var(--danger); }
+    .muted { color: var(--muted); }
+    .small { font-size: .9rem; }
+    .member { border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; background: rgba(255,255,255,.03); }
+    .member__top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+    .member__top strong { font-size: 1.05rem; }
+    .grant { display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 8px; align-items: end; margin-top: 12px; }
+    .grant label { font-size: .8rem; margin-bottom: 4px; }
+    .grant select { min-height: 40px; padding: 6px 10px; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 999px; background: rgba(111,211,160,.15); border: 1px solid rgba(111,211,160,.45); color: var(--success); font-size: .85rem; font-weight: 700; }
+    .pill--none { background: rgba(255,255,255,.06); border-color: var(--line); color: var(--muted); }
+    .access-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+    .hint { border-left: 3px solid var(--electric); padding: 10px 14px; background: rgba(77,140,255,.08); border-radius: 8px; color: #dbe3f7; }
+    .check { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+    .check input { width: 20px; height: 20px; min-height: 0; accent-color: var(--electric); }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    @media (max-width: 760px) { .row, .row--3, .grant { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-member="admin">
+  <div class="wrap">
+    <header class="bar">
+      <h1>Members admin</h1>
+      <span class="who" data-who></span>
+      <button type="button" class="btn btn--ghost btn--small" data-logout hidden>Log out</button>
+      <a class="btn btn--ghost btn--small" href="../">Website</a>
+    </header>
+
+    <!-- not connected yet -->
+    <div class="card" data-setup hidden>
+      <h2>Not connected yet</h2>
+      <p class="muted">Paste your Supabase project URL and anon key into <code>assets/js/members-config.js</code>, then reload this page.
+      The steps are in <code>integrations/MEMBERS-SETUP.md</code>.</p>
+    </div>
+
+    <!-- log in -->
+    <div class="card" data-login hidden>
+      <h2>Log in</h2>
+      <form data-login-form>
+        <div class="field">
+          <label for="a-email">Email</label>
+          <input id="a-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="a-password">Password</label>
+          <input id="a-password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn btn--primary" type="submit">Log in</button>
+      </form>
+      <p class="status" data-login-status role="status" aria-live="polite"></p>
+      <p class="small muted">Use the account you created on the website. If it says you are not an admin, run the last line of
+      <code>integrations/members-schema.sql</code> in Supabase once.</p>
+    </div>
+
+    <!-- the panel -->
+    <div data-app hidden>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="members" aria-selected="true">Members</button>
+        <button type="button" role="tab" data-tab="materials" aria-selected="false">Materials</button>
+        <button type="button" role="tab" data-tab="products" aria-selected="false">Courses &amp; products</button>
+      </div>
+
+      <!-- MEMBERS -->
+      <section data-panel="members">
+        <div class="card">
+          <p class="hint small">Someone signs up on the website, you see them here, you switch their access on after they pay.
+          For a course, pick the course and <strong>1 year</strong>.</p>
+          <div class="field" style="margin:14px 0 0">
+            <label for="member-search">Search</label>
+            <input id="member-search" type="search" placeholder="Name or email">
+          </div>
+        </div>
+        <div data-members-list></div>
+        <p class="status" data-members-status role="status" aria-live="polite"></p>
+      </section>
+
+      <!-- MATERIALS -->
+      <section data-panel="materials" hidden>
+        <div class="card">
+          <h2>Add a material</h2>
+          <form data-material-form>
+            <div class="field">
+              <label for="m-title">Title</label>
+              <input id="m-title" name="title" type="text" required>
+            </div>
+            <div class="field">
+              <label for="m-desc">Short description</label>
+              <textarea id="m-desc" name="description"></textarea>
+            </div>
+            <div class="row row--3">
+              <div class="field">
+                <label for="m-kind">Type</label>
+                <select id="m-kind" name="kind">
+                  <option value="video">Video (YouTube or Vimeo link)</option>
+                  <option value="file">File I upload (PDF, slides)</option>
+                  <option value="link">Link (Zoom, Notion, anything)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="m-product">Belongs to</label>
+                <select id="m-product" name="product"></select>
+              </div>
+              <div class="field">
+                <label for="m-tier">Lowest plan that sees it</label>
+                <select id="m-tier" name="min_tier">
+                  <option value="mastermind">The Mastermind (everyone)</option>
+                  <option value="beyond">Beyond Mastermind only</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" data-url-field>
+              <label for="m-url">Link</label>
+              <input id="m-url" name="url" type="url" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+            <div class="field" data-file-field hidden>
+              <label for="m-file">File</label>
+              <input id="m-file" name="file" type="file">
+              <p class="small muted">Stored privately. Members get a link that works for one hour only.</p>
+            </div>
+            <label class="check" style="margin-bottom:14px">
+              <input type="checkbox" name="published" checked>
+              <span>Visible to members</span>
+            </label>
+            <button class="btn btn--primary" type="submit">Add material</button>
+          </form>
+          <p class="status" data-material-status role="status" aria-live="polite"></p>
+        </div>
+        <div data-materials-list></div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section data-panel="products" hidden>
+        <div class="card">
+          <h2>Add a course or product</h2>
+          <p class="hint small">A course is just another product. Add it here, put its videos under Materials, then give each
+          buyer 1 year of access under Members.</p>
+          <form data-product-form style="margin-top:14px">
+            <div class="row">
+              <div class="field">
+                <label for="p-name">Name members see</label>
+                <input id="p-name" name="name" type="text" placeholder="LinkedIn Growth Course" required>
+              </div>
+              <div class="field">
+                <label for="p-key">Short code (no spaces)</label>
+                <input id="p-key" name="key" type="text" placeholder="course-linkedin" required>
+              </div>
+            </div>
+            <button class="btn btn--primary" type="submit">Add product</button>
+          </form>
+          <p class="status" data-product-status role="status" aria-live="polite"></p>
+        </div>
+        <div data-products-list></div>
+      </section>
+    </div>
+  </div>
+
+  <script src="../assets/js/members-config.js?v=12"></script>
+  <script type="module" src="../assets/js/members-admin.js?v=12"></script>
+</body>
+</html>

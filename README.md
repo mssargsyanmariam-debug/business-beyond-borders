@@ -21,10 +21,25 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 | Founder photo | `assets/img/founder.jpg` |
 | Legal pages | `privacy.html`, `terms.html` (refund guarantee under `#refunds`) |
 | Keyword research | `research/keywords.md` |
+| Members area: Supabase URL and anon key | `assets/js/members-config.js`. Setup: `integrations/MEMBERS-SETUP.md` |
+| Members area behaviour (login, library, 1-year access) | `assets/js/members.js`, `assets/js/members-admin.js` |
+| Member database and security rules | `integrations/members-schema.sql` (run once in Supabase) |
 
 ## Pages
 
-`index.html` (short home: about, proof, packages, testimonials), `membership.html`, `speaking.html`, `resources.html`, plus `admin/`, `privacy.html`, `terms.html`.
+`index.html` (short home: about, proof, packages, testimonials), `membership.html`, `speaking.html`, `resources.html`, plus `admin/`, `members/`, `privacy.html`, `terms.html`.
+
+## Members area
+
+`members/login.html` (log in / create account), `members/` (the member hub: access, library, account),
+`members/reset.html` (new password) and `members/admin.html` (owner only: switch access on, add materials, add courses).
+
+Accounts, passwords and who-paid-for-what live in Supabase; the pages stay on this site. Supabase decides
+what each person may read, so the gating cannot be bypassed from the browser. A course is just another
+"product": add it, add its materials, then give each buyer 1 year of access.
+
+While `members-config.js` is empty, every member page shows a polite "opens soon" message, so it is safe
+to have live before the set-up is done.
 
 ## How location-based pricing works
 
@@ -36,7 +51,7 @@ The contact and feedback forms open a pre-filled email to the owner. The toolkit
 
 ## Preview locally
 
-Run `.claude/serve.ps1` (PowerShell, port 8080) and open http://localhost:8080.
+Run `.claude/serve.ps1` (PowerShell, port 8099) and open http://localhost:8099.
 
 ## Publish
 

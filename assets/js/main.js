@@ -81,7 +81,9 @@ let CONTENT = { gallery: [], videos: [], testimonials: [], text: {}, prices: {} 
 
 async function loadSiteContent() {
   try {
-    const res = await fetch(`content.json?t=${Date.now()}`, { cache: "no-store" });
+    // Pages in a sub-folder (e.g. /members/) set window.BBB_CONTENT_URL to "../content.json".
+    const url = window.BBB_CONTENT_URL || "content.json";
+    const res = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
     if (!res.ok) return;
     CONTENT = { ...CONTENT, ...(await res.json()) };
   } catch (e) {
@@ -229,6 +231,8 @@ function applyLang(next) {
   if (langSelect) langSelect.value = lang;
 
   renderPrices();
+  // The members area listens for this to re-draw its own text.
+  document.dispatchEvent(new CustomEvent("bbb:lang", { detail: lang }));
 }
 
 /* ---------- Prices ---------- */
@@ -871,5 +875,13 @@ function initGlobePulses() {
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   document.querySelectorAll(".globe animateMotion").forEach((a) => a.endElement && a.endElement());
 }
+
+// Shared with the members area (assets/js/members.js), which is a module
+// and cannot reach these functions otherwise.
+window.BBB = {
+  t: (key) => t(key),
+  lang: () => lang,
+  email: CONFIG.email,
+};
 
 start();

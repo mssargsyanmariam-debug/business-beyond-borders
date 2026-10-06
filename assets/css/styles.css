@@ -168,7 +168,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   min-height: var(--header-h);
 }
 
@@ -202,7 +202,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0 13px;
+  padding: 0 11px;
   color: var(--muted);
   text-decoration: none;
   font-weight: 500;
@@ -1822,7 +1822,8 @@ body::after {
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 1080px) {
+/* The menu folds away early: six nav items in German or Russian need the room. */
+@media (max-width: 1260px) {
   .menu-toggle { display: inline-flex; }
   .site-nav {
     position: absolute;
@@ -1841,6 +1842,9 @@ body::after {
   .site-nav a { min-height: 52px; font-size: 1.0625rem; }
   .header-actions { margin-left: auto; }
 
+}
+
+@media (max-width: 1080px) {
   .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tile, .tile--hero, .tile--wide { grid-column: span 1; grid-row: auto; }
   .tile--hero, .tile--wide { grid-column: span 2; }
@@ -1902,3 +1906,113 @@ body::after {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Members area (members/*.html) ---------- */
+.site-header--slim .header-inner { gap: 16px; justify-content: space-between; }
+.site-header--slim .header-actions { flex-wrap: wrap; justify-content: flex-end; }
+
+.member-main { padding-block: clamp(36px, 5vw, 72px) clamp(64px, 8vw, 110px); min-height: 60vh; }
+.member-title { font-size: clamp(1.9rem, 2.4vw + 1.1rem, 2.9rem); font-stretch: 108%; }
+.member-subtitle { margin-top: clamp(32px, 4vw, 52px); font-size: clamp(1.4rem, 1vw + 1rem, 1.8rem); }
+.member-loading { color: var(--muted); }
+.muted { color: var(--muted); }
+.field-hint { margin-top: 4px; font-size: 0.9rem; color: var(--muted); }
+
+.member-panel {
+  margin-top: 20px;
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--glass);
+  display: grid;
+  gap: 16px;
+}
+.member-panel--center { text-align: center; justify-items: center; max-width: 620px; margin-inline: auto; }
+.member-panel form { display: grid; gap: 16px; }
+
+.auth-tabs { display: flex; gap: 8px; margin-top: 28px; }
+.auth-tabs button {
+  min-height: 46px;
+  padding: 10px 20px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.auth-tabs button[aria-selected="true"] { background: #fff; color: var(--bg); border-color: #fff; }
+
+.auth-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.link-button {
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--electric-soft);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.link-button:hover { color: #fff; }
+
+.access-list { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; padding: 0; list-style: none; }
+.access-card {
+  display: grid;
+  gap: 2px;
+  padding: 14px 20px;
+  border: 1px solid rgba(111, 211, 160, 0.4);
+  border-radius: var(--r);
+  background: rgba(111, 211, 160, 0.08);
+}
+.access-card__tier { color: var(--text-soft); font-size: 0.95rem; }
+.access-card__until { color: var(--success); font-size: 0.9rem; font-weight: 600; }
+
+.library-group { margin-top: 32px; }
+.library-group h3 { font-size: 1.2rem; margin-bottom: 16px; color: var(--text-soft); }
+.library-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+.material {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.material h4 { font-size: 1.05rem; }
+.material p { color: var(--muted); font-size: 0.95rem; }
+.material .btn { justify-self: start; }
+.material__video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--r); overflow: hidden; background: #000; }
+.material__video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+.member-account { margin-top: clamp(40px, 5vw, 64px); max-width: 560px; }
+
+@media (max-width: 600px) {
+  .auth-tabs { flex-wrap: wrap; }
+  .site-header--slim .brand__text { font-size: 0.95rem; }
+  /* The logo already leads home, so the header stays on one line. */
+  .site-header--slim .header-actions .btn[href] { display: none; }
+}
+
+/* Member login in the header: an icon, so it fits in every language. */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-soft);
+  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+}
+.icon-link:hover { color: #fff; border-color: rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.07); }
+.icon-link .icon { width: 20px; height: 20px; }
+
+/* A class that sets "display" would otherwise beat the hidden attribute. */
+[hidden] { display: none !important; }

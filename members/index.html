@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Members area | Business Beyond Borders</title>
+  <meta name="description" content="The Business Beyond Borders member area: your materials, recordings and sessions.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0D152C">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
+  <link rel="stylesheet" href="../assets/css/styles.css?v=12">
+</head>
+<body data-page="members" data-member="hub" data-fixed-meta>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header site-header--slim">
+    <div class="container header-inner">
+      <a class="brand" href="../" aria-label="Business Beyond Borders, home">
+        <svg class="brand__mark" aria-hidden="true"><use href="#i-globe"/></svg>
+        <span class="brand__text"><b>B</b>usiness <b>B</b>eyond <b>B</b>orders</span>
+      </a>
+      <div class="header-actions">
+        <div class="lang-picker">
+          <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
+          <label class="sr-only" for="lang-select" data-i18n="nav.lang">Change language</label>
+          <select id="lang-select" data-lang-select>
+            <option value="en" lang="en">English</option>
+            <option value="hy" lang="hy">Հայերեն</option>
+            <option value="de" lang="de">Deutsch</option>
+            <option value="ru" lang="ru">Русский</option>
+            <option value="es" lang="es">Español</option>
+            <option value="fr" lang="fr">Français</option>
+            <option value="zh" lang="zh">中文</option>
+            <option value="vi" lang="vi">Tiếng Việt</option>
+            <option value="ar" lang="ar">العربية</option>
+          </select>
+        </div>
+        <a class="btn btn--ghost btn--sm" href="../" data-i18n="login.back">Back to the website</a>
+        <button type="button" class="btn btn--ghost btn--sm" data-logout data-i18n="hub.logout">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="member-main">
+    <div class="container">
+
+      <!-- not connected yet -->
+      <div class="member-panel member-panel--center" data-members-soon hidden>
+        <h1 data-i18n="members.soon.title">The member area opens soon</h1>
+        <p data-i18n="members.soon.text">We are finishing the last step of the set-up.</p>
+        <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
+      </div>
+
+      <div data-needs-supabase>
+        <p class="member-loading" data-hub-loading data-i18n="members.loading">Loading…</p>
+
+        <div data-hub-main hidden>
+          <h1 class="member-title" data-greeting>Welcome back</h1>
+
+          <ul class="access-list" data-access-list></ul>
+
+          <!-- no plan yet -->
+          <div class="member-panel member-panel--center" data-hub-noaccess hidden>
+            <h2 data-i18n="hub.noaccess.title">No active membership yet</h2>
+            <p data-i18n="hub.noaccess.text">Your account is ready. Choose a plan to open the member library. If you have just paid, your access is switched on shortly.</p>
+            <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
+          </div>
+
+          <!-- the library -->
+          <section data-hub-content hidden>
+            <h2 class="member-subtitle" data-i18n="hub.materials">Your materials</h2>
+            <div data-library></div>
+          </section>
+
+          <!-- account -->
+          <section class="member-panel member-account">
+            <h2 data-i18n="hub.account">Account</h2>
+            <p class="muted"><span data-account-email></span></p>
+            <form data-form="password" novalidate>
+              <div class="field">
+                <label for="new-password" data-i18n="hub.password.change">Change password</label>
+                <input id="new-password" name="password" type="password" autocomplete="new-password" required>
+                <p class="field-hint" data-i18n="login.hint.password">At least 8 characters.</p>
+              </div>
+              <button class="btn btn--ghost btn--sm" type="submit" data-i18n="hub.password.save">Save password</button>
+              <p class="form-status" data-password-status role="status" aria-live="polite"></p>
+            </form>
+            <p class="field-hint"><span data-i18n="hub.help">Need help? Write to</span> <a data-mail-link href="mailto:ms.sargsyanmariam@gmail.com">ms.sargsyanmariam@gmail.com</a></p>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span data-year>2026</span> Business Beyond Borders.
+        <a href="../privacy.html" data-i18n="footer.privacy">Privacy</a> ·
+        <a href="../terms.html" data-i18n="footer.terms">Terms</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>window.BBB_CONTENT_URL = "../content.json";</script>
+  <script src="../assets/js/sprite.js?v=12"></script>
+  <script src="../assets/js/lang/en.js?v=12"></script>
+  <script src="../assets/js/lang/hy.js?v=12"></script>
+  <script src="../assets/js/lang/de.js?v=12"></script>
+  <script src="../assets/js/lang/ru.js?v=12"></script>
+  <script src="../assets/js/lang/es.js?v=12"></script>
+  <script src="../assets/js/lang/fr.js?v=12"></script>
+  <script src="../assets/js/lang/zh.js?v=12"></script>
+  <script src="../assets/js/lang/vi.js?v=12"></script>
+  <script src="../assets/js/lang/ar.js?v=12"></script>
+  <script src="../assets/js/main.js?v=12"></script>
+  <script src="../assets/js/members-config.js?v=12"></script>
+  <script type="module" src="../assets/js/members.js?v=12"></script>
+</body>
+</html>
