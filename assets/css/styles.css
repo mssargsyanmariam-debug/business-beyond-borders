@@ -1597,6 +1597,215 @@ body::after {
 .video figcaption { display: grid; gap: 4px; padding-inline: 4px; }
 .video figcaption span { color: var(--muted); font-size: 0.94rem; }
 
+/* ---------- Home: you first ---------- */
+.intro {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(44px, 6vw, 88px) clamp(36px, 5vw, 72px);
+}
+.intro__glow {
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 150%;
+  z-index: -1;
+  background:
+    radial-gradient(34% 44% at 76% 30%, rgba(225, 29, 60, 0.42), transparent 70%),
+    radial-gradient(40% 50% at 12% 10%, rgba(77, 140, 255, 0.3), transparent 70%);
+  filter: blur(30px);
+}
+.intro__inner {
+  display: grid;
+  grid-template-columns: minmax(260px, 400px) 1fr;
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
+}
+.intro__photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 18%;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 40px 100px -40px rgba(225, 29, 60, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.intro__title {
+  font-size: clamp(1.9rem, 1.9vw + 1.3rem, 3rem);
+  font-stretch: 104%;
+  line-height: 1.12;
+}
+.intro__lead {
+  margin-top: 18px;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem);
+}
+.creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.creds li {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.intro__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 40px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.stats li { display: grid; gap: 2px; }
+.stats strong {
+  font-size: clamp(1.8rem, 1.4vw + 1.3rem, 2.4rem);
+  font-weight: 800;
+  font-stretch: 112%;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.stats span { color: var(--muted); font-size: 0.92rem; }
+
+/* ---------- Shorter sections ---------- */
+.section--tight { padding-block: clamp(48px, 6vw, 80px); }
+.section-head--tight { margin-bottom: clamp(24px, 3vw, 36px); }
+
+/* ---------- Pillars: one compact row ---------- */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.pillars li {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--glass);
+}
+.pillars h3 { font-size: 1.05rem; }
+.pillar__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(229, 86, 106, 0.12);
+  border: 1px solid rgba(229, 86, 106, 0.25);
+  color: var(--accent-light);
+}
+.pillar__icon .icon { width: 22px; height: 22px; }
+
+/* ---------- Compact plans: the whole choice fits one screen ---------- */
+.plan-controls--row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 28px;
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+.plans--compact { gap: 20px; max-width: 920px; }
+.plans--compact .plan__head { padding: 22px 24px 18px; }
+.plans--compact .plan__name { font-size: clamp(1.5rem, 1vw + 1.2rem, 1.85rem); }
+.plans--compact .plan__tagline { font-size: 0.94rem; }
+.plans--compact .plan__list { gap: 12px; padding: 20px 24px; }
+.plans--compact .plan__list li { grid-template-columns: 24px 1fr; gap: 12px; align-items: center; }
+.plans--compact .plan__list .icon { width: 22px; height: 22px; margin: 0; }
+.plans--compact .plan__list strong { font-size: 0.975rem; }
+.plans--compact .plan__foot { padding: 18px 24px 22px; }
+.plans--compact .plan__perday-amount { font-size: clamp(2.4rem, 2.4vw + 1.4rem, 3.1rem); }
+.plans--compact .plan__price { margin-bottom: 16px; }
+.section--plans .plans-note { flex-wrap: wrap; }
+.plans-note a { color: #fff; }
+
+/* On the home page the whole choice has to fit one screen, so it is tighter
+   there than on the membership page, where there is room to explain. */
+[data-page="home"] .section--plans { padding-block: clamp(32px, 3.4vw, 52px); }
+[data-page="home"] .section--plans .section-lead { display: none; }
+[data-page="home"] .section--plans .section-head { margin-bottom: 20px; }
+[data-page="home"] .plan-controls--row { margin-bottom: 18px; }
+[data-page="home"] .plans-note { margin-top: 14px; }
+[data-page="home"] .plans--compact .plan__head { padding: 18px 24px 16px; }
+[data-page="home"] .plans--compact .plan__list { gap: 10px; padding: 18px 24px; }
+[data-page="home"] .plans--compact .plan__foot { padding: 16px 24px 20px; }
+
+/* ---------- Sub-page headers ---------- */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(56px, 7vw, 104px) clamp(20px, 3vw, 36px);
+}
+.page-hero__glow {
+  position: absolute;
+  inset: -40% -10% auto;
+  height: 160%;
+  z-index: -1;
+  background:
+    radial-gradient(30% 40% at 70% 20%, rgba(225, 29, 60, 0.35), transparent 70%),
+    radial-gradient(34% 44% at 15% 0%, rgba(77, 140, 255, 0.26), transparent 70%);
+  filter: blur(34px);
+}
+.page-hero h1 {
+  font-size: clamp(2.2rem, 2.6vw + 1.4rem, 3.6rem);
+  font-stretch: 108%;
+  letter-spacing: -0.03em;
+}
+.page-hero .section-lead { margin-top: 16px; }
+.page-hero .intro__actions { margin-top: 24px; }
+
+/* ---------- Services ---------- */
+.services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.service {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: var(--glass);
+}
+.service h3 { font-size: 1.2rem; }
+.service p { color: var(--muted); }
+.service__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(229, 86, 106, 0.12);
+  border: 1px solid rgba(229, 86, 106, 0.25);
+  color: var(--accent-light);
+}
+
+@media (max-width: 1000px) {
+  .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .services { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .intro__inner { grid-template-columns: 1fr; }
+  .intro__photo { max-width: 320px; }
+  .stats { gap: 16px 28px; }
+}
+@media (max-width: 560px) {
+  .pillars { grid-template-columns: 1fr; }
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ---------- Legal pages ---------- */
 .legal { padding-block: 64px 96px; }
 .legal h1 { font-size: clamp(2.2rem, 3vw + 1rem, 3.2rem); margin-bottom: 24px; }

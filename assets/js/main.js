@@ -207,8 +207,10 @@ function applyLang(next) {
   document.documentElement.lang = lang;
   document.documentElement.dir = RTL_LANGS.includes(lang) ? "rtl" : "ltr";
   ensureScriptFont(lang);
-  document.title = t("meta.title");
-  document.querySelector('meta[name="description"]').setAttribute("content", t("meta.description"));
+  const ownMeta = "fixedMeta" in document.body.dataset;
+  if (!ownMeta) document.title = t("meta.title");
+  const description = document.querySelector('meta[name="description"]');
+  if (description && !ownMeta) description.setAttribute("content", t("meta.description"));
 
   // Strings come only from our own language files, so innerHTML (for links/highlights) is safe.
   document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -223,7 +225,8 @@ function applyLang(next) {
   document.querySelectorAll("[data-star]").forEach((el) => {
     el.textContent = t("feedback.star").replace("{n}", el.dataset.star);
   });
-  document.querySelector("[data-lang-select]").value = lang;
+  const langSelect = document.querySelector("[data-lang-select]");
+  if (langSelect) langSelect.value = lang;
 
   renderPrices();
 }
@@ -238,6 +241,10 @@ const checkoutLink = (plan) => CONFIG.checkout[currency][plan][billing];
 
 function renderPrices() {
   const prices = CONFIG.prices[currency];
+  const heroNote = document.querySelector("[data-hero-note]");
+  const priceNote = document.querySelector("[data-price-note]");
+  const locationNote = document.querySelector("[data-location-note]");
+  const currencySelect = document.querySelector("[data-currency-select]");
 
   document.querySelectorAll("[data-plan]").forEach((card) => {
     const plan = card.dataset.plan;
@@ -259,29 +266,32 @@ function renderPrices() {
     cta.rel = link ? "noopener" : "";
   });
 
-  document.querySelector("[data-hero-note]").textContent = t("hero.note").replace("{x}", money(prices.mastermind.month / 30));
+  if (heroNote) heroNote.textContent = t("hero.note").replace("{x}", money(prices.mastermind.month / 30));
 
   const provider = CONFIG.providers[currency];
-  document.querySelector("[data-price-note]").textContent = (provider ? t("plans.noteProvider").replace("{provider}", provider) : t("plans.note")).replace("{x}", currency);
+  if (priceNote) priceNote.textContent = (provider ? t("plans.noteProvider").replace("{provider}", provider) : t("plans.note")).replace("{x}", currency);
 
-  const locationNote = document.querySelector("[data-location-note]");
-  locationNote.hidden = currencySource !== "location";
-  locationNote.querySelector("span").textContent = t("plans.location").replace("{x}", currency);
+  if (locationNote) {
+    locationNote.hidden = currencySource !== "location";
+    locationNote.querySelector("span").textContent = t("plans.location").replace("{x}", currency);
+  }
 
-  document.querySelector("[data-currency-select]").value = currency;
+  if (currencySelect) currencySelect.value = currency;
   document.querySelectorAll("[data-billing]").forEach((btn) => {
     btn.setAttribute("aria-pressed", String(btn.dataset.billing === billing));
   });
 }
 
 function initPlanControls() {
+  const currencySelect = document.querySelector("[data-currency-select]");
+  if (!currencySelect) return;
   document.querySelectorAll("[data-billing]").forEach((btn) => {
     btn.addEventListener("click", () => {
       billing = btn.dataset.billing;
       renderPrices();
     });
   });
-  document.querySelector("[data-currency-select]").addEventListener("change", (e) => {
+  currencySelect.addEventListener("change", (e) => {
     currency = e.target.value;
     currencySource = "manual";
     save(CURRENCY_KEY, currency);
@@ -292,6 +302,7 @@ function initPlanControls() {
 // Until a checkout link is set, the button explains that sign-up opens soon.
 function initCheckout() {
   const dialog = document.getElementById("checkout-soon");
+  if (!dialog) return;
   document.querySelectorAll("[data-checkout]").forEach((cta) => {
     cta.addEventListener("click", (e) => {
       const plan = cta.closest("[data-plan]").dataset.plan;
@@ -424,6 +435,7 @@ async function deliver(form, formName, subject, lead, successKey) {
 /* ---------- Contact form ---------- */
 function initContact() {
   const form = document.querySelector('[data-form="contact"]');
+  if (!form) return;
   wireLiveValidation(form);
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -446,6 +458,7 @@ function initContact() {
 function renderTestimonials() {
   const list = document.querySelector("[data-testimonials]");
   const empty = document.querySelector("[data-testimonials-empty]");
+  if (!list || !empty) return;
   const published = (CONTENT.testimonials || []).filter((item) => item.published);
   const items = published.length ? published : CONFIG.testimonials;
   list.replaceChildren();
@@ -542,6 +555,7 @@ function renderVideos() {
 
 function initFeedback() {
   const dialog = document.getElementById("feedback-dialog");
+  if (!dialog) return;
   const form = dialog.querySelector('[data-form="feedback"]');
   document.querySelectorAll("[data-open-feedback]").forEach((btn) =>
     btn.addEventListener("click", () => {
@@ -570,6 +584,8 @@ function initFeedback() {
 /* ---------- Free toolkit (lead magnet) ---------- */
 function renderMaterials() {
   const list = document.querySelector("[data-materials]");
+  const root = document.querySelector("[data-materials-root]");
+  if (!list || !root) return;
   list.replaceChildren();
   CONFIG.materials.forEach((item) => {
     const li = document.createElement("li");
@@ -593,11 +609,12 @@ function renderMaterials() {
     list.appendChild(li);
   });
   const unlocked = stored(TOOLKIT_KEY) === "1";
-  document.querySelector("[data-materials-root]").classList.toggle("is-unlocked", unlocked);
+  root.classList.toggle("is-unlocked", unlocked);
 }
 
 function initToolkit() {
   const form = document.querySelector('[data-form="toolkit"]');
+  if (!form) return;
   wireLiveValidation(form);
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -615,7 +632,8 @@ function initToolkit() {
         if (optin && CONFIG.newsletter.action) await addToNewsletterList(email);
       });
       save(TOOLKIT_KEY, "1");
-      document.querySelector("[data-materials-root]").classList.add("is-unlocked");
+      const root = document.querySelector("[data-materials-root]");
+      if (root) root.classList.add("is-unlocked");
       const hasFiles = CONFIG.materials.some((m) => m.file);
       setStatus(form, hasFiles ? "materials.unlocked" : "materials.none", "success");
     } catch (err) {
@@ -627,6 +645,7 @@ function initToolkit() {
 /* ---------- Newsletter ---------- */
 function initNewsletter() {
   const form = document.querySelector("[data-newsletter]");
+  if (!form) return;
   const input = form.querySelector('input[type="email"]');
   const error = form.querySelector("[data-news-error]");
   const status = form.querySelector("[data-news-status]");
@@ -700,7 +719,7 @@ function initTiles() {
 
 // Spatial depth: hero layers drift slightly with the pointer.
 function initHeroDepth() {
-  const hero = document.querySelector(".hero");
+  const hero = document.querySelector(".hero, .intro");
   if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   hero.addEventListener("pointermove", (e) => {
     const r = hero.getBoundingClientRect();
@@ -714,7 +733,9 @@ function initHeroDepth() {
 }
 
 function initLangSwitch() {
-  document.querySelector("[data-lang-select]").addEventListener("change", (e) => {
+  const select = document.querySelector("[data-lang-select]");
+  if (!select) return;
+  select.addEventListener("change", (e) => {
     save(LANG_KEY, e.target.value);
     applyLang(e.target.value);
   });
@@ -723,6 +744,7 @@ function initLangSwitch() {
 function initMenu() {
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".menu-toggle");
+  if (!header || !toggle) return;
   const setOpen = (open) => {
     header.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
@@ -753,7 +775,18 @@ function initLinks() {
   document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 }
 
+function injectSprite() {
+  if (window.BBB_SPRITE && !document.getElementById('bbb-sprite')) {
+    const holder = document.createElement('div');
+    holder.id = 'bbb-sprite';
+    holder.hidden = true;
+    holder.innerHTML = window.BBB_SPRITE;
+    document.body.insertAdjacentElement('afterbegin', holder);
+  }
+}
+
 async function start() {
+  injectSprite();
   await loadSiteContent();
   applyContentPrices();
   renderGallery();

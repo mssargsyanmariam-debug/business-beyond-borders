@@ -13,12 +13,18 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 | Newsletter endpoint (e.g. Kit) | `CONFIG.newsletter.action` |
 | Free toolkit PDFs (lead magnet) | Put files in `assets/materials/`, then set `file` in `CONFIG.materials` |
 | Published testimonials | `CONFIG.testimonials` (only with the person's permission) |
-| Wording | `assets/js/lang/en.js`, `hy.js`, `de.js`, `ru.js` (same keys in each) |
-| Page structure and structured data (JSON-LD) | `index.html` |
+| Wording | `assets/js/lang/*.js`: en, hy, de, ru, es, fr, zh, vi, ar (same keys in each) |
+| Page structure and structured data (JSON-LD) | `index.html` (home). Sub-pages are generated: edit `.claude/build-pages.py`, then run `python .claude/build-pages.py` |
+| Header, footer and dialogs on every page | Edit them in `index.html`, then re-run `python .claude/build-pages.py` |
+| Icons | `assets/js/sprite.js`, injected into every page |
 | Colours, fonts, layout | `assets/css/styles.css` |
 | Founder photo | `assets/img/founder.jpg` |
 | Legal pages | `privacy.html`, `terms.html` (refund guarantee under `#refunds`) |
 | Keyword research | `research/keywords.md` |
+
+## Pages
+
+`index.html` (short home: about, proof, packages, testimonials), `membership.html`, `speaking.html`, `resources.html`, plus `admin/`, `privacy.html`, `terms.html`.
 
 ## How location-based pricing works
 
