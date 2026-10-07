@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Material | Business Beyond Borders</title>
+  <title>LinkedIn pod | Business Beyond Borders</title>
+  <meta name="description" content="The Business Beyond Borders LinkedIn pod: members support each other's posts.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0D152C">
   <meta name="color-scheme" content="dark">
@@ -13,7 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
   <link rel="stylesheet" href="../assets/css/styles.css?v=14">
 </head>
-<body data-page="members" data-member="view" data-fixed-meta>
+<body data-page="members" data-member="pod" data-fixed-meta>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header site-header--slim">
@@ -38,28 +39,56 @@
             <option value="ar" lang="ar">العربية</option>
           </select>
         </div>
-        <a class="btn btn--ghost btn--sm" href="./" data-i18n="view.back">Back to my materials</a>
+        <a class="btn btn--ghost btn--sm" href="../" data-i18n="login.back">Back to the website</a>
+        <button type="button" class="btn btn--ghost btn--sm" data-logout data-i18n="hub.logout">Log out</button>
       </div>
     </div>
   </header>
 
   <main id="main" class="member-main">
     <div class="container">
+      <nav class="member-nav" aria-label="Members area">
+        <a href="./" data-i18n="hub.materials">Your materials</a>
+        <a href="directory.html" data-i18n="dir.title">Member directory</a>
+        <a href="pod.html" data-i18n="pod.title">LinkedIn pod</a>
+      </nav>
+
       <div class="member-panel member-panel--center" data-members-soon hidden>
         <h1 data-i18n="members.soon.title">The member area opens soon</h1>
         <p data-i18n="members.soon.text">We are finishing the last step of the set-up.</p>
       </div>
 
       <div data-needs-supabase>
-        <h1 class="member-title" data-view-title data-i18n="members.loading">Loading…</h1>
-        <p class="muted" data-view-description></p>
-        <p class="field-hint" data-view-note hidden data-i18n="view.note">This material opens inside the website only. Your email address is shown on every page, so please do not share screenshots.</p>
-        <p class="form-status" data-view-status role="status" aria-live="polite"></p>
+        <p class="member-loading" data-pod-loading data-i18n="members.loading">Loading...</p>
 
-        <!-- the document itself; nothing here is a link, so there is no address to pass on -->
-        <div class="viewer" data-viewer hidden></div>
+        <div class="member-panel member-panel--center" data-pod-locked hidden>
+          <h1 data-i18n="hub.noaccess.title">No active membership yet</h1>
+          <p data-i18n="hub.noaccess.text">Your account is ready. Choose a plan to open the member area.</p>
+          <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
+        </div>
 
-        <div data-view-actions hidden></div>
+        <div data-pod-main hidden>
+          <h1 class="member-title" data-i18n="pod.title">LinkedIn pod</h1>
+          <p class="section-lead" data-i18n="pod.lead">Drop today's post here, then open two or three from other members and leave a real comment. Early comments are what make LinkedIn show a post to more people. Posts disappear after 48 hours.</p>
+
+          <section class="member-panel">
+            <form data-form="pod" novalidate>
+              <div class="field">
+                <label for="pod-url" data-i18n="pod.url">Link to your LinkedIn post</label>
+                <input id="pod-url" name="url" type="url" placeholder="https://www.linkedin.com/posts/..." required>
+              </div>
+              <div class="field">
+                <label for="pod-note" data-i18n="pod.note">What is it about? (optional)</label>
+                <input id="pod-note" name="note" type="text">
+              </div>
+              <button class="btn btn--primary btn--sm" type="submit" data-i18n="pod.add">Add my post</button>
+              <p class="form-status" data-pod-status role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <h2 class="member-subtitle" data-i18n="pod.today">Posts to support</h2>
+          <div class="pod-list" data-pod-list></div>
+        </div>
       </div>
     </div>
   </main>
@@ -74,7 +103,6 @@
   </footer>
 
   <script>window.BBB_CONTENT_URL = "../content.json";</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="../assets/js/sprite.js?v=14"></script>
   <script src="../assets/js/lang/en.js?v=14"></script>
   <script src="../assets/js/lang/hy.js?v=14"></script>
@@ -87,6 +115,6 @@
   <script src="../assets/js/lang/ar.js?v=14"></script>
   <script src="../assets/js/main.js?v=14"></script>
   <script src="../assets/js/members-config.js?v=14"></script>
-  <script type="module" src="../assets/js/members-view.js?v=14"></script>
+  <script type="module" src="../assets/js/members-network.js?v=14"></script>
 </body>
 </html>

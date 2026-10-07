@@ -91,6 +91,83 @@ async function loadAll() {
   renderMembers();
   renderProducts();
   await renderMaterials();
+  await renderIntros();
+}
+
+/* ---------- introduction requests ---------- */
+async function renderIntros() {
+  const list = $("[data-intros-list]");
+  const badge = $("[data-intro-badge]");
+  const [{ data: rows, error }, { data: cards }] = await Promise.all([
+    sb.from("intro_requests").select("*").order("created_at", { ascending: false }),
+    sb.from("directory_profiles").select("user_id, display_name, country, industry"),
+  ]);
+  if (error) {
+    list.innerHTML = `<p class="muted">${esc(error.message)}</p>`;
+    return;
+  }
+  const requests = rows || [];
+  const open = requests.filter((r) => r.status === "new").length;
+  if (badge) badge.textContent = open ? `(${open})` : "";
+
+  const who = (id) => {
+    const person = (cards || []).find((c) => c.user_id === id);
+    const member = members.find((m) => m.id === id);
+    if (person) return `${person.display_name}${person.country ? " · " + person.country : ""}`;
+    return member ? `${member.full_name || "(no name)"} · ${member.email}` : id.slice(0, 8);
+  };
+  const contact = (id) => {
+    const member = members.find((m) => m.id === id);
+    return member ? member.email : "";
+  };
+
+  if (!requests.length) {
+    list.innerHTML = '<p class="muted">No introduction requests yet.</p>';
+    return;
+  }
+
+  list.innerHTML = "";
+  requests.forEach((r) => {
+    const card = document.createElement("div");
+    card.className = "member";
+    card.innerHTML = `
+      <div class="member__top">
+        <strong>${esc(who(r.requester))}</strong>
+        <span class="muted small">wants to meet</span>
+        <strong>${esc(who(r.target))}</strong>
+        <span class="muted small">${fmt(r.created_at)}</span>
+        <span class="pill ${r.status === "new" ? "" : "pill--none"}">${esc(r.status)}</span>
+      </div>
+      <p class="muted small">${esc(r.reason || "")}</p>
+      <p class="small">Emails: <a href="mailto:${esc(contact(r.requester))}">${esc(contact(r.requester))}</a>
+        and <a href="mailto:${esc(contact(r.target))}">${esc(contact(r.target))}</a></p>
+      <div class="access-row">
+        <a class="btn btn--primary btn--small" href="mailto:${esc(contact(r.requester))}?cc=${esc(
+      contact(r.target)
+    )}&subject=${encodeURIComponent("An introduction from Business Beyond Borders")}">Write the introduction</a>
+        ${
+          r.status === "new"
+            ? `<button type="button" class="btn btn--ghost btn--small" data-intro-done="${r.id}">Mark as introduced</button>
+               <button type="button" class="btn btn--danger btn--small" data-intro-no="${r.id}">Decline</button>`
+            : ""
+        }
+      </div>`;
+    list.append(card);
+  });
+
+  $$("[data-intro-done]", list).forEach((b) => b.addEventListener("click", () => setIntro(b.dataset.introDone, "introduced")));
+  $$("[data-intro-no]", list).forEach((b) => b.addEventListener("click", () => setIntro(b.dataset.introNo, "declined")));
+}
+
+async function setIntro(id, status) {
+  const { error } = await sb
+    .from("intro_requests")
+    .update({ status, handled_at: new Date().toISOString() })
+    .eq("id", id);
+  const out = $("[data-intros-status]");
+  if (error) return setStatus(out, error.message, "error");
+  setStatus(out, status === "introduced" ? "Marked as introduced." : "Declined.", "ok");
+  await renderIntros();
 }
 
 function fillProductSelects() {

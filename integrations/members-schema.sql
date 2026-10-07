@@ -202,3 +202,106 @@ create policy "member files admin" on storage.objects
 --   update public.profiles set is_admin = true
 --   where email = 'ms.sargsyanmariam@gmail.com';
 -- =====================================================================
+
+-- =====================================================================
+-- 5. The network: directory, introductions and the LinkedIn pod
+--
+-- The directory deliberately holds NO email address, phone number or
+-- LinkedIn link. Members see who is in the room; only you can connect them.
+-- =====================================================================
+
+create table if not exists public.directory_profiles (
+  user_id      uuid primary key references auth.users(id) on delete cascade,
+  display_name text not null,
+  country      text,
+  city         text,
+  industry     text,
+  headline     text,          -- what they do, one line
+  looking_for  text,          -- clients, partners, suppliers, investors, talent
+  can_offer    text,
+  listed       boolean not null default false,   -- nothing is shown until they say so
+  updated_at   timestamptz not null default now()
+);
+
+create table if not exists public.intro_requests (
+  id         uuid primary key default gen_random_uuid(),
+  requester  uuid not null references auth.users(id) on delete cascade,
+  target     uuid not null references auth.users(id) on delete cascade,
+  reason     text,
+  status     text not null default 'new',    -- new | introduced | declined
+  created_at timestamptz not null default now(),
+  handled_at timestamptz,
+  constraint intro_not_self check (requester <> target)
+);
+create index if not exists intro_requests_requester_idx on public.intro_requests (requester, created_at desc);
+
+create table if not exists public.pod_posts (
+  id           uuid primary key default gen_random_uuid(),
+  user_id      uuid not null references auth.users(id) on delete cascade,
+  display_name text,
+  url          text not null,
+  note         text,
+  created_at   timestamptz not null default now()
+);
+create index if not exists pod_posts_created_idx on public.pod_posts (created_at desc);
+
+-- How many introductions one member may ask for in 30 days. Change the 3.
+create or replace function public.intro_quota_ok()
+returns boolean language sql stable security definer set search_path = public as $fn$
+  select (
+    select count(*) from public.intro_requests r
+    where r.requester = auth.uid() and r.created_at > now() - interval '30 days'
+  ) < 3;
+$fn$;
+
+-- One post in the pod per member per day, so nobody floods it.
+create or replace function public.pod_quota_ok()
+returns boolean language sql stable security definer set search_path = public as $fn$
+  select not exists (
+    select 1 from public.pod_posts p
+    where p.user_id = auth.uid() and p.created_at > now() - interval '20 hours'
+  );
+$fn$;
+
+alter table public.directory_profiles enable row level security;
+alter table public.intro_requests     enable row level security;
+alter table public.pod_posts          enable row level security;
+
+-- The directory is a Beyond Mastermind benefit.
+drop policy if exists "directory read"  on public.directory_profiles;
+drop policy if exists "directory write" on public.directory_profiles;
+create policy "directory read" on public.directory_profiles
+  for select to authenticated
+  using (user_id = auth.uid() or public.is_admin()
+         or (listed and public.has_access('community', 'beyond')));
+create policy "directory write" on public.directory_profiles
+  for all to authenticated
+  using (user_id = auth.uid() or public.is_admin())
+  with check ((user_id = auth.uid() and public.has_any_access()) or public.is_admin());
+
+-- A member sees only their own requests. The person asked about never sees them.
+drop policy if exists "intro read"   on public.intro_requests;
+drop policy if exists "intro insert" on public.intro_requests;
+drop policy if exists "intro admin"  on public.intro_requests;
+create policy "intro read" on public.intro_requests
+  for select to authenticated using (requester = auth.uid() or public.is_admin());
+create policy "intro insert" on public.intro_requests
+  for insert to authenticated
+  with check (requester = auth.uid()
+              and public.has_access('community', 'beyond')
+              and public.intro_quota_ok());
+create policy "intro admin" on public.intro_requests
+  for update to authenticated using (public.is_admin()) with check (public.is_admin());
+
+-- The pod is for every member, whichever plan they are on.
+drop policy if exists "pod read"   on public.pod_posts;
+drop policy if exists "pod insert" on public.pod_posts;
+drop policy if exists "pod delete" on public.pod_posts;
+create policy "pod read" on public.pod_posts
+  for select to authenticated
+  using ((public.has_any_access() and created_at > now() - interval '48 hours') or public.is_admin());
+create policy "pod insert" on public.pod_posts
+  for insert to authenticated
+  with check (user_id = auth.uid() and public.has_any_access() and public.pod_quota_ok());
+create policy "pod delete" on public.pod_posts
+  for delete to authenticated using (user_id = auth.uid() or public.is_admin());

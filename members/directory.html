@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Members area | Business Beyond Borders</title>
-  <meta name="description" content="The Business Beyond Borders member area: your materials, recordings and sessions.">
+  <title>Member directory | Business Beyond Borders</title>
+  <meta name="description" content="The Business Beyond Borders member directory, for Beyond Mastermind members.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0D152C">
   <meta name="color-scheme" content="dark">
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
   <link rel="stylesheet" href="../assets/css/styles.css?v=14">
 </head>
-<body data-page="members" data-member="hub" data-fixed-meta>
+<body data-page="members" data-member="directory" data-fixed-meta>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header site-header--slim">
@@ -48,57 +48,81 @@
   <main id="main" class="member-main">
     <div class="container">
       <nav class="member-nav" aria-label="Members area">
-        <a href="./" aria-current="page" data-i18n="hub.materials">Your materials</a>
+        <a href="./" data-i18n="hub.materials">Your materials</a>
         <a href="directory.html" data-i18n="dir.title">Member directory</a>
         <a href="pod.html" data-i18n="pod.title">LinkedIn pod</a>
       </nav>
 
-      <!-- not connected yet -->
       <div class="member-panel member-panel--center" data-members-soon hidden>
         <h1 data-i18n="members.soon.title">The member area opens soon</h1>
         <p data-i18n="members.soon.text">We are finishing the last step of the set-up.</p>
-        <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
       </div>
 
       <div data-needs-supabase>
-        <p class="member-loading" data-hub-loading data-i18n="members.loading">Loading…</p>
+        <p class="member-loading" data-dir-loading data-i18n="members.loading">Loading...</p>
 
-        <div data-hub-main hidden>
-          <h1 class="member-title" data-greeting>Welcome back</h1>
+        <div class="member-panel member-panel--center" data-dir-locked hidden>
+          <h1 data-i18n="dir.locked.title">The directory is part of Beyond Mastermind</h1>
+          <p data-i18n="dir.locked.text">Beyond members see who is in the room and can ask Mariam for an introduction to any of them.</p>
+          <a class="btn btn--primary" href="../membership.html" data-i18n="dir.locked.cta">Upgrade to Beyond</a>
+        </div>
 
-          <ul class="access-list" data-access-list></ul>
+        <div data-dir-main hidden>
+          <h1 class="member-title" data-i18n="dir.title">Member directory</h1>
+          <p class="section-lead" data-i18n="dir.lead">Everyone here is a Beyond member. There are no contact details on purpose: choose who you want to meet and Mariam makes the introduction herself.</p>
+          <p class="field-hint" data-intro-quota></p>
 
-          <!-- no plan yet -->
-          <div class="member-panel member-panel--center" data-hub-noaccess hidden>
-            <h2 data-i18n="hub.noaccess.title">No active membership yet</h2>
-            <p data-i18n="hub.noaccess.text">Your account is ready. Choose a plan to open the member library. If you have just paid, your access is switched on shortly.</p>
-            <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
+          <div class="field">
+            <label for="dir-search" data-i18n="dir.search">Search by country, industry or what someone is looking for</label>
+            <input id="dir-search" type="search" data-dir-search>
           </div>
 
-          <!-- the library -->
-          <section data-hub-content hidden>
-            <h2 class="member-subtitle" data-i18n="hub.materials">Your materials</h2>
-            <div data-library></div>
-          </section>
+          <div class="person-grid" data-dir-list></div>
 
-          <!-- account -->
           <section class="member-panel member-account">
-            <h2 data-i18n="hub.account">Account</h2>
-            <p class="muted"><span data-account-email></span></p>
-            <form data-form="password" novalidate>
+            <h2 data-i18n="dir.mine">Your own card</h2>
+            <p class="field-hint" data-i18n="dir.mine.hint">Nothing is shown to anyone until you tick the box at the bottom. Your email address and phone number are never shown.</p>
+            <form data-form="profile" novalidate>
               <div class="field">
-                <label for="new-password" data-i18n="hub.password.change">Change password</label>
-                <input id="new-password" name="password" type="password" autocomplete="new-password" required>
-                <p class="field-hint" data-i18n="login.hint.password">At least 8 characters.</p>
+                <label for="p-name" data-i18n="dir.name">Name as it should appear</label>
+                <input id="p-name" name="display_name" type="text" required>
               </div>
-              <button class="btn btn--ghost btn--sm" type="submit" data-i18n="hub.password.save">Save password</button>
-              <p class="form-status" data-password-status role="status" aria-live="polite"></p>
+              <div class="field-row">
+                <div class="field">
+                  <label for="p-country" data-i18n="dir.country">Country</label>
+                  <input id="p-country" name="country" type="text">
+                </div>
+                <div class="field">
+                  <label for="p-city" data-i18n="dir.city">City</label>
+                  <input id="p-city" name="city" type="text">
+                </div>
+              </div>
+              <div class="field">
+                <label for="p-industry" data-i18n="dir.industry">Industry</label>
+                <input id="p-industry" name="industry" type="text">
+              </div>
+              <div class="field">
+                <label for="p-headline" data-i18n="dir.headline">What you do, in one line</label>
+                <input id="p-headline" name="headline" type="text">
+              </div>
+              <div class="field">
+                <label for="p-looking" data-i18n="dir.looking">Looking for</label>
+                <input id="p-looking" name="looking_for" type="text">
+              </div>
+              <div class="field">
+                <label for="p-offer" data-i18n="dir.offers">Can offer</label>
+                <input id="p-offer" name="can_offer" type="text">
+              </div>
+              <label class="check">
+                <input type="checkbox" name="listed">
+                <span data-i18n="dir.listed">Show my card to other Beyond members</span>
+              </label>
+              <button class="btn btn--primary btn--sm" type="submit" data-i18n="dir.save">Save my card</button>
+              <p class="form-status" data-profile-status role="status" aria-live="polite"></p>
             </form>
-            <p class="field-hint"><span data-i18n="hub.help">Need help? Write to</span> <a data-mail-link href="mailto:ms.sargsyanmariam@gmail.com">ms.sargsyanmariam@gmail.com</a></p>
           </section>
         </div>
       </div>
-
     </div>
   </main>
 
@@ -124,6 +148,6 @@
   <script src="../assets/js/lang/ar.js?v=14"></script>
   <script src="../assets/js/main.js?v=14"></script>
   <script src="../assets/js/members-config.js?v=14"></script>
-  <script type="module" src="../assets/js/members.js?v=14"></script>
+  <script type="module" src="../assets/js/members-network.js?v=14"></script>
 </body>
 </html>

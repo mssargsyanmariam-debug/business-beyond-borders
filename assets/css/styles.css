@@ -2055,3 +2055,67 @@ body::after {
   white-space: nowrap;
 }
 .material__note { color: var(--muted); font-size: 0.85rem; }
+
+/* ---------- Members: directory and pod ---------- */
+.member-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: clamp(24px, 3vw, 36px);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.member-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+.member-nav a:hover { color: #fff; background: rgba(255, 255, 255, 0.07); }
+.member-nav a[aria-current="page"] { background: #fff; color: var(--bg); }
+
+.person-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); margin-top: 20px; }
+.person {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.person h3 { font-size: 1.15rem; }
+.person__meta { color: var(--accent-light); font-size: 0.9rem; font-weight: 600; }
+.person p { color: var(--text-soft); font-size: 0.95rem; }
+.person__row strong { color: var(--muted); font-weight: 700; }
+.person .btn { justify-self: start; margin-top: 6px; }
+
+.intro-form { display: grid; gap: 10px; margin-top: 6px; }
+.intro-form label { display: grid; gap: 6px; font-weight: 600; color: var(--text-soft); font-size: 0.92rem; }
+.intro-form textarea {
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--r);
+  background: rgba(3, 5, 12, 0.6);
+  color: #fff;
+  font: inherit;
+  resize: vertical;
+}
+.intro-form .btn { justify-self: start; }
+
+.pod-list { display: grid; gap: 14px; margin-top: 18px; }
+.pod-post {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.pod-post__who { color: var(--muted); font-size: 0.88rem; font-weight: 600; }
+.member-panel form > .btn:not(.btn--block) { justify-self: start; }

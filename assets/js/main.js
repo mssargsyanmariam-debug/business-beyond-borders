@@ -882,6 +882,17 @@ window.BBB = {
   t: (key) => t(key),
   lang: () => lang,
   email: CONFIG.email,
+  // The members area uses this to email you about introduction requests,
+  // through the same Google Sheet script as the website forms.
+  notify: async (formName, data) => {
+    if (!CONFIG.leads.endpoint) return false;
+    try {
+      await sendLead(formName, data);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
 };
 
 start();

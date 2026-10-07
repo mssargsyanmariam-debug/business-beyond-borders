@@ -127,6 +127,28 @@ to one member, which is what actually stops people from passing material around.
 worth protecting, put its videos on **Vimeo** (from about $12/month) and switch on "only play on
 these domains". The video then refuses to play anywhere except your website.
 
+### The member directory (Beyond Mastermind only)
+Members fill in their own card — name, country, city, industry, what they are looking for, what they
+can offer — and tick a box to appear. Nothing is shown before they tick it, and the directory never
+shows an email address, a phone number or a LinkedIn link. Mastermind members see an upgrade page
+instead of the directory.
+
+### Introduction requests
+A Beyond member finds someone and presses **Request an introduction**, writing one line about why.
+You get it twice:
+- **an email**, as soon as your Google Sheet script is connected (`integrations/LEADS-SETUP.md`);
+- **in `members/admin.html` → Intro requests**, with both email addresses, a "Write the introduction"
+  button that opens a pre-filled email to the two of them, and buttons to mark it introduced or declined.
+
+The person being asked about is never told unless you make the introduction. Each member may ask for
+**3 introductions in 30 days**; to change that, edit the number in `public.intro_quota_ok()` in
+`integrations/members-schema.sql` and run that one function again in the SQL editor.
+
+### The LinkedIn pod (all members)
+`members/pod.html`: a member adds the link to their post of the day, everyone else opens two or three
+and comments. One post per member per day, and posts disappear after 48 hours. Nothing to moderate —
+members can remove their own post, and you can remove any.
+
 ### Sell a course later with 1 year of access
 1. **Courses & products** tab → add the course (name + a short code like `course-linkedin`).
 2. **Materials** tab → add each lesson, choosing that course under "Belongs to".

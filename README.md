@@ -24,6 +24,7 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 | Members area: Supabase URL and anon key | `assets/js/members-config.js`. Setup: `integrations/MEMBERS-SETUP.md` |
 | Members area behaviour (login, library, 1-year access) | `assets/js/members.js`, `assets/js/members-admin.js` |
 | Member database and security rules | `integrations/members-schema.sql` (run once in Supabase) |
+| Directory, introductions and pod | `assets/js/members-network.js`; how many intros a member gets: `intro_quota_ok()` in the schema |
 
 ## Pages
 
@@ -32,7 +33,9 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 ## Members area
 
 `members/login.html` (log in / create account), `members/` (the member hub: access, library, account),
-`members/reset.html` (new password) and `members/admin.html` (owner only: switch access on, add materials, add courses).
+`members/view.html` (the protected reader), `members/directory.html` (Beyond only: member cards and
+introduction requests), `members/pod.html` (LinkedIn pod), `members/reset.html` (new password) and
+`members/admin.html` (owner only: access, intro requests, materials, courses).
 
 Accounts, passwords and who-paid-for-what live in Supabase; the pages stay on this site. Supabase decides
 what each person may read, so the gating cannot be bypassed from the browser. A course is just another
