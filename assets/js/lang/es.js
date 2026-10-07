@@ -398,5 +398,28 @@ window.I18N.es = {
   "pod.now": "ahora mismo",
   "pod.hours": "hace {n} h",
   "pod.error.url": "Pega un enlace que empiece por linkedin.com",
-  "pod.error.today": "Ya has añadido una publicación hoy."
+  "pod.error.today": "Ya has añadido una publicación hoy.",
+
+  /* ---------- Ask Mariam and the profile check ---------- */
+  "ask.title": "Pregunta a Mariam",
+  "ask.lead": "Nadie más ve tu pregunta. Mariam la responde aquí, y las respuestas más útiles acaban en la biblioteca sin tu nombre.",
+  "ask.question": "Tu pregunta",
+  "ask.hint": "Dos preguntas por semana, para que cada una tenga una respuesta de verdad.",
+  "ask.send": "Enviar la pregunta",
+  "ask.sent": "Enviada. Encontrarás la respuesta en esta página.",
+  "ask.yours": "Tus preguntas",
+  "ask.none": "Todavía no has preguntado nada.",
+  "ask.waiting": "Esperando la respuesta de Mariam.",
+  "ask.error.short": "Escribe un poco más, así la respuesta te servirá de verdad.",
+  "ask.error.quota": "Ya has hecho dos preguntas esta semana. La siguiente en unos días.",
+  "check.title": "Revisión de tu perfil de LinkedIn",
+  "check.lead": "Mariam revisa tres perfiles por semana ella misma y devuelve los tres cambios que más impacto tienen. Por orden de llegada, y cada miembro puede reservar uno cada tres meses.",
+  "check.slots": "Quedan {n} de 3 plazas esta semana",
+  "check.full": "Esta semana está completa. Las nuevas plazas se abren el lunes.",
+  "check.url": "La dirección de tu perfil de LinkedIn",
+  "check.goal": "¿Qué debería conseguirte este perfil?",
+  "check.book": "Reservar mi revisión",
+  "check.booked": "Reservada. Mariam revisa tu perfil esta semana.",
+  "check.error.url": "Pega la dirección de tu perfil de LinkedIn.",
+  "check.error.quota": "No quedan plazas esta semana, o ya reservaste en los últimos tres meses."
 };

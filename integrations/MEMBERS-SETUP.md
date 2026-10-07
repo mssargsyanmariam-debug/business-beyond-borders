@@ -144,10 +144,20 @@ The person being asked about is never told unless you make the introduction. Eac
 **3 introductions in 30 days**; to change that, edit the number in `public.intro_quota_ok()` in
 `integrations/members-schema.sql` and run that one function again in the SQL editor.
 
-### The LinkedIn pod (all members)
+### Ask Mariam and the profile check (all members)
+`members/ask.html`. Questions are private between you and the member: two a week each, so the inbox
+stays answerable. The profile check is **three a week in total for everybody**, first come first
+served, and the same member can book again after 90 days — the page shows how many places are left
+and hides the form when the week is full. You answer both in `members/admin.html` → **Questions &
+checks**, and the member sees your answer on their own page.
+
+To change the three a week, edit the number in `public.review_slots_left()` in
+`integrations/members-schema.sql` and run that function again in the SQL editor.
+
+### The LinkedIn pod (Beyond Mastermind only)
 `members/pod.html`: a member adds the link to their post of the day, everyone else opens two or three
-and comments. One post per member per day, and posts disappear after 48 hours. Nothing to moderate —
-members can remove their own post, and you can remove any.
+and comments. One post per member per day, and posts disappear after 48 hours. It belongs to Beyond
+because a post link shows exactly who someone is — the same reason the directory is a Beyond benefit.
 
 ### Sell a course later with 1 year of access
 1. **Courses & products** tab → add the course (name + a short code like `course-linkedin`).

@@ -398,5 +398,28 @@ window.I18N.vi = {
   "pod.now": "vừa xong",
   "pod.hours": "{n} giờ trước",
   "pod.error.url": "Hãy dán liên kết bắt đầu bằng linkedin.com",
-  "pod.error.today": "Hôm nay bạn đã thêm một bài rồi."
+  "pod.error.today": "Hôm nay bạn đã thêm một bài rồi.",
+
+  /* ---------- Ask Mariam and the profile check ---------- */
+  "ask.title": "Hỏi Mariam",
+  "ask.lead": "Không ai khác nhìn thấy câu hỏi của bạn. Mariam trả lời ngay tại đây, và những câu trả lời hữu ích nhất sẽ vào thư viện mà không kèm tên bạn.",
+  "ask.question": "Câu hỏi của bạn",
+  "ask.hint": "Hai câu hỏi mỗi tuần, để mỗi câu đều được trả lời tử tế.",
+  "ask.send": "Gửi câu hỏi",
+  "ask.sent": "Đã gửi. Bạn sẽ thấy câu trả lời trên trang này.",
+  "ask.yours": "Câu hỏi của bạn",
+  "ask.none": "Bạn chưa hỏi gì cả.",
+  "ask.waiting": "Đang chờ Mariam trả lời.",
+  "ask.error.short": "Hãy viết thêm một chút để câu trả lời thực sự hữu ích.",
+  "ask.error.quota": "Tuần này bạn đã hỏi hai câu. Vài ngày nữa hãy quay lại.",
+  "check.title": "Kiểm tra hồ sơ LinkedIn",
+  "check.lead": "Mỗi tuần Mariam tự xem ba hồ sơ và gửi lại ba thay đổi tạo khác biệt lớn nhất. Ai đăng ký trước được trước, mỗi thành viên ba tháng một lần.",
+  "check.slots": "Còn {n}/3 chỗ trong tuần này",
+  "check.full": "Tuần này đã kín chỗ. Chỗ mới mở vào thứ Hai.",
+  "check.url": "Địa chỉ hồ sơ LinkedIn của bạn",
+  "check.goal": "Hồ sơ này nên mang lại điều gì cho bạn?",
+  "check.book": "Đặt chỗ kiểm tra",
+  "check.booked": "Đã đặt. Mariam sẽ xem hồ sơ của bạn trong tuần này.",
+  "check.error.url": "Hãy dán địa chỉ hồ sơ LinkedIn của bạn.",
+  "check.error.quota": "Tuần này hết chỗ, hoặc bạn đã đặt trong ba tháng qua."
 };

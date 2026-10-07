@@ -293,15 +293,101 @@ create policy "intro insert" on public.intro_requests
 create policy "intro admin" on public.intro_requests
   for update to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- The pod is for every member, whichever plan they are on.
+-- The pod is a Beyond Mastermind benefit: a post link shows who someone is,
+-- so it belongs with the directory, not in the lower plan.
 drop policy if exists "pod read"   on public.pod_posts;
 drop policy if exists "pod insert" on public.pod_posts;
 drop policy if exists "pod delete" on public.pod_posts;
 create policy "pod read" on public.pod_posts
   for select to authenticated
-  using ((public.has_any_access() and created_at > now() - interval '48 hours') or public.is_admin());
+  using ((public.has_access('community', 'beyond') and created_at > now() - interval '48 hours')
+         or public.is_admin());
 create policy "pod insert" on public.pod_posts
   for insert to authenticated
-  with check (user_id = auth.uid() and public.has_any_access() and public.pod_quota_ok());
+  with check (user_id = auth.uid() and public.has_access('community', 'beyond') and public.pod_quota_ok());
 create policy "pod delete" on public.pod_posts
   for delete to authenticated using (user_id = auth.uid() or public.is_admin());
+
+-- =====================================================================
+-- 6. Ask Mariam, and the weekly LinkedIn profile check
+--
+-- Both are between one member and you. No member ever sees another member
+-- here, so they belong to every plan.
+-- =====================================================================
+
+create table if not exists public.questions (
+  id          uuid primary key default gen_random_uuid(),
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  question    text not null,
+  answer      text,
+  status      text not null default 'new',    -- new | answered
+  created_at  timestamptz not null default now(),
+  answered_at timestamptz
+);
+create index if not exists questions_user_idx on public.questions (user_id, created_at desc);
+
+create table if not exists public.profile_reviews (
+  id           uuid primary key default gen_random_uuid(),
+  user_id      uuid not null references auth.users(id) on delete cascade,
+  linkedin_url text not null,
+  goal         text,
+  answer       text,
+  status       text not null default 'new',   -- new | done
+  week_start   date not null default (date_trunc('week', now() at time zone 'utc'))::date,
+  created_at   timestamptz not null default now(),
+  handled_at   timestamptz
+);
+create index if not exists profile_reviews_week_idx on public.profile_reviews (week_start);
+
+-- Two questions per member per week keeps the inbox sane.
+create or replace function public.question_quota_ok()
+returns boolean language sql stable security definer set search_path = public as $fn$
+  select (
+    select count(*) from public.questions q
+    where q.user_id = auth.uid() and q.created_at > now() - interval '7 days'
+  ) < 2;
+$fn$;
+
+-- THREE profile checks a week in total, for everybody. Change the 3 here.
+create or replace function public.review_slots_left()
+returns int language sql stable security definer set search_path = public as $fn$
+  select greatest(0, 3 - (
+    select count(*)::int from public.profile_reviews r
+    where r.week_start = (date_trunc('week', now() at time zone 'utc'))::date
+  ));
+$fn$;
+
+-- A slot must be free, and the same person may come back after 90 days.
+create or replace function public.review_quota_ok()
+returns boolean language sql stable security definer set search_path = public as $fn$
+  select public.review_slots_left() > 0
+     and not exists (
+       select 1 from public.profile_reviews r
+       where r.user_id = auth.uid() and r.created_at > now() - interval '90 days'
+     );
+$fn$;
+
+alter table public.questions        enable row level security;
+alter table public.profile_reviews  enable row level security;
+
+drop policy if exists "questions read"   on public.questions;
+drop policy if exists "questions insert" on public.questions;
+drop policy if exists "questions admin"  on public.questions;
+create policy "questions read" on public.questions
+  for select to authenticated using (user_id = auth.uid() or public.is_admin());
+create policy "questions insert" on public.questions
+  for insert to authenticated
+  with check (user_id = auth.uid() and public.has_any_access() and public.question_quota_ok());
+create policy "questions admin" on public.questions
+  for update to authenticated using (public.is_admin()) with check (public.is_admin());
+
+drop policy if exists "reviews read"   on public.profile_reviews;
+drop policy if exists "reviews insert" on public.profile_reviews;
+drop policy if exists "reviews admin"  on public.profile_reviews;
+create policy "reviews read" on public.profile_reviews
+  for select to authenticated using (user_id = auth.uid() or public.is_admin());
+create policy "reviews insert" on public.profile_reviews
+  for insert to authenticated
+  with check (user_id = auth.uid() and public.has_any_access() and public.review_quota_ok());
+create policy "reviews admin" on public.profile_reviews
+  for update to authenticated using (public.is_admin()) with check (public.is_admin());

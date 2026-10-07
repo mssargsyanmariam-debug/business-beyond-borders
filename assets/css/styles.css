@@ -2119,3 +2119,20 @@ body::after {
 }
 .pod-post__who { color: var(--muted); font-size: 0.88rem; font-weight: 600; }
 .member-panel form > .btn:not(.btn--block) { justify-self: start; }
+
+/* Ask Mariam and the profile check */
+.qa-list { display: grid; gap: 14px; margin-top: 16px; }
+.qa-card {
+  display: grid;
+  gap: 8px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.qa-card__when { color: var(--muted); font-size: 0.85rem; }
+.qa-card__q { font-weight: 600; color: #fff; }
+.qa-card__a { color: var(--text-soft); white-space: pre-wrap; border-left: 3px solid var(--accent); padding-left: 14px; }
+.qa-card__waiting { color: var(--muted); font-size: 0.92rem; font-style: italic; }
+.slots { font-weight: 700; color: var(--success); }
+.slots[data-state="full"] { color: var(--muted); }

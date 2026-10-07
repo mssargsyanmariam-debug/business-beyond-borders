@@ -237,13 +237,15 @@ async function initPod() {
   const status = el("[data-pod-status]");
 
   const [{ data: memberships }, { data: profile }] = await Promise.all([
-    sb.from("memberships").select("status, expires_at").eq("status", "active"),
+    sb.from("memberships").select("product, tier, status, expires_at").eq("status", "active"),
     sb.from("profiles").select("full_name").eq("id", me.id).maybeSingle(),
   ]);
   const live = (memberships || []).filter((m) => !m.expires_at || new Date(m.expires_at) > new Date());
+  // A post link shows exactly who someone is, so the pod sits with the directory.
+  const isBeyond = live.some((m) => m.product === "community" && m.tier === "beyond");
 
   if (loading) loading.hidden = true;
-  if (!live.length) {
+  if (!isBeyond) {
     if (locked) locked.hidden = false;
     return;
   }
@@ -333,7 +335,137 @@ function timeAgo(iso) {
   return t("pod.hours", { n: hours });
 }
 
+/* ---------- Ask Mariam, and the weekly profile check ---------- */
+async function initAsk() {
+  const { data: sessionData } = await sb.auth.getSession();
+  if (!sessionData.session) {
+    window.location.replace("login.html");
+    return;
+  }
+  const me = sessionData.session.user;
+
+  const loading = el("[data-ask-loading]");
+  const main = el("[data-ask-main]");
+  const locked = el("[data-ask-locked]");
+
+  const { data: memberships } = await sb.from("memberships").select("status, expires_at").eq("status", "active");
+  const live = (memberships || []).filter((m) => !m.expires_at || new Date(m.expires_at) > new Date());
+
+  if (loading) loading.hidden = true;
+  if (!live.length) {
+    if (locked) locked.hidden = false;
+    return;
+  }
+  if (main) main.hidden = false;
+
+  /* questions */
+  const questionForm = el("[data-form=question]");
+  const questionStatus = el("[data-question-status]");
+  const questionList = el("[data-question-list]");
+
+  async function loadQuestions() {
+    const { data } = await sb.from("questions").select("*").order("created_at", { ascending: false });
+    const rows = data || [];
+    questionList.innerHTML = "";
+    if (!rows.length) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = t("ask.none");
+      questionList.append(empty);
+      return;
+    }
+    rows.forEach((row) => questionList.append(qaCard(row.question, row.answer, row.created_at)));
+  }
+
+  questionForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const question = questionForm.question.value.trim();
+    if (question.length < 10) return setStatus(questionStatus, t("ask.error.short"), "error");
+    setStatus(questionStatus, t("login.working"));
+    const { error } = await sb.from("questions").insert({ user_id: me.id, question });
+    if (error) return setStatus(questionStatus, t("ask.error.quota"), "error");
+    setStatus(questionStatus, t("ask.sent"), "success");
+    questionForm.reset();
+    if (window.BBB && window.BBB.notify) {
+      window.BBB.notify("member-question", { name: me.email, email: me.email, message: question, topic: "Member question" });
+    }
+    loadQuestions();
+  });
+
+  /* the weekly profile check */
+  const checkForm = el("[data-form=check]");
+  const checkStatus = el("[data-check-status]");
+  const checkList = el("[data-check-list]");
+  const slotsOut = el("[data-check-slots]");
+
+  async function loadChecks() {
+    const [{ data: slots }, { data: rows }] = await Promise.all([
+      sb.rpc("review_slots_left"),
+      sb.from("profile_reviews").select("*").order("created_at", { ascending: false }),
+    ]);
+    const left = typeof slots === "number" ? slots : 0;
+    if (slotsOut) {
+      slotsOut.textContent = left ? t("check.slots", { n: left }) : t("check.full");
+      slotsOut.dataset.state = left ? "open" : "full";
+    }
+    if (checkForm) checkForm.hidden = left === 0;
+
+    const reviews = rows || [];
+    checkList.innerHTML = "";
+    reviews.forEach((r) => checkList.append(qaCard(r.linkedin_url, r.answer, r.created_at)));
+  }
+
+  checkForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const url = checkForm.linkedin_url.value.trim();
+    if (!/^https?:\/\/(www\.)?linkedin\.com\//i.test(url)) return setStatus(checkStatus, t("check.error.url"), "error");
+    setStatus(checkStatus, t("login.working"));
+    const { error } = await sb.from("profile_reviews").insert({
+      user_id: me.id,
+      linkedin_url: url,
+      goal: checkForm.goal.value.trim() || null,
+    });
+    if (error) return setStatus(checkStatus, t("check.error.quota"), "error");
+    setStatus(checkStatus, t("check.booked"), "success");
+    checkForm.reset();
+    if (window.BBB && window.BBB.notify) {
+      window.BBB.notify("profile-check", { name: me.email, email: me.email, message: url, topic: "Profile check" });
+    }
+    loadChecks();
+  });
+
+  await Promise.all([loadQuestions(), loadChecks()]);
+}
+
+// One card for a question or a booking, with the answer underneath once it is there.
+function qaCard(asked, answer, created) {
+  const card = document.createElement("article");
+  card.className = "qa-card";
+
+  const when = document.createElement("p");
+  when.className = "qa-card__when";
+  when.textContent = new Date(created).toLocaleDateString();
+  card.append(when);
+
+  const question = document.createElement("p");
+  question.className = "qa-card__q";
+  question.textContent = asked;
+  card.append(question);
+
+  const reply = document.createElement("p");
+  if (answer) {
+    reply.className = "qa-card__a";
+    reply.textContent = answer;
+  } else {
+    reply.className = "qa-card__waiting";
+    reply.textContent = t("ask.waiting");
+  }
+  card.append(reply);
+  return card;
+}
+
 if (configured) {
   if (mode === "directory") initDirectory();
   else if (mode === "pod") initPod();
+  else if (mode === "ask") initAsk();
 }

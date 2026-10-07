@@ -103,6 +103,7 @@
       <div class="tabs" role="tablist">
         <button type="button" role="tab" data-tab="members" aria-selected="true">Members</button>
         <button type="button" role="tab" data-tab="intros" aria-selected="false">Intro requests <span data-intro-badge></span></button>
+        <button type="button" role="tab" data-tab="asks" aria-selected="false">Questions &amp; checks <span data-ask-badge></span></button>
         <button type="button" role="tab" data-tab="materials" aria-selected="false">Materials</button>
         <button type="button" role="tab" data-tab="products" aria-selected="false">Courses &amp; products</button>
       </div>
@@ -129,6 +130,20 @@
         </div>
         <div data-intros-list></div>
         <p class="status" data-intros-status role="status" aria-live="polite"></p>
+      </section>
+
+      <!-- QUESTIONS AND PROFILE CHECKS -->
+      <section data-panel="asks" hidden>
+        <div class="card">
+          <p class="hint small">Questions are private between you and the member. Profile checks are limited to three a
+          week in total, and each member can book one every 90 days. Write the answer here and the member sees it in
+          their member area.</p>
+        </div>
+        <h2 style="margin-top:22px">Questions</h2>
+        <div data-questions-list></div>
+        <h2 style="margin-top:28px">Profile checks</h2>
+        <div data-reviews-list></div>
+        <p class="status" data-asks-status role="status" aria-live="polite"></p>
       </section>
 
       <!-- MATERIALS -->
@@ -217,7 +232,7 @@
     </div>
   </div>
 
-  <script src="../assets/js/members-config.js?v=14"></script>
-  <script type="module" src="../assets/js/members-admin.js?v=14"></script>
+  <script src="../assets/js/members-config.js?v=15"></script>
+  <script type="module" src="../assets/js/members-admin.js?v=15"></script>
 </body>
 </html>

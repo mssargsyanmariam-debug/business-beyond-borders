@@ -34,7 +34,8 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 
 `members/login.html` (log in / create account), `members/` (the member hub: access, library, account),
 `members/view.html` (the protected reader), `members/directory.html` (Beyond only: member cards and
-introduction requests), `members/pod.html` (LinkedIn pod), `members/reset.html` (new password) and
+introduction requests), `members/pod.html` (Beyond only: LinkedIn pod), `members/ask.html` (questions and the weekly profile
+check), `members/reset.html` (new password) and
 `members/admin.html` (owner only: access, intro requests, materials, courses).
 
 Accounts, passwords and who-paid-for-what live in Supabase; the pages stay on this site. Supabase decides

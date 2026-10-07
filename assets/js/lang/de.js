@@ -398,5 +398,28 @@ window.I18N.de = {
   "pod.now": "gerade eben",
   "pod.hours": "vor {n} Std.",
   "pod.error.url": "Füge einen Link ein, der mit linkedin.com beginnt",
-  "pod.error.today": "Du hast heute schon einen Beitrag hinzugefügt."
+  "pod.error.today": "Du hast heute schon einen Beitrag hinzugefügt.",
+
+  /* ---------- Ask Mariam and the profile check ---------- */
+  "ask.title": "Frag Mariam",
+  "ask.lead": "Niemand sonst sieht deine Frage. Mariam beantwortet sie hier, und die nützlichsten Antworten landen ohne deinen Namen in der Bibliothek.",
+  "ask.question": "Deine Frage",
+  "ask.hint": "Zwei Fragen pro Woche, damit jede eine richtige Antwort bekommt.",
+  "ask.send": "Frage senden",
+  "ask.sent": "Gesendet. Die Antwort findest du auf dieser Seite.",
+  "ask.yours": "Deine Fragen",
+  "ask.none": "Du hast noch nichts gefragt.",
+  "ask.waiting": "Wartet auf Mariams Antwort.",
+  "ask.error.short": "Schreib bitte etwas mehr, damit die Antwort dir wirklich hilft.",
+  "ask.error.quota": "Du hast diese Woche schon zwei Fragen gestellt. Die nächste in ein paar Tagen.",
+  "check.title": "LinkedIn-Profil-Check",
+  "check.lead": "Mariam sieht sich drei Profile pro Woche selbst an und schickt die drei Änderungen zurück, die am meisten bringen. Wer zuerst kommt, mahlt zuerst, und jedes Mitglied kann alle drei Monate einen Platz buchen.",
+  "check.slots": "Noch {n} von 3 Plätzen diese Woche",
+  "check.full": "Diese Woche ist ausgebucht. Neue Plätze gibt es am Montag.",
+  "check.url": "Die Adresse deines LinkedIn-Profils",
+  "check.goal": "Was soll dieses Profil dir bringen?",
+  "check.book": "Platz buchen",
+  "check.booked": "Gebucht. Mariam sieht sich dein Profil diese Woche an.",
+  "check.error.url": "Füge die Adresse deines LinkedIn-Profils ein.",
+  "check.error.quota": "Diese Woche ist kein Platz frei, oder du hattest in den letzten drei Monaten schon einen."
 };

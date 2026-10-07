@@ -398,5 +398,28 @@ window.I18N.zh = {
   "pod.now": "刚刚",
   "pod.hours": "{n} 小时前",
   "pod.error.url": "请粘贴以 linkedin.com 开头的链接",
-  "pod.error.today": "你今天已经添加过帖子了。"
+  "pod.error.today": "你今天已经添加过帖子了。",
+
+  /* ---------- Ask Mariam and the profile check ---------- */
+  "ask.title": "向 Mariam 提问",
+  "ask.lead": "其他人看不到你的问题。Mariam 会在这里回答，最有价值的答案会匿名收录进资料库。",
+  "ask.question": "你的问题",
+  "ask.hint": "每周两个问题，这样每个问题都能得到认真的回答。",
+  "ask.send": "发送问题",
+  "ask.sent": "已发送。答案会出现在本页面。",
+  "ask.yours": "你的问题",
+  "ask.none": "你还没有提过问题。",
+  "ask.waiting": "等待 Mariam 回答。",
+  "ask.error.short": "请多写几句，这样答案才会对你有用。",
+  "ask.error.quota": "你本周已经提了两个问题，过几天再来吧。",
+  "check.title": "LinkedIn 主页检查",
+  "check.lead": "Mariam 每周亲自看三份主页，并回复最能带来改变的三处修改。先到先得，每位会员每三个月可预约一次。",
+  "check.slots": "本周还剩 {n} / 3 个名额",
+  "check.full": "本周名额已满，周一开放新名额。",
+  "check.url": "你的 LinkedIn 主页地址",
+  "check.goal": "你希望这份主页为你带来什么？",
+  "check.book": "预约检查",
+  "check.booked": "已预约。Mariam 本周会看你的主页。",
+  "check.error.url": "请粘贴你的 LinkedIn 主页地址。",
+  "check.error.quota": "本周没有名额了，或者你在最近三个月已经预约过。"
 };

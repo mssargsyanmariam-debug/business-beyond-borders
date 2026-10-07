@@ -401,5 +401,28 @@ window.I18N.en = {
   "pod.now": "just now",
   "pod.hours": "{n} h ago",
   "pod.error.url": "Paste a link that starts with linkedin.com",
-  "pod.error.today": "You have already added a post today."
+  "pod.error.today": "You have already added a post today.",
+
+  /* ---------- Ask Mariam and the profile check ---------- */
+  "ask.title": "Ask Mariam",
+  "ask.lead": "Nobody else sees your question. Mariam answers it here, and the most useful answers end up in the library without your name on them.",
+  "ask.question": "Your question",
+  "ask.hint": "Two questions a week, so each one gets a proper answer.",
+  "ask.send": "Send the question",
+  "ask.sent": "Sent. You will find the answer on this page.",
+  "ask.yours": "Your questions",
+  "ask.none": "You have not asked anything yet.",
+  "ask.waiting": "Waiting for Mariam's answer.",
+  "ask.error.short": "Please write a little more, so the answer can be useful.",
+  "ask.error.quota": "You have asked two questions this week. Next one in a few days.",
+  "check.title": "LinkedIn profile check",
+  "check.lead": "Mariam goes through three profiles a week herself and sends back the three changes that make the most difference. First come, first served, and each member can book one every three months.",
+  "check.slots": "{n} of 3 places left this week",
+  "check.full": "This week is fully booked. New places open on Monday.",
+  "check.url": "Your LinkedIn profile address",
+  "check.goal": "What should this profile win for you?",
+  "check.book": "Book my check",
+  "check.booked": "Booked. Mariam goes through your profile this week.",
+  "check.error.url": "Paste the address of your LinkedIn profile.",
+  "check.error.quota": "No place left this week, or you booked one in the last three months."
 };

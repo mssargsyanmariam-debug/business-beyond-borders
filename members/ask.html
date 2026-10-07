@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Members area | Business Beyond Borders</title>
-  <meta name="description" content="The Business Beyond Borders member area: your materials, recordings and sessions.">
+  <title>Ask Mariam | Business Beyond Borders</title>
+  <meta name="description" content="Ask Mariam a question, or book the weekly LinkedIn profile check.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0D152C">
   <meta name="color-scheme" content="dark">
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
   <link rel="stylesheet" href="../assets/css/styles.css?v=15">
 </head>
-<body data-page="members" data-member="hub" data-fixed-meta>
+<body data-page="members" data-member="ask" data-fixed-meta>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header site-header--slim">
@@ -46,60 +46,70 @@
   </header>
 
   <main id="main" class="member-main">
-    <div class="container">
+    <div class="container container--narrow">
       <nav class="member-nav" aria-label="Members area">
-        <a href="./" aria-current="page" data-i18n="hub.materials">Your materials</a>
-        <a href="ask.html" data-i18n="ask.title">Ask Mariam</a>
+        <a href="./" data-i18n="hub.materials">Your materials</a>
+        <a href="ask.html" aria-current="page" data-i18n="ask.title">Ask Mariam</a>
         <a href="directory.html" data-i18n="dir.title">Member directory</a>
         <a href="pod.html" data-i18n="pod.title">LinkedIn pod</a>
       </nav>
 
-      <!-- not connected yet -->
       <div class="member-panel member-panel--center" data-members-soon hidden>
         <h1 data-i18n="members.soon.title">The member area opens soon</h1>
         <p data-i18n="members.soon.text">We are finishing the last step of the set-up.</p>
-        <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
       </div>
 
       <div data-needs-supabase>
-        <p class="member-loading" data-hub-loading data-i18n="members.loading">Loading…</p>
+        <p class="member-loading" data-ask-loading data-i18n="members.loading">Loading...</p>
 
-        <div data-hub-main hidden>
-          <h1 class="member-title" data-greeting>Welcome back</h1>
+        <div class="member-panel member-panel--center" data-ask-locked hidden>
+          <h1 data-i18n="hub.noaccess.title">No active membership yet</h1>
+          <p data-i18n="hub.noaccess.text">Your account is ready. Choose a plan to open the member area.</p>
+          <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
+        </div>
 
-          <ul class="access-list" data-access-list></ul>
+        <div data-ask-main hidden>
+          <h1 class="member-title" data-i18n="ask.title">Ask Mariam</h1>
+          <p class="section-lead" data-i18n="ask.lead">Nobody else sees your question. Mariam answers here, and the useful ones end up in the library without your name on them.</p>
 
-          <!-- no plan yet -->
-          <div class="member-panel member-panel--center" data-hub-noaccess hidden>
-            <h2 data-i18n="hub.noaccess.title">No active membership yet</h2>
-            <p data-i18n="hub.noaccess.text">Your account is ready. Choose a plan to open the member library. If you have just paid, your access is switched on shortly.</p>
-            <a class="btn btn--primary" href="../membership.html" data-i18n="hub.noaccess.cta">See the plans</a>
-          </div>
-
-          <!-- the library -->
-          <section data-hub-content hidden>
-            <h2 class="member-subtitle" data-i18n="hub.materials">Your materials</h2>
-            <div data-library></div>
-          </section>
-
-          <!-- account -->
-          <section class="member-panel member-account">
-            <h2 data-i18n="hub.account">Account</h2>
-            <p class="muted"><span data-account-email></span></p>
-            <form data-form="password" novalidate>
+          <section class="member-panel">
+            <form data-form="question" novalidate>
               <div class="field">
-                <label for="new-password" data-i18n="hub.password.change">Change password</label>
-                <input id="new-password" name="password" type="password" autocomplete="new-password" required>
-                <p class="field-hint" data-i18n="login.hint.password">At least 8 characters.</p>
+                <label for="q-text" data-i18n="ask.question">Your question</label>
+                <textarea id="q-text" name="question" rows="4" required></textarea>
+                <p class="field-hint" data-i18n="ask.hint">Two questions a week, so each one gets a proper answer.</p>
               </div>
-              <button class="btn btn--ghost btn--sm" type="submit" data-i18n="hub.password.save">Save password</button>
-              <p class="form-status" data-password-status role="status" aria-live="polite"></p>
+              <button class="btn btn--primary btn--sm" type="submit" data-i18n="ask.send">Send the question</button>
+              <p class="form-status" data-question-status role="status" aria-live="polite"></p>
             </form>
-            <p class="field-hint"><span data-i18n="hub.help">Need help? Write to</span> <a data-mail-link href="mailto:ms.sargsyanmariam@gmail.com">ms.sargsyanmariam@gmail.com</a></p>
           </section>
+
+          <h2 class="member-subtitle" data-i18n="ask.yours">Your questions</h2>
+          <div class="qa-list" data-question-list></div>
+
+          <!-- the weekly profile check -->
+          <h2 class="member-subtitle" data-i18n="check.title">LinkedIn profile check</h2>
+          <p class="section-lead" data-i18n="check.lead">Mariam goes through three profiles a week personally and sends back the three changes that will make the most difference. First come, first served, and each member can book one every three months.</p>
+
+          <section class="member-panel">
+            <p class="slots" data-check-slots></p>
+            <form data-form="check" novalidate>
+              <div class="field">
+                <label for="c-url" data-i18n="check.url">Your LinkedIn profile address</label>
+                <input id="c-url" name="linkedin_url" type="url" placeholder="https://www.linkedin.com/in/..." required>
+              </div>
+              <div class="field">
+                <label for="c-goal" data-i18n="check.goal">What should this profile win for you?</label>
+                <input id="c-goal" name="goal" type="text" placeholder="Clients in Germany, partners in the US...">
+              </div>
+              <button class="btn btn--primary btn--sm" type="submit" data-i18n="check.book">Book my check</button>
+              <p class="form-status" data-check-status role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <div class="qa-list" data-check-list></div>
         </div>
       </div>
-
     </div>
   </main>
 
@@ -125,6 +135,6 @@
   <script src="../assets/js/lang/ar.js?v=15"></script>
   <script src="../assets/js/main.js?v=15"></script>
   <script src="../assets/js/members-config.js?v=15"></script>
-  <script type="module" src="../assets/js/members.js?v=15"></script>
+  <script type="module" src="../assets/js/members-network.js?v=15"></script>
 </body>
 </html>

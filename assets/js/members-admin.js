@@ -92,6 +92,78 @@ async function loadAll() {
   renderProducts();
   await renderMaterials();
   await renderIntros();
+  await renderAsks();
+}
+
+/* ---------- questions and profile checks ---------- */
+async function renderAsks() {
+  const [{ data: questions }, { data: reviews }] = await Promise.all([
+    sb.from("questions").select("*").order("created_at", { ascending: false }),
+    sb.from("profile_reviews").select("*").order("created_at", { ascending: false }),
+  ]);
+  const open =
+    (questions || []).filter((q) => q.status !== "answered").length +
+    (reviews || []).filter((r) => r.status !== "done").length;
+  const badge = $("[data-ask-badge]");
+  if (badge) badge.textContent = open ? `(${open})` : "";
+
+  draw($("[data-questions-list]"), questions || [], "questions", (row) => esc(row.question));
+  draw($("[data-reviews-list]"), reviews || [], "profile_reviews", (row) =>
+    `<a href="${esc(row.linkedin_url)}" target="_blank" rel="noopener">${esc(row.linkedin_url)}</a>` +
+    (row.goal ? `<br><span class="muted small">Wants: ${esc(row.goal)}</span>` : "")
+  );
+}
+
+function memberLine(id) {
+  const member = members.find((m) => m.id === id);
+  return member ? `${member.full_name || "(no name)"} · ${member.email}` : id.slice(0, 8);
+}
+
+function draw(list, rows, table, bodyHtml) {
+  if (!list) return;
+  const doneValue = table === "questions" ? "answered" : "done";
+  if (!rows.length) {
+    list.innerHTML = '<p class="muted">Nothing here yet.</p>';
+    return;
+  }
+  list.innerHTML = "";
+  rows.forEach((row) => {
+    const card = document.createElement("div");
+    card.className = "member";
+    card.innerHTML = `
+      <div class="member__top">
+        <strong>${esc(memberLine(row.user_id))}</strong>
+        <span class="muted small">${fmt(row.created_at)}</span>
+        <span class="pill ${row.status === doneValue ? "pill--none" : ""}">${esc(row.status)}</span>
+      </div>
+      <p>${bodyHtml(row)}</p>
+      <div class="field" style="margin-top:10px">
+        <label>Your answer</label>
+        <textarea data-answer>${esc(row.answer || "")}</textarea>
+      </div>
+      <div class="access-row">
+        <button type="button" class="btn btn--primary btn--small" data-save="${row.id}">Save and mark done</button>
+      </div>`;
+    list.append(card);
+    card.querySelector("[data-save]").addEventListener("click", async (e) => {
+      const button = e.currentTarget;
+      button.disabled = true;
+      const answer = card.querySelector("[data-answer]").value.trim();
+      const { error } = await sb
+        .from(table)
+        .update({
+          answer,
+          status: doneValue,
+          [table === "questions" ? "answered_at" : "handled_at"]: new Date().toISOString(),
+        })
+        .eq("id", row.id);
+      button.disabled = false;
+      const out = $("[data-asks-status]");
+      if (error) return setStatus(out, error.message, "error");
+      setStatus(out, "Saved. The member can see it now.", "ok");
+      await renderAsks();
+    });
+  });
 }
 
 /* ---------- introduction requests ---------- */
