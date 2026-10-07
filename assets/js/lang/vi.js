@@ -342,5 +342,17 @@ window.I18N.vi = {
   "hub.empty": "Chưa có gì ở đây. Tài liệu mới được bổ sung thường xuyên.",
   "hub.open": "Mở",
   "hub.download": "Tải xuống",
-  "hub.help": "Cần hỗ trợ? Hãy viết tới"
+  "hub.help": "Cần hỗ trợ? Hãy viết tới",
+
+  /* ---------- Protected viewer ---------- */
+  "hub.view": "Đọc",
+  "hub.viewonly": "Mở trên website, chỉ để đọc",
+  "hub.downloadable": "Mở trên website, cho phép tải về",
+  "view.back": "Quay lại tài liệu của tôi",
+  "view.loading": "Đang mở tài liệu…",
+  "view.note": "Tài liệu này chỉ mở trên website. Email của bạn hiển thị trên mọi trang, xin đừng chia sẻ ra ngoài.",
+  "view.pages": "{n} trang",
+  "view.unsupported": "Tệp này không hiển thị được trên website. Hãy liên hệ với chúng tôi.",
+  "view.error": "Tài khoản của bạn không xem được tài liệu này.",
+  "view.error.title": "Không khả dụng"
 };

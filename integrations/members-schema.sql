@@ -55,10 +55,15 @@ create table if not exists public.materials (
   product      text not null default 'community' references public.products(key) on update cascade,
   min_tier     text not null default 'mastermind',
   published    boolean not null default true,
+  -- false (the normal case): members read it inside the website only, never as a file.
+  allow_download boolean not null default false,
   position     int not null default 0,
   created_at   timestamptz not null default now()
 );
 create index if not exists materials_product_idx on public.materials (product, position);
+
+-- For projects created before this column existed:
+alter table public.materials add column if not exists allow_download boolean not null default false;
 
 -- =====================================================================
 -- Helper functions

@@ -342,5 +342,17 @@ window.I18N.es = {
   "hub.empty": "Aquí todavía no hay nada. Añadimos materiales nuevos con regularidad.",
   "hub.open": "Abrir",
   "hub.download": "Descargar",
-  "hub.help": "¿Necesitas ayuda? Escribe a"
+  "hub.help": "¿Necesitas ayuda? Escribe a",
+
+  /* ---------- Protected viewer ---------- */
+  "hub.view": "Leer",
+  "hub.viewonly": "Se abre en la web, solo lectura",
+  "hub.downloadable": "Se abre en la web, descarga permitida",
+  "view.back": "Volver a mis materiales",
+  "view.loading": "Abriendo el material…",
+  "view.note": "Este material solo se abre en la web. Tu correo aparece en cada página, así que no lo compartas.",
+  "view.pages": "{n} páginas",
+  "view.unsupported": "Este archivo no se puede mostrar en la web. Pídenoslo y te lo enviamos.",
+  "view.error": "Este material no está disponible para tu cuenta.",
+  "view.error.title": "No disponible"
 };

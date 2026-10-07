@@ -161,7 +161,13 @@
             <div class="field" data-file-field hidden>
               <label for="m-file">File</label>
               <input id="m-file" name="file" type="file">
-              <p class="small muted">Stored privately. Members get a link that works for one hour only.</p>
+              <p class="small muted">Stored privately. Members read it inside your website, with their own
+              email address stamped across every page. PDFs and images open in the protected viewer;
+              slides and documents are best saved as PDF first.</p>
+              <label class="check" style="margin-top:12px">
+                <input type="checkbox" name="allow_download">
+                <span>Also let members download this file (off = reading on the website only)</span>
+              </label>
             </div>
             <label class="check" style="margin-bottom:14px">
               <input type="checkbox" name="published" checked>
@@ -200,7 +206,7 @@
     </div>
   </div>
 
-  <script src="../assets/js/members-config.js?v=12"></script>
-  <script type="module" src="../assets/js/members-admin.js?v=12"></script>
+  <script src="../assets/js/members-config.js?v=13"></script>
+  <script type="module" src="../assets/js/members-admin.js?v=13"></script>
 </body>
 </html>

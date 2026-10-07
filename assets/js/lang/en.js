@@ -345,5 +345,17 @@ window.I18N.en = {
   "hub.empty": "Nothing here yet. New materials are added regularly.",
   "hub.open": "Open",
   "hub.download": "Download",
-  "hub.help": "Need help? Write to"
+  "hub.help": "Need help? Write to",
+
+  /* ---------- Protected viewer ---------- */
+  "hub.view": "Read it",
+  "hub.viewonly": "Opens on the website, reading only",
+  "hub.downloadable": "Opens on the website, download allowed",
+  "view.back": "Back to my materials",
+  "view.loading": "Opening the material…",
+  "view.note": "This material opens on the website only. Your email address is shown across every page, so please keep it to yourself.",
+  "view.pages": "{n} pages",
+  "view.unsupported": "This file cannot be shown on the website. Please ask us for it.",
+  "view.error": "This material is not available for your account.",
+  "view.error.title": "Not available"
 };

@@ -342,5 +342,17 @@ window.I18N.fr = {
   "hub.empty": "Rien ici pour l'instant. De nouveaux supports arrivent régulièrement.",
   "hub.open": "Ouvrir",
   "hub.download": "Télécharger",
-  "hub.help": "Besoin d'aide ? Écrivez à"
+  "hub.help": "Besoin d'aide ? Écrivez à",
+
+  /* ---------- Protected viewer ---------- */
+  "hub.view": "Lire",
+  "hub.viewonly": "S'ouvre sur le site, lecture seule",
+  "hub.downloadable": "S'ouvre sur le site, téléchargement autorisé",
+  "view.back": "Retour à mes supports",
+  "view.loading": "Ouverture du support…",
+  "view.note": "Ce support s'ouvre uniquement sur le site. Votre adresse e-mail apparaît sur chaque page, merci de le garder pour vous.",
+  "view.pages": "{n} pages",
+  "view.unsupported": "Ce fichier ne peut pas être affiché sur le site. Demandez-le-nous.",
+  "view.error": "Ce support n'est pas disponible pour votre compte.",
+  "view.error.title": "Non disponible"
 };

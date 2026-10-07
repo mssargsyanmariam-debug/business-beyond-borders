@@ -2016,3 +2016,42 @@ body::after {
 
 /* A class that sets "display" would otherwise beat the hidden attribute. */
 [hidden] { display: none !important; }
+
+/* ---------- Protected viewer (members/view.html) ---------- */
+.viewer {
+  display: grid;
+  gap: 20px;
+  margin-top: 24px;
+  /* Selecting and dragging are the easy ways to lift content out of a page. */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.viewer__page {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: #fff;
+  line-height: 0;
+}
+.viewer__page canvas,
+.viewer__page img { display: block; width: 100%; height: auto; pointer-events: none; }
+.viewer__mark {
+  position: absolute;
+  inset: -15%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: space-evenly;
+  place-items: center;
+  transform: rotate(-24deg);
+  pointer-events: none;
+}
+.viewer__mark span {
+  color: rgba(13, 21, 44, 0.2);
+  font-size: clamp(0.7rem, 1vw, 1rem);
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.material__note { color: var(--muted); font-size: 0.85rem; }

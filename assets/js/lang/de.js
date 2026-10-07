@@ -342,5 +342,17 @@ window.I18N.de = {
   "hub.empty": "Hier ist noch nichts. Neue Materialien kommen regelmäßig dazu.",
   "hub.open": "Öffnen",
   "hub.download": "Herunterladen",
-  "hub.help": "Brauchst du Hilfe? Schreib an"
+  "hub.help": "Brauchst du Hilfe? Schreib an",
+
+  /* ---------- Protected viewer ---------- */
+  "hub.view": "Lesen",
+  "hub.viewonly": "Öffnet auf der Website, nur zum Lesen",
+  "hub.downloadable": "Öffnet auf der Website, Download erlaubt",
+  "view.back": "Zurück zu meinen Materialien",
+  "view.loading": "Material wird geöffnet …",
+  "view.note": "Dieses Material öffnet sich nur auf der Website. Deine E-Mail-Adresse steht auf jeder Seite, bitte behalte es für dich.",
+  "view.pages": "{n} Seiten",
+  "view.unsupported": "Diese Datei lässt sich auf der Website nicht anzeigen. Bitte frag uns danach.",
+  "view.error": "Dieses Material ist für dein Konto nicht verfügbar.",
+  "view.error.title": "Nicht verfügbar"
 };

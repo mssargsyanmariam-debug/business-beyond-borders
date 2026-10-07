@@ -325,23 +325,26 @@ function materialCard(m) {
     }
   }
 
+  // Files are never handed over as a link: they open in our own protected
+  // viewer, which draws them on screen with the member's email across them.
+  if (m.kind === "file") {
+    const open = document.createElement("a");
+    open.className = "btn btn--ghost btn--sm";
+    open.href = `view.html?id=${encodeURIComponent(m.id)}`;
+    open.textContent = t("hub.view");
+    card.append(open);
+    const note = document.createElement("p");
+    note.className = "material__note";
+    note.textContent = m.allow_download ? t("hub.downloadable") : t("hub.viewonly");
+    card.append(note);
+    return card;
+  }
+
   const action = document.createElement("button");
   action.type = "button";
   action.className = "btn btn--ghost btn--sm";
-  action.textContent = m.kind === "file" ? t("hub.download") : t("hub.open");
-  action.addEventListener("click", async () => {
-    if (m.kind === "file" && m.storage_path) {
-      action.disabled = true;
-      // A one-hour private link, created for this member only.
-      const { data, error } = await sb.storage.from("member-files").createSignedUrl(m.storage_path, 3600);
-      action.disabled = false;
-      if (error || !data) {
-        action.textContent = t("login.error.generic");
-        return;
-      }
-      window.open(data.signedUrl, "_blank", "noopener");
-      return;
-    }
+  action.textContent = t("hub.open");
+  action.addEventListener("click", () => {
     if (m.url) window.open(m.url, "_blank", "noopener");
   });
   card.append(action);

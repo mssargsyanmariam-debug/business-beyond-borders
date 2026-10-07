@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Set a new password | Business Beyond Borders</title>
+  <title>Material | Business Beyond Borders</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0D152C">
   <meta name="color-scheme" content="dark">
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
   <link rel="stylesheet" href="../assets/css/styles.css?v=13">
 </head>
-<body data-page="members" data-member="reset" data-fixed-meta>
+<body data-page="members" data-member="view" data-fixed-meta>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header site-header--slim">
@@ -38,35 +38,28 @@
             <option value="ar" lang="ar">العربية</option>
           </select>
         </div>
-        <a class="btn btn--ghost btn--sm" href="login.html" data-i18n="login.title">Member login</a>
+        <a class="btn btn--ghost btn--sm" href="./" data-i18n="view.back">Back to my materials</a>
       </div>
     </div>
   </header>
 
   <main id="main" class="member-main">
-    <div class="container container--narrow">
+    <div class="container">
       <div class="member-panel member-panel--center" data-members-soon hidden>
         <h1 data-i18n="members.soon.title">The member area opens soon</h1>
         <p data-i18n="members.soon.text">We are finishing the last step of the set-up.</p>
       </div>
 
       <div data-needs-supabase>
-        <h1 class="member-title" data-i18n="reset.title">Set a new password</h1>
-        <div class="member-panel">
-          <form data-form="reset" novalidate>
-            <div class="field">
-              <label for="reset-password" data-i18n="reset.password">New password</label>
-              <input id="reset-password" name="password" type="password" autocomplete="new-password" required>
-              <p class="field-hint" data-i18n="login.hint.password">At least 8 characters.</p>
-            </div>
-            <div class="field">
-              <label for="reset-password2" data-i18n="reset.repeat">Repeat the new password</label>
-              <input id="reset-password2" name="password2" type="password" autocomplete="new-password" required>
-            </div>
-            <button class="btn btn--primary btn--block" type="submit" data-i18n="reset.submit">Save new password</button>
-          </form>
-          <p class="form-status" data-reset-status role="status" aria-live="polite"></p>
-        </div>
+        <h1 class="member-title" data-view-title data-i18n="members.loading">Loading…</h1>
+        <p class="muted" data-view-description></p>
+        <p class="field-hint" data-view-note hidden data-i18n="view.note">This material opens inside the website only. Your email address is shown on every page, so please do not share screenshots.</p>
+        <p class="form-status" data-view-status role="status" aria-live="polite"></p>
+
+        <!-- the document itself; nothing here is a link, so there is no address to pass on -->
+        <div class="viewer" data-viewer hidden></div>
+
+        <div data-view-actions hidden></div>
       </div>
     </div>
   </main>
@@ -81,6 +74,7 @@
   </footer>
 
   <script>window.BBB_CONTENT_URL = "../content.json";</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="../assets/js/sprite.js?v=13"></script>
   <script src="../assets/js/lang/en.js?v=13"></script>
   <script src="../assets/js/lang/hy.js?v=13"></script>
@@ -93,6 +87,6 @@
   <script src="../assets/js/lang/ar.js?v=13"></script>
   <script src="../assets/js/main.js?v=13"></script>
   <script src="../assets/js/members-config.js?v=13"></script>
-  <script type="module" src="../assets/js/members.js?v=13"></script>
+  <script type="module" src="../assets/js/members-view.js?v=13"></script>
 </body>
 </html>

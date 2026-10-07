@@ -342,5 +342,17 @@ window.I18N.zh = {
   "hub.empty": "这里还是空的，我们会定期添加新资料。",
   "hub.open": "打开",
   "hub.download": "下载",
-  "hub.help": "需要帮助？请联系"
+  "hub.help": "需要帮助？请联系",
+
+  /* ---------- Protected viewer ---------- */
+  "hub.view": "阅读",
+  "hub.viewonly": "在网站内打开，仅供阅读",
+  "hub.downloadable": "在网站内打开，允许下载",
+  "view.back": "返回我的资料",
+  "view.loading": "正在打开资料…",
+  "view.note": "本资料仅在网站内打开。每一页都会显示您的邮箱地址，请勿外传。",
+  "view.pages": "共 {n} 页",
+  "view.unsupported": "该文件无法在网站内显示，请联系我们索取。",
+  "view.error": "您的账户无法查看此资料。",
+  "view.error.title": "无法查看"
 };

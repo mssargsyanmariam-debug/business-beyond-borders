@@ -99,12 +99,33 @@ member, switch to the Pro plan ($25/month) — it never pauses, and keeps daily 
 ### Add materials
 `members/admin.html` → **Materials**:
 - **Video** — paste an unlisted YouTube or a private Vimeo link. It plays inside your member area.
-- **File** — upload a PDF or slides. Members get a private link that works for one hour only, so
-  the file cannot be passed around by copying the address.
+- **File** — upload a PDF or an image. Members read it on your website in a protected viewer; they
+  never receive the file itself. Tick "Also let members download this file" only when you want them
+  to keep a copy (templates, checklists). Slides and Word documents cannot be drawn on screen, so
+  save them as PDF first.
 - **Link** — a Zoom room, a Notion page, anything else.
 
 Choose **Beyond Mastermind only** if a material is for the higher tier. Everything else is visible
 to every member, whichever plan they are on.
+
+### How protected your materials really are
+
+What the website does for every file:
+- it is kept in a private store — there is no web address that opens it, for anyone;
+- the member's browser is given a link that lives for **two minutes**, is used once to draw the
+  document on screen, and never appears in the page, so there is nothing to copy or forward;
+- PDFs and images are painted onto the page as a picture, so there is no file in the browser and
+  no download button;
+- every page carries the member's own email address and the date, faint but readable;
+- right-click, dragging and text selection are switched off.
+
+What nothing can prevent: a photo of the screen or a screen recording. That is true of Netflix as
+much as of your site. The watermark is the answer to it — anything that leaks points straight back
+to one member, which is what actually stops people from passing material around.
+
+**Videos:** an unlisted YouTube link still works for anyone who gets hold of it. If a course is
+worth protecting, put its videos on **Vimeo** (from about $12/month) and switch on "only play on
+these domains". The video then refuses to play anywhere except your website.
 
 ### Sell a course later with 1 year of access
 1. **Courses & products** tab → add the course (name + a short code like `course-linkedin`).

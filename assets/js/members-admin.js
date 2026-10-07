@@ -247,6 +247,7 @@ $("[data-material-form]").addEventListener("submit", async (e) => {
     product: form.product.value,
     min_tier: form.min_tier.value,
     published: form.published.checked,
+    allow_download: kind === "file" ? form.allow_download.checked : false,
     position: Date.now() % 100000,
   });
   button.disabled = false;
@@ -278,8 +279,8 @@ async function renderMaterials() {
       <div class="member__top">
         <strong>${esc(m.title)}</strong>
         <span class="muted small">${esc(productName(m.product))} · ${esc(m.kind)} · ${
-      m.min_tier === "beyond" ? "Beyond only" : "all members"
-    }</span>
+      m.min_tier === "beyond" ? "Beyond Mastermind only" : "all members"
+    }${m.kind === "file" ? (m.allow_download ? " · downloadable" : " · view only") : ""}</span>
         <span class="pill ${m.published ? "" : "pill--none"}">${m.published ? "visible" : "hidden"}</span>
       </div>
       ${m.description ? `<p class="muted small">${esc(m.description)}</p>` : ""}

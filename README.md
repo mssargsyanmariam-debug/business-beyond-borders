@@ -38,6 +38,12 @@ Accounts, passwords and who-paid-for-what live in Supabase; the pages stay on th
 what each person may read, so the gating cannot be bypassed from the browser. A course is just another
 "product": add it, add its materials, then give each buyer 1 year of access.
 
+Uploaded files are never handed to the browser as files. `members/view.html` fetches them with a
+two-minute private link, draws PDFs and images onto a canvas and stamps the member's email across
+every page; selection, dragging and right-click are off. Per material you choose the lowest plan
+that may see it (`min_tier`) and whether a download is allowed at all (`allow_download`, off by
+default).
+
 While `members-config.js` is empty, every member page shows a polite "opens soon" message, so it is safe
 to have live before the set-up is done.
 
