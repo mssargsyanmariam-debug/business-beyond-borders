@@ -1,15 +1,19 @@
 # Logo files
 
+Built to match the business card: navy `#0C162E`, red `#D61E25`, white.
+The map is the real coastline outline (Natural Earth, public domain), flat and
+cropped above Antarctica — the same treatment as the card.
+
 | File | Use it for |
 | --- | --- |
-| `bbb-avatar.png` (1000×1000) | Profile pictures: WhatsApp channel, LinkedIn page, Instagram. Designed so nothing is cut when the picture is cropped to a circle. |
-| `bbb-avatar-512.png` | The same, smaller, for anywhere that asks for a small file. |
-| `bbb-logo.png` (1000×1000) | The full logo on its dark card: slides, LinkedIn posts, covers. |
-| `bbb-logo-light.png` | The full logo with a see-through background, for white pages and documents. |
-| `bbb-wordmark.png` | Wide version for dark backgrounds: website header, email signature, video intros. |
-| `bbb-wordmark-light.png` | Wide version for white backgrounds: invoices, letters, printed material. |
+| `bbb-avatar.png` (1000×1000) | Profile pictures: WhatsApp channel, LinkedIn, Instagram. The letters stay well inside the circle crop. |
+| `bbb-avatar-512.png` | The same, smaller. |
+| `bbb-logo.png` (1000×1000) | The full logo: map, the three B's, and each word under its own B. Slides, posts, covers. |
+| `bbb-logo-light.png` | The same with a see-through background, for white pages and documents. |
+| `bbb-wordmark.png` | Wide banner for dark use: website header, email signature, LinkedIn cover. |
+| `bbb-wordmark-light.png` | Wide version for white backgrounds and print. |
 
-Colours: navy `#0D152C`, red `#E11D3C`, ocean blue `#1A3A7A`, soft red `#FF6B80`.
 Type: Archivo (free, Google Fonts) — Black for the B's, ExtraBold for the words.
 
-The country borders are real: they come from the Natural Earth public-domain map.
+Note: the website's accent red is currently `#E11D3C`, slightly pinker than the
+card's `#D61E25`. Worth aligning them to one red.
