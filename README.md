@@ -18,6 +18,8 @@ Live: https://mssargsyanmariam-debug.github.io/business-beyond-borders/
 | Header, footer and dialogs on every page | Edit them in `index.html`, then re-run `python .claude/build-pages.py` |
 | Icons | `assets/js/sprite.js`, injected into every page |
 | Colours, fonts, layout | `assets/css/styles.css` |
+| Brand colours | navy `#0C162E`, red `#D61E25` — both taken from the business card. The red family lives in the `:root` block of `styles.css` |
+| Logo files | `assets/img/logo/` (PNG, SVG and a zip, with a guide) |
 | Founder photo | `assets/img/founder.jpg` |
 | Legal pages | `privacy.html`, `terms.html` (refund guarantee under `#refunds`) |
 | Keyword research | `research/keywords.md` |
