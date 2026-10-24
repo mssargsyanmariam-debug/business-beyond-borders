@@ -109,10 +109,6 @@
       "caption": "Podcast, Germany"
     },
     {
-      "file": "assets/img/trainings/training-online-am.jpg",
-      "caption": "Teach for Armenia — online session"
-    },
-    {
       "file": "assets/img/trainings/training-11.jpg",
       "caption": "American University of Armenia"
     },
@@ -259,6 +255,26 @@
     {
       "file": "assets/img/trainings/training-gopeak-06.jpg",
       "caption": "GoPeak — LinkedIn training"
+    },
+    {
+      "file": "assets/img/trainings/training-tfa-03.jpg",
+      "caption": "Teach for Armenia — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-online-am.jpg",
+      "caption": "Teach for Armenia — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-tfa-01.jpg",
+      "caption": "Teach for Armenia — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-tfa-02.jpg",
+      "caption": "Teach for Armenia — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-change-06.jpg",
+      "caption": "Change Consulting — LinkedIn training"
     }
   ],
   "videos": [],
