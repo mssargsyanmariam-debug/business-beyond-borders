@@ -2222,3 +2222,5 @@ body::after {
   .lightbox__nav--prev { left: 22px; }
   .lightbox__nav--next { right: 22px; }
 }
+/* Phone photos are tall; bias the crop upwards so faces are not cut off. */
+.gallery__item img { object-position: 50% 32%; }
