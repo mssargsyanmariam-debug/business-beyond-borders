@@ -1,52 +1,52 @@
 {
   "gallery": [
     {
-      "file": "assets/img/trainings/training-05.jpg",
-      "caption": "Group photo after a LinkedIn session"
-    },
-    {
-      "file": "assets/img/trainings/training-30.jpg",
-      "caption": "Speaking to a full room"
+      "file": "assets/img/trainings/training-03.jpg",
+      "caption": "Workshop"
     },
     {
       "file": "assets/img/trainings/training-09.jpg",
-      "caption": "LinkedIn training session"
+      "caption": "University lecture"
     },
     {
-      "file": "assets/img/trainings/training-07.jpg",
-      "caption": "LinkedIn workshop, full room"
+      "file": "assets/img/trainings/training-13.jpg",
+      "caption": "LinkedIn session"
     },
     {
-      "file": "assets/img/trainings/training-35.jpg",
-      "caption": "Workshop in progress"
+      "file": "assets/img/trainings/training-14.jpg",
+      "caption": "After the session"
     },
     {
-      "file": "assets/img/trainings/training-28.jpg",
-      "caption": "Presenting personal branding"
-    },
-    {
-      "file": "assets/img/trainings/training-33.jpg",
-      "caption": "Training session with the audience"
+      "file": "assets/img/trainings/training-22.jpg",
+      "caption": "LinkedIn training"
     },
     {
       "file": "assets/img/trainings/training-24.jpg",
-      "caption": "Hands-on workshop with laptops"
+      "caption": "Personal branding session"
     },
     {
-      "file": "assets/img/trainings/training-40.jpg",
+      "file": "assets/img/trainings/training-39.jpg",
+      "caption": "Hands-on training"
+    },
+    {
+      "file": "assets/img/trainings/training-42.jpg",
+      "caption": "With the group"
+    },
+    {
+      "file": "assets/img/trainings/training-44.jpg",
+      "caption": "Keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-49.jpg",
+      "caption": "Workshop for founders"
+    },
+    {
+      "file": "assets/img/trainings/training-16.jpg",
+      "caption": "Group session"
+    },
+    {
+      "file": "assets/img/trainings/training-56.jpg",
       "caption": "Podcast interview"
-    },
-    {
-      "file": "assets/img/trainings/training-03.jpg",
-      "caption": "Guest lecture"
-    },
-    {
-      "file": "assets/img/trainings/training-31.jpg",
-      "caption": "Opening a training session"
-    },
-    {
-      "file": "assets/img/trainings/training-38.jpg",
-      "caption": "LinkedIn strategy session"
     }
   ],
   "videos": [],
