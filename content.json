@@ -5,26 +5,6 @@
       "caption": "American University of Armenia"
     },
     {
-      "file": "assets/img/trainings/training-13.jpg",
-      "caption": "American University of Armenia"
-    },
-    {
-      "file": "assets/img/trainings/training-14.jpg",
-      "caption": "American University of Armenia"
-    },
-    {
-      "file": "assets/img/trainings/training-11.jpg",
-      "caption": "American University of Armenia"
-    },
-    {
-      "file": "assets/img/trainings/training-12.jpg",
-      "caption": "American University of Armenia"
-    },
-    {
-      "file": "assets/img/trainings/training-15.jpg",
-      "caption": "American University of Armenia"
-    },
-    {
       "file": "assets/img/trainings/training-01.jpg",
       "caption": "American University of Armenia"
     },
@@ -43,22 +23,6 @@
     {
       "file": "assets/img/trainings/training-06.jpg",
       "caption": "American University of Armenia"
-    },
-    {
-      "file": "assets/img/trainings/training-09.jpg",
-      "caption": "Born Global Meetup, Germany — keynote"
-    },
-    {
-      "file": "assets/img/trainings/training-07.jpg",
-      "caption": "Born Global Meetup, Germany — keynote"
-    },
-    {
-      "file": "assets/img/trainings/training-08.jpg",
-      "caption": "Born Global Meetup, Germany — keynote"
-    },
-    {
-      "file": "assets/img/trainings/training-10.jpg",
-      "caption": "Born Global Meetup, Germany — keynote"
     },
     {
       "file": "assets/img/trainings/training-24.jpg",
@@ -159,6 +123,42 @@
     {
       "file": "assets/img/trainings/training-ny-03.jpg",
       "caption": "Accelerator Circle, New York — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-11.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-12.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-15.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-13.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-14.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-09.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-07.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-08.jpg",
+      "caption": "Born Global Meetup — keynote"
+    },
+    {
+      "file": "assets/img/trainings/training-10.jpg",
+      "caption": "Born Global Meetup — keynote"
     }
   ],
   "videos": [],
