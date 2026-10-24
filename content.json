@@ -145,12 +145,20 @@
       "caption": "Podcast, Germany"
     },
     {
-      "file": "assets/img/trainings/training-online-ny.jpg",
+      "file": "assets/img/trainings/training-online-am.jpg",
+      "caption": "Teach for Armenia — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-ny-01.jpg",
       "caption": "Accelerator Circle, New York — online session"
     },
     {
-      "file": "assets/img/trainings/training-online-am.jpg",
-      "caption": "Teach for Armenia — online session"
+      "file": "assets/img/trainings/training-ny-02.jpg",
+      "caption": "Accelerator Circle, New York — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-ny-03.jpg",
+      "caption": "Accelerator Circle, New York — online session"
     }
   ],
   "videos": [],
