@@ -2136,3 +2136,16 @@ body::after {
 .qa-card__waiting { color: var(--muted); font-size: 0.92rem; font-style: italic; }
 .slots { font-weight: 700; color: var(--success); }
 .slots[data-state="full"] { color: var(--muted); }
+
+/* A real photo fills the tall feature tile instead of empty space. */
+.tile__photo { margin: auto 0 0; padding-top: 24px; }
+.tile__photo img {
+  display: block;
+  width: 100%;
+  /* height:auto lets aspect-ratio win over the img height attribute */
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--r);
+  border: 1px solid var(--line);
+}

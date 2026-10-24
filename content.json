@@ -1,5 +1,54 @@
 {
-  "gallery": [],
+  "gallery": [
+    {
+      "file": "assets/img/trainings/training-05.jpg",
+      "caption": "Group photo after a LinkedIn session"
+    },
+    {
+      "file": "assets/img/trainings/training-30.jpg",
+      "caption": "Speaking to a full room"
+    },
+    {
+      "file": "assets/img/trainings/training-09.jpg",
+      "caption": "LinkedIn training session"
+    },
+    {
+      "file": "assets/img/trainings/training-07.jpg",
+      "caption": "LinkedIn workshop, full room"
+    },
+    {
+      "file": "assets/img/trainings/training-35.jpg",
+      "caption": "Workshop in progress"
+    },
+    {
+      "file": "assets/img/trainings/training-28.jpg",
+      "caption": "Presenting personal branding"
+    },
+    {
+      "file": "assets/img/trainings/training-33.jpg",
+      "caption": "Training session with the audience"
+    },
+    {
+      "file": "assets/img/trainings/training-24.jpg",
+      "caption": "Hands-on workshop with laptops"
+    },
+    {
+      "file": "assets/img/trainings/training-40.jpg",
+      "caption": "Podcast interview"
+    },
+    {
+      "file": "assets/img/trainings/training-03.jpg",
+      "caption": "Guest lecture"
+    },
+    {
+      "file": "assets/img/trainings/training-31.jpg",
+      "caption": "Opening a training session"
+    },
+    {
+      "file": "assets/img/trainings/training-38.jpg",
+      "caption": "LinkedIn strategy session"
+    }
+  ],
   "videos": [],
   "testimonials": [],
   "text": {},

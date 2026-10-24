@@ -9,6 +9,8 @@ src = io.open("index.html", encoding="utf-8").read()
 
 head = src[: src.index("</head>") + len("</head>")]
 header = re.search(r'  <header class="site-header">.*?</header>\n', src, re.S).group(0)
+# "About" lives on the home page, so on the other pages it has to point back there.
+header = header.replace('href="#about"', 'href="index.html#about"')
 footer = re.search(r'  <footer class="site-footer">.*?</footer>\n', src, re.S).group(0)
 dialogs = src[src.index('  <dialog class="modal" id="checkout-soon"') : src.index('  <script src="assets/js/sprite.js')]
 scripts = src[src.index('  <script src="assets/js/sprite.js') :]
@@ -97,6 +99,9 @@ TILES = """
             <div class="tile__icon"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></div>
             <h3 data-i18n="f1.title"></h3>
             <p data-i18n="f1.text"></p>
+            <figure class="tile__photo">
+              <img src="assets/img/trainings/training-07.jpg" alt="Mariam Sargsyan running a LinkedIn session for a full room" width="1600" height="1200" loading="lazy">
+            </figure>
           </article>
           <article class="tile tile--side">
             <div class="tile__icon"><svg class="icon" aria-hidden="true"><use href="#i-bulb"/></svg></div>
