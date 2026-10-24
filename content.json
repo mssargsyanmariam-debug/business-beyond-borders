@@ -102,35 +102,35 @@
     },
     {
       "file": "assets/img/trainings/training-22.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-49.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-23.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-46.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-50.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-51.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-54.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-55.jpg",
-      "caption": "Female entrepreneurship keynote"
+      "caption": "Female entrepreneurship workshop"
     },
     {
       "file": "assets/img/trainings/training-42.jpg",
@@ -143,6 +143,14 @@
     {
       "file": "assets/img/trainings/training-56.jpg",
       "caption": "Podcast, Germany"
+    },
+    {
+      "file": "assets/img/trainings/training-online-ny.jpg",
+      "caption": "Accelerator Circle, New York — online session"
+    },
+    {
+      "file": "assets/img/trainings/training-online-am.jpg",
+      "caption": "Teach for Armenia — online session"
     }
   ],
   "videos": [],
