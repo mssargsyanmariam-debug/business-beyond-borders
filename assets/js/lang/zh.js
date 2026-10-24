@@ -421,5 +421,13 @@ window.I18N.zh = {
   "check.book": "预约检查",
   "check.booked": "已预约。Mariam 本周会看你的主页。",
   "check.error.url": "请粘贴你的 LinkedIn 主页地址。",
-  "check.error.quota": "本周没有名额了，或者你在最近三个月已经预约过。"
+  "check.error.quota": "本周没有名额了，或者你在最近三个月已经预约过。",
+
+  /* ---------- Photo viewer ---------- */
+  "gallery.photos": "{n} 张照片",
+  "gallery.counter": "第 {i} / {n} 张",
+  "gallery.open": "查看照片",
+  "gallery.close": "关闭",
+  "gallery.prev": "上一张",
+  "gallery.next": "下一张"
 };

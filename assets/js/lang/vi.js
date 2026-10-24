@@ -421,5 +421,13 @@ window.I18N.vi = {
   "check.book": "Đặt chỗ kiểm tra",
   "check.booked": "Đã đặt. Mariam sẽ xem hồ sơ của bạn trong tuần này.",
   "check.error.url": "Hãy dán địa chỉ hồ sơ LinkedIn của bạn.",
-  "check.error.quota": "Tuần này hết chỗ, hoặc bạn đã đặt trong ba tháng qua."
+  "check.error.quota": "Tuần này hết chỗ, hoặc bạn đã đặt trong ba tháng qua.",
+
+  /* ---------- Photo viewer ---------- */
+  "gallery.photos": "{n} ảnh",
+  "gallery.counter": "{i}/{n}",
+  "gallery.open": "Xem ảnh",
+  "gallery.close": "Đóng",
+  "gallery.prev": "Ảnh trước",
+  "gallery.next": "Ảnh tiếp theo"
 };

@@ -424,5 +424,13 @@ window.I18N.en = {
   "check.book": "Book my check",
   "check.booked": "Booked. Mariam goes through your profile this week.",
   "check.error.url": "Paste the address of your LinkedIn profile.",
-  "check.error.quota": "No place left this week, or you booked one in the last three months."
+  "check.error.quota": "No place left this week, or you booked one in the last three months.",
+
+  /* ---------- Photo viewer ---------- */
+  "gallery.photos": "{n} photos",
+  "gallery.counter": "{i} of {n}",
+  "gallery.open": "Open the photos",
+  "gallery.close": "Close",
+  "gallery.prev": "Previous photo",
+  "gallery.next": "Next photo"
 };

@@ -2149,3 +2149,76 @@ body::after {
   border-radius: var(--r);
   border: 1px solid var(--line);
 }
+
+/* ---------- Gallery tiles and the photo viewer ---------- */
+.gallery__open {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.gallery__open img { transition: transform 0.4s var(--ease-out); }
+.gallery__open:hover img { transform: scale(1.04); }
+.gallery__count {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(12, 22, 46, 0.82);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: clamp(12px, 3vw, 40px);
+  background: rgba(2, 4, 10, 0.94);
+  backdrop-filter: blur(8px);
+}
+.lightbox__figure { grid-column: 2; margin: 0; display: grid; gap: 14px; justify-items: center; }
+.lightbox__figure img {
+  max-width: 100%;
+  max-height: 78vh;
+  border-radius: var(--r);
+  object-fit: contain;
+}
+.lightbox__figure figcaption { color: var(--text-soft); font-weight: 600; text-align: center; }
+.lightbox__nav,
+.lightbox__close {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox__nav:hover,
+.lightbox__close:hover { background: rgba(255, 255, 255, 0.16); }
+.lightbox__nav--prev::before { content: "\2039"; }
+.lightbox__nav--next::before { content: "\203A"; }
+.lightbox__close::before { content: "\00D7"; }
+.lightbox__close { position: absolute; top: clamp(12px, 3vw, 28px); right: clamp(12px, 3vw, 28px); }
+@media (max-width: 640px) {
+  .lightbox { grid-template-columns: 1fr; }
+  .lightbox__figure { grid-column: 1; }
+  .lightbox__nav { position: absolute; bottom: 22px; }
+  .lightbox__nav--prev { left: 22px; }
+  .lightbox__nav--next { right: 22px; }
+}

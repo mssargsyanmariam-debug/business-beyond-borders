@@ -421,5 +421,13 @@ window.I18N.ar = {
   "check.book": "احجز مراجعتي",
   "check.booked": "تم الحجز. ستطّلع مريم على ملفك هذا الأسبوع.",
   "check.error.url": "الصق عنوان ملفك على LinkedIn.",
-  "check.error.quota": "لا مكان هذا الأسبوع، أو أنك حجزت خلال الأشهر الثلاثة الماضية."
+  "check.error.quota": "لا مكان هذا الأسبوع، أو أنك حجزت خلال الأشهر الثلاثة الماضية.",
+
+  /* ---------- Photo viewer ---------- */
+  "gallery.photos": "{n} صور",
+  "gallery.counter": "{i} من {n}",
+  "gallery.open": "عرض الصور",
+  "gallery.close": "إغلاق",
+  "gallery.prev": "الصورة السابقة",
+  "gallery.next": "الصورة التالية"
 };

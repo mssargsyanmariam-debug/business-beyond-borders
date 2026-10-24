@@ -421,5 +421,13 @@ window.I18N.de = {
   "check.book": "Platz buchen",
   "check.booked": "Gebucht. Mariam sieht sich dein Profil diese Woche an.",
   "check.error.url": "Füge die Adresse deines LinkedIn-Profils ein.",
-  "check.error.quota": "Diese Woche ist kein Platz frei, oder du hattest in den letzten drei Monaten schon einen."
+  "check.error.quota": "Diese Woche ist kein Platz frei, oder du hattest in den letzten drei Monaten schon einen.",
+
+  /* ---------- Photo viewer ---------- */
+  "gallery.photos": "{n} Fotos",
+  "gallery.counter": "{i} von {n}",
+  "gallery.open": "Fotos öffnen",
+  "gallery.close": "Schließen",
+  "gallery.prev": "Vorheriges Foto",
+  "gallery.next": "Nächstes Foto"
 };

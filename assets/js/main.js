@@ -484,24 +484,139 @@ function renderTestimonials() {
 function renderGallery() {
   const list = document.querySelector("[data-gallery]");
   if (!list) return;
-  const items = CONTENT.gallery || [];
+  const items = (CONTENT.gallery || []).filter((item) => item && item.file);
   list.replaceChildren();
   list.hidden = items.length === 0;
+  if (!items.length) return;
+
+  // Photos that share a caption are one training, in the order they appear.
+  const albums = [];
   items.forEach((item) => {
+    const name = (item.caption || "").trim();
+    let album = albums.find((a) => a.name === name);
+    if (!album) {
+      album = { name, photos: [] };
+      albums.push(album);
+    }
+    album.photos.push(item);
+  });
+
+  albums.forEach((album, index) => {
     const li = document.createElement("li");
     li.className = "gallery__item";
+
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "gallery__open";
+    open.setAttribute("aria-label", album.name || t("gallery.open"));
+
     const img = document.createElement("img");
-    img.src = item.file;
-    img.alt = item.caption || "";
+    img.src = album.photos[0].file;
+    img.alt = album.name || "";
     img.loading = "lazy";
-    li.appendChild(img);
-    if (item.caption) {
+    open.appendChild(img);
+
+    if (album.photos.length > 1) {
+      const count = document.createElement("span");
+      count.className = "gallery__count";
+      count.textContent = t("gallery.photos").replace("{n}", album.photos.length);
+      open.appendChild(count);
+    }
+    open.addEventListener("click", () => openAlbum(albums, index, 0));
+    li.appendChild(open);
+
+    if (album.name) {
       const caption = document.createElement("span");
-      caption.textContent = item.caption;
+      caption.textContent = album.name;
       li.appendChild(caption);
     }
     list.appendChild(li);
   });
+}
+
+/* ---------- Photo viewer: arrows, swipe, Escape ---------- */
+let lightbox = null;
+let album = { photos: [], index: 0, name: "" };
+
+function buildLightbox() {
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.hidden = true;
+  box.innerHTML =
+    '<button type="button" class="lightbox__close" data-lb-close></button>' +
+    '<button type="button" class="lightbox__nav lightbox__nav--prev" data-lb-prev></button>' +
+    '<figure class="lightbox__figure"><img alt=""><figcaption></figcaption></figure>' +
+    '<button type="button" class="lightbox__nav lightbox__nav--next" data-lb-next></button>';
+  document.body.appendChild(box);
+
+  box.querySelector("[data-lb-close]").addEventListener("click", closeAlbum);
+  box.querySelector("[data-lb-prev]").addEventListener("click", () => step(-1));
+  box.querySelector("[data-lb-next]").addEventListener("click", () => step(1));
+  box.addEventListener("click", (e) => {
+    if (e.target === box) closeAlbum();
+  });
+
+  // swipe on a phone
+  let startX = null;
+  box.addEventListener("touchstart", (e) => {
+    startX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  box.addEventListener("touchend", (e) => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
+    startX = null;
+  }, { passive: true });
+
+  document.addEventListener("keydown", (e) => {
+    if (box.hidden) return;
+    if (e.key === "Escape") closeAlbum();
+    if (e.key === "ArrowRight") step(1);
+    if (e.key === "ArrowLeft") step(-1);
+  });
+  return box;
+}
+
+function openAlbum(albums, albumIndex, photoIndex) {
+  if (!lightbox) lightbox = buildLightbox();
+  const picked = albums[albumIndex];
+  album = { photos: picked.photos, index: photoIndex, name: picked.name };
+  lightbox.hidden = false;
+  document.body.style.overflow = "hidden";
+  showPhoto();
+  lightbox.querySelector("[data-lb-close]").focus();
+}
+
+function closeAlbum() {
+  if (!lightbox) return;
+  lightbox.hidden = true;
+  document.body.style.overflow = "";
+}
+
+function step(direction) {
+  if (!album.photos.length) return;
+  album.index = (album.index + direction + album.photos.length) % album.photos.length;
+  showPhoto();
+}
+
+function showPhoto() {
+  const photo = album.photos[album.index];
+  const img = lightbox.querySelector("img");
+  img.src = photo.file;
+  img.alt = album.name || "";
+  const many = album.photos.length > 1;
+  lightbox.querySelector("figcaption").textContent = many
+    ? `${album.name} · ${t("gallery.counter").replace("{i}", album.index + 1).replace("{n}", album.photos.length)}`
+    : album.name;
+  lightbox.querySelectorAll(".lightbox__nav").forEach((b) => (b.hidden = !many));
+  lightbox.querySelector("[data-lb-close]").setAttribute("aria-label", t("gallery.close"));
+  lightbox.querySelector("[data-lb-prev]").setAttribute("aria-label", t("gallery.prev"));
+  lightbox.querySelector("[data-lb-next]").setAttribute("aria-label", t("gallery.next"));
+  // load the next one quietly, so swiping feels instant
+  if (many) {
+    const next = album.photos[(album.index + 1) % album.photos.length];
+    new Image().src = next.file;
+  }
 }
 
 function embedUrl(url) {

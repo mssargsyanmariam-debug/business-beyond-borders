@@ -421,5 +421,13 @@ window.I18N.es = {
   "check.book": "Reservar mi revisión",
   "check.booked": "Reservada. Mariam revisa tu perfil esta semana.",
   "check.error.url": "Pega la dirección de tu perfil de LinkedIn.",
-  "check.error.quota": "No quedan plazas esta semana, o ya reservaste en los últimos tres meses."
+  "check.error.quota": "No quedan plazas esta semana, o ya reservaste en los últimos tres meses.",
+
+  /* ---------- Photo viewer ---------- */
+  "gallery.photos": "{n} fotos",
+  "gallery.counter": "{i} de {n}",
+  "gallery.open": "Ver las fotos",
+  "gallery.close": "Cerrar",
+  "gallery.prev": "Foto anterior",
+  "gallery.next": "Foto siguiente"
 };
