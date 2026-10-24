@@ -186,27 +186,27 @@
     },
     {
       "file": "assets/img/trainings/training-ny-01.jpg",
-      "caption": "Accelerator Circle, New York — online session"
+      "caption": "Acceleration Circle, New York — online session"
     },
     {
       "file": "assets/img/trainings/training-ny-02.jpg",
-      "caption": "Accelerator Circle, New York — online session"
+      "caption": "Acceleration Circle, New York — online session"
     },
     {
       "file": "assets/img/trainings/training-ny-03.jpg",
-      "caption": "Accelerator Circle, New York — online session"
+      "caption": "Acceleration Circle, New York — online session"
     },
     {
       "file": "assets/img/trainings/training-ny-04.jpg",
-      "caption": "Accelerator Circle, New York — online session"
+      "caption": "Acceleration Circle, New York — online session"
     },
     {
       "file": "assets/img/trainings/training-ny-05.jpg",
-      "caption": "Accelerator Circle, New York — online session"
+      "caption": "Acceleration Circle, New York — online session"
     },
     {
       "file": "assets/img/trainings/training-ny-06.jpg",
-      "caption": "Accelerator Circle, New York — online session"
+      "caption": "Acceleration Circle, New York — online session"
     },
     {
       "file": "assets/img/trainings/training-leipzig-01.jpg",
@@ -275,6 +275,14 @@
     {
       "file": "assets/img/trainings/training-change-06.jpg",
       "caption": "Change Consulting — LinkedIn training"
+    },
+    {
+      "file": "assets/img/trainings/training-kommuna-01.jpg",
+      "caption": "Kommuna Home — LinkedIn training"
+    },
+    {
+      "file": "assets/img/trainings/training-ny-07.jpg",
+      "caption": "Acceleration Circle, New York — online session"
     }
   ],
   "videos": [],
