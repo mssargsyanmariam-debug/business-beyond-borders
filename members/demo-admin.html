@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Members admin | Business Beyond Borders</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+  <style>
+    :root {
+      --bg: #05070f; --panel: #0b1020; --line: rgba(255,255,255,.1);
+      --text: #f3f6ff; --muted: #98a4c2; --accent: #d61e25; --electric: #4d8cff;
+      --success: #6fd3a0; --danger: #ff8a95; --r: 12px;
+      --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.55; }
+    a { color: var(--electric); }
+    h2 { font-size: 1.15rem; margin: 0 0 12px; }
+    .wrap { width: min(100% - 32px, 1040px); margin-inline: auto; padding-block: 28px 64px; }
+    header.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+    header.bar h1 { font-size: 1.25rem; margin: 0; }
+    header.bar .who { margin-left: auto; color: var(--muted); font-size: .9rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border: 1px solid transparent; border-radius: var(--r); font: inherit; font-weight: 700; cursor: pointer; text-decoration: none; }
+    .btn--primary { background: linear-gradient(135deg, #ff2e36, #c11017); color: #fff; }
+    .btn--ghost { border-color: rgba(255,255,255,.25); background: transparent; color: var(--text); }
+    .btn--small { min-height: 36px; padding: 6px 12px; font-size: .9rem; }
+    .btn--danger { border-color: rgba(255,138,149,.5); color: var(--danger); background: transparent; }
+    .btn[disabled] { opacity: .6; cursor: progress; }
+    label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: 6px; color: #dbe3f7; }
+    input, textarea, select { width: 100%; min-height: 46px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.22); border-radius: var(--r); background: rgba(3,5,12,.6); color: #fff; font: inherit; }
+    textarea { min-height: 90px; resize: vertical; }
+    .field { margin-bottom: 14px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .row--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .card { border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); padding: 20px; margin-bottom: 16px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+    .tabs button { min-height: 42px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; }
+    .tabs button[aria-selected="true"] { background: #fff; color: #05070f; border-color: #fff; }
+    .status { min-height: 24px; font-weight: 600; margin-top: 10px; }
+    .status[data-state="ok"] { color: var(--success); }
+    .status[data-state="error"] { color: var(--danger); }
+    .muted { color: var(--muted); }
+    .small { font-size: .9rem; }
+    .member { border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; background: rgba(255,255,255,.03); }
+    .member__top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+    .member__top strong { font-size: 1.05rem; }
+    .grant { display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 8px; align-items: end; margin-top: 12px; }
+    .grant label { font-size: .8rem; margin-bottom: 4px; }
+    .grant select { min-height: 40px; padding: 6px 10px; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 999px; background: rgba(111,211,160,.15); border: 1px solid rgba(111,211,160,.45); color: var(--success); font-size: .85rem; font-weight: 700; }
+    .pill--none { background: rgba(255,255,255,.06); border-color: var(--line); color: var(--muted); }
+    .access-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+    .hint { border-left: 3px solid var(--electric); padding: 10px 14px; background: rgba(77,140,255,.08); border-radius: 8px; color: #dbe3f7; }
+    .check { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+    .check input { width: 20px; height: 20px; min-height: 0; accent-color: var(--electric); }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    @media (max-width: 760px) { .row, .row--3, .grant { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-member="admin">
+<div style="position:sticky;top:0;z-index:999;background:#D61E25;color:#fff;font:600 14px/1.4 Archivo,system-ui,sans-serif;padding:10px 16px;text-align:center">EXAMPLE PAGE &mdash; the people and materials below are invented, and nothing here is connected. Your real page looks exactly like this, with your own members.</div>
+  <div class="wrap">
+    <header class="bar">
+      <h1>Members admin</h1>
+      <span class="who" data-who></span>
+      <button type="button" class="btn btn--ghost btn--small" data-logout hidden>Log out</button>
+      <a class="btn btn--ghost btn--small" href="../">Website</a>
+    </header>
+
+    <!-- not connected yet -->
+    <div class="card" data-setup hidden>
+      <h2>Not connected yet</h2>
+      <p class="muted">Paste your Supabase project URL and anon key into <code>assets/js/members-config.js</code>, then reload this page.
+      The steps are in <code>integrations/MEMBERS-SETUP.md</code>.</p>
+    </div>
+
+    <!-- log in -->
+    <div class="card" data-login hidden>
+      <h2>Log in</h2>
+      <form data-login-form>
+        <div class="field">
+          <label for="a-email">Email</label>
+          <input id="a-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="a-password">Password</label>
+          <input id="a-password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn btn--primary" type="submit">Log in</button>
+      </form>
+      <p class="status" data-login-status role="status" aria-live="polite"></p>
+      <p class="small muted">Use the account you created on the website. If it says you are not an admin, run the last line of
+      <code>integrations/members-schema.sql</code> in Supabase once.</p>
+    </div>
+
+    <!-- the panel -->
+    <div data-app hidden>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="members" aria-selected="true">Members</button>
+        <button type="button" role="tab" data-tab="intros" aria-selected="false">Intro requests <span data-intro-badge></span></button>
+        <button type="button" role="tab" data-tab="asks" aria-selected="false">Questions &amp; checks <span data-ask-badge></span></button>
+        <button type="button" role="tab" data-tab="materials" aria-selected="false">Materials</button>
+        <button type="button" role="tab" data-tab="products" aria-selected="false">Courses &amp; products</button>
+      </div>
+
+      <!-- MEMBERS -->
+      <section data-panel="members">
+        <div class="card">
+          <p class="hint small">Someone signs up on the website, you see them here, you switch their access on after they pay.
+          For a course, pick the course and <strong>1 year</strong>.</p>
+          <div class="field" style="margin:14px 0 0">
+            <label for="member-search">Search</label>
+            <input id="member-search" type="search" placeholder="Name or email">
+          </div>
+        </div>
+        <div data-members-list></div>
+        <p class="status" data-members-status role="status" aria-live="polite"></p>
+      </section>
+
+      <!-- INTRO REQUESTS -->
+      <section data-panel="intros" hidden>
+        <div class="card">
+          <p class="hint small">A Beyond member asked to meet someone. You decide, you make the introduction, then mark it
+          done here. Members never see each other's contact details, and the person asked about is never told.</p>
+        </div>
+        <div data-intros-list></div>
+        <p class="status" data-intros-status role="status" aria-live="polite"></p>
+      </section>
+
+      <!-- QUESTIONS AND PROFILE CHECKS -->
+      <section data-panel="asks" hidden>
+        <div class="card">
+          <p class="hint small">Questions are private between you and the member. Profile checks are limited to three a
+          week in total, and each member can book one every 90 days. Write the answer here and the member sees it in
+          their member area.</p>
+        </div>
+        <h2 style="margin-top:22px">Questions</h2>
+        <div data-questions-list></div>
+        <h2 style="margin-top:28px">Profile checks</h2>
+        <div data-reviews-list></div>
+        <p class="status" data-asks-status role="status" aria-live="polite"></p>
+      </section>
+
+      <!-- MATERIALS -->
+      <section data-panel="materials" hidden>
+        <div class="card">
+          <h2>Add a material</h2>
+          <form data-material-form>
+            <div class="field">
+              <label for="m-title">Title</label>
+              <input id="m-title" name="title" type="text" required>
+            </div>
+            <div class="field">
+              <label for="m-desc">Short description</label>
+              <textarea id="m-desc" name="description"></textarea>
+            </div>
+            <div class="row row--3">
+              <div class="field">
+                <label for="m-kind">Type</label>
+                <select id="m-kind" name="kind">
+                  <option value="video">Video (YouTube or Vimeo link)</option>
+                  <option value="file">File I upload (PDF, slides)</option>
+                  <option value="link">Link (Zoom, Notion, anything)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="m-product">Belongs to</label>
+                <select id="m-product" name="product"></select>
+              </div>
+              <div class="field">
+                <label for="m-tier">Lowest plan that sees it</label>
+                <select id="m-tier" name="min_tier">
+                  <option value="mastermind">The Mastermind (everyone)</option>
+                  <option value="beyond">Beyond Mastermind only</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" data-url-field>
+              <label for="m-url">Link</label>
+              <input id="m-url" name="url" type="url" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+            <div class="field" data-file-field hidden>
+              <label for="m-file">File</label>
+              <input id="m-file" name="file" type="file">
+              <p class="small muted">Stored privately. Members read it inside your website, with their own
+              email address stamped across every page. PDFs and images open in the protected viewer;
+              slides and documents are best saved as PDF first.</p>
+              <label class="check" style="margin-top:12px">
+                <input type="checkbox" name="allow_download">
+                <span>Also let members download this file (off = reading on the website only)</span>
+              </label>
+            </div>
+            <label class="check" style="margin-bottom:14px">
+              <input type="checkbox" name="published" checked>
+              <span>Visible to members</span>
+            </label>
+            <button class="btn btn--primary" type="submit">Add material</button>
+          </form>
+          <p class="status" data-material-status role="status" aria-live="polite"></p>
+        </div>
+        <div data-materials-list></div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section data-panel="products" hidden>
+        <div class="card">
+          <h2>Add a course or product</h2>
+          <p class="hint small">A course is just another product. Add it here, put its videos under Materials, then give each
+          buyer 1 year of access under Members.</p>
+          <form data-product-form style="margin-top:14px">
+            <div class="row">
+              <div class="field">
+                <label for="p-name">Name members see</label>
+                <input id="p-name" name="name" type="text" placeholder="LinkedIn Growth Course" required>
+              </div>
+              <div class="field">
+                <label for="p-key">Short code (no spaces)</label>
+                <input id="p-key" name="key" type="text" placeholder="course-linkedin" required>
+              </div>
+            </div>
+            <button class="btn btn--primary" type="submit">Add product</button>
+          </form>
+          <p class="status" data-product-status role="status" aria-live="polite"></p>
+        </div>
+        <div data-products-list></div>
+      </section>
+    </div>
+  </div>
+
+<script>
+window.addEventListener('load', () => {
+  document.querySelector('[data-app]').hidden = false;
+  document.querySelector('[data-who]').textContent = 'ms.sargsyanmariam@gmail.com';
+  document.querySelector('[data-logout]').hidden = false;
+
+  // tabs
+  document.querySelectorAll('[data-tab]').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-selected', String(b === btn)));
+    document.querySelectorAll('[data-panel]').forEach(p => p.hidden = p.dataset.panel !== btn.dataset.tab);
+  }));
+
+  const grant = (products) => `
+    <div class="grant">
+      <div><label>Give access to</label><select>${products}</select></div>
+      <div><label>Plan</label><select><option>The Mastermind</option><option>Beyond Mastermind</option></select></div>
+      <div><label>For how long</label><select><option>1 month</option><option>3 months</option><option>6 months</option><option>1 year</option><option>No end date</option></select></div>
+      <div><label>&nbsp;</label><button type="button" class="btn btn--primary btn--small">Switch on</button></div>
+    </div>`;
+  const products = '<option>Membership library</option><option>LinkedIn Growth Course</option>';
+
+  const members = [
+    ['Anna Keller', 'anna.keller@example.com', '14 Oct 2026', '<span class="pill">Membership library · Beyond · until 14 Oct 2027<button type="button" class="btn btn--danger btn--small">Stop</button></span>'],
+    ['Davit Mkrtchyan', 'davit@example.am', '19 Oct 2026', '<span class="pill">Membership library · Mastermind · until 19 Nov 2026<button type="button" class="btn btn--danger btn--small">Stop</button></span>'],
+    ['Sofia Marchetti', 'sofia@example.it', '22 Oct 2026', '<span class="pill pill--none">no access yet</span>']
+  ];
+  const list = document.querySelector('[data-members-list]');
+  members.forEach(([n, e, j, access]) => {
+    const card = document.createElement('div');
+    card.className = 'member';
+    card.innerHTML = `<div class="member__top"><strong>${n}</strong><span class="muted small">${e}</span>
+      <span class="muted small">joined ${j}</span></div>
+      <div class="access-row">${access}</div>` + grant(products);
+    list.append(card);
+  });
+
+  // intro requests
+  const intros = document.querySelector('[data-intros-list]');
+  document.querySelector('[data-intro-badge]').textContent = '(2)';
+  [['Davit Mkrtchyan · Armenia', 'Anna Keller · Germany', '22 Oct 2026', 'new',
+    'She handles EU customs and warehousing. I need a partner who can receive and store goods in the EU before they reach buyers.'],
+   ['Sofia Marchetti · Italy', 'Davit Mkrtchyan · Armenia', '20 Oct 2026', 'introduced',
+    'He builds payment integrations for retail. I want to understand what it would cost to add Armenian suppliers to our system.']
+  ].forEach(([a, b, d, st, why]) => {
+    const card = document.createElement('div');
+    card.className = 'member';
+    card.innerHTML = `<div class="member__top"><strong>${a}</strong><span class="muted small">wants to meet</span>
+      <strong>${b}</strong><span class="muted small">${d}</span>
+      <span class="pill ${st === 'new' ? '' : 'pill--none'}">${st}</span></div>
+      <p class="muted small">${why}</p>
+      <p class="small">Emails: <a href="#">davit@example.am</a> and <a href="#">anna.keller@example.com</a></p>
+      <div class="access-row">
+        <a class="btn btn--primary btn--small" href="#">Write the introduction</a>
+        ${st === 'new' ? '<button type="button" class="btn btn--ghost btn--small">Mark as introduced</button><button type="button" class="btn btn--danger btn--small">Decline</button>' : ''}
+      </div>`;
+    intros.append(card);
+  });
+
+  // questions and checks
+  document.querySelector('[data-ask-badge]').textContent = '(1)';
+  const q = document.querySelector('[data-questions-list]');
+  [['Davit Mkrtchyan · davit@example.am', '19 Oct 2026', 'new', 'How do I write a first message to a distributor in Germany without sounding like a cold pitch?']
+  ].forEach(([who, d, st, text]) => {
+    const card = document.createElement('div');
+    card.className = 'member';
+    card.innerHTML = `<div class="member__top"><strong>${who}</strong><span class="muted small">${d}</span>
+      <span class="pill">${st}</span></div><p>${text}</p>
+      <div class="field" style="margin-top:10px"><label>Your answer</label><textarea></textarea></div>
+      <div class="access-row"><button type="button" class="btn btn--primary btn--small">Save and mark done</button></div>`;
+    q.append(card);
+  });
+  const r = document.querySelector('[data-reviews-list]');
+  const card = document.createElement('div');
+  card.className = 'member';
+  card.innerHTML = `<div class="member__top"><strong>Anna Keller · anna.keller@example.com</strong>
+    <span class="muted small">21 Oct 2026</span><span class="pill pill--none">done</span></div>
+    <p><a href="#">https://www.linkedin.com/in/example</a><br><span class="muted small">Wants: buyers in the South Caucasus</span></p>
+    <div class="field" style="margin-top:10px"><label>Your answer</label><textarea>1. Your headline says what you are, not what you solve. 2. No proof above the fold. 3. Add two client outcomes with numbers.</textarea></div>
+    <div class="access-row"><button type="button" class="btn btn--primary btn--small">Save and mark done</button></div>`;
+  r.append(card);
+
+  // materials
+  const mats = document.querySelector('[data-materials-list]');
+  [['LinkedIn profile checklist', 'Membership library · file · all members · view only', true],
+   ['October market note: Germany', 'Membership library · file · Beyond Mastermind only · view only', true],
+   ['Lesson 1 — Positioning', 'LinkedIn Growth Course · video · all members', true],
+   ['Draft: pricing worksheet', 'Membership library · file · all members · downloadable', false]
+  ].forEach(([t, meta, live]) => {
+    const c = document.createElement('div');
+    c.className = 'member';
+    c.innerHTML = `<div class="member__top"><strong>${t}</strong><span class="muted small">${meta}</span>
+      <span class="pill ${live ? '' : 'pill--none'}">${live ? 'visible' : 'hidden'}</span></div>
+      <div class="access-row"><button type="button" class="btn btn--ghost btn--small">${live ? 'Hide from members' : 'Show to members'}</button>
+      <button type="button" class="btn btn--danger btn--small">Delete</button></div>`;
+    mats.append(c);
+  });
+  document.querySelector('#m-product').innerHTML = products;
+
+  // products
+  const prods = document.querySelector('[data-products-list]');
+  [['Membership library', 'community', 'community'], ['LinkedIn Growth Course', 'course-linkedin', 'course']].forEach(([n, k, kind]) => {
+    const c = document.createElement('div');
+    c.className = 'member';
+    c.innerHTML = `<div class="member__top"><strong>${n}</strong><span class="muted small">code: ${k} · ${kind}</span></div>`;
+    prods.append(c);
+  });
+});
+</script>
+</body>
+</html>
