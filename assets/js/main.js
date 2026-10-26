@@ -459,6 +459,15 @@ function initContact() {
 }
 
 /* ---------- Feedback / testimonials ---------- */
+function initials(name) {
+  return String(name || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("");
+}
+
 function renderTestimonials() {
   const list = document.querySelector("[data-testimonials]");
   const empty = document.querySelector("[data-testimonials-empty]");
@@ -470,10 +479,30 @@ function renderTestimonials() {
     const card = document.createElement("figure");
     card.className = "testimonial";
     const stars = "★".repeat(Math.max(0, Math.min(5, item.rating || 0)));
-    card.innerHTML = '<svg class="icon testimonial__quote" aria-hidden="true"><use href="#i-quote"/></svg><blockquote></blockquote><figcaption><strong></strong><span></span></figcaption>';
+    card.innerHTML =
+      '<svg class="icon testimonial__quote" aria-hidden="true"><use href="#i-quote"/></svg>' +
+      "<blockquote></blockquote>" +
+      '<figcaption class="testimonial__person">' +
+      '<span class="testimonial__avatar"></span>' +
+      '<span class="testimonial__who"><strong></strong><span></span></span>' +
+      "</figcaption>";
     card.querySelector("blockquote").textContent = item.text;
-    card.querySelector("strong").textContent = item.name;
-    card.querySelector("figcaption span").textContent = [item.role, stars].filter(Boolean).join("  ");
+    card.querySelector(".testimonial__who strong").textContent = item.name;
+    card.querySelector(".testimonial__who span").textContent = [item.role, stars].filter(Boolean).join("  ");
+
+    // Their face when we have one, their initials when we don't.
+    const avatar = card.querySelector(".testimonial__avatar");
+    if (item.photo) {
+      const img = document.createElement("img");
+      img.src = item.photo;
+      img.alt = item.name;
+      img.loading = "lazy";
+      img.decoding = "async";
+      avatar.appendChild(img);
+    } else {
+      avatar.classList.add("testimonial__avatar--initials");
+      avatar.textContent = initials(item.name);
+    }
     list.appendChild(card);
   });
   list.hidden = items.length === 0;

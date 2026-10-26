@@ -1107,8 +1107,23 @@ html[lang="hy"] .hero__title {
 }
 .testimonial__quote { width: 28px; height: 28px; color: var(--accent-light); }
 .testimonial blockquote { margin: 0; color: var(--text-soft); font-size: 1.05rem; }
-.testimonial figcaption strong { display: block; }
-.testimonial figcaption span { color: var(--muted); font-size: 0.925rem; }
+.testimonial__person { display: flex; align-items: center; gap: 14px; }
+.testimonial__avatar {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+.testimonial__avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.testimonial__avatar--initials { color: var(--text-soft); font-weight: 600; font-size: 0.95rem; }
+.testimonial__who { min-width: 0; }
+.testimonial__who strong { display: block; color: var(--text); }
+.testimonial__who > span { color: var(--muted); font-size: 0.925rem; }
 .testimonial-empty {
   display: grid;
   justify-items: center;
