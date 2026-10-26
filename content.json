@@ -342,7 +342,64 @@
     }
   ],
   "videos": [],
-  "testimonials": [],
+  "testimonials": [
+    {
+      "name": "Marianna Avagyan",
+      "role": "CCO at 4u.am · Data-driven sales strategist",
+      "text": "Mariam delivered an exceptional B2B LinkedIn training for our team, effectively addressing our specific business needs. Her knowledge in LinkedIn Sales Navigator and advanced search techniques significantly enhanced our prospecting and lead generation capabilities. The content strategy provided clear value, aligning perfectly with our objectives. Our team now feels more confident in leveraging LinkedIn for our B2B business growth. I recommend Mariam for any organization who wants business growth.",
+      "rating": 5,
+      "published": true
+    },
+    {
+      "name": "Armine Gevorgyan",
+      "role": "Community & Alumni Engagement Professional",
+      "text": "Mariam recently conducted an excellent webinar for the Teach For Armenia alumni-ambassador community, focusing on helping participants optimize their LinkedIn profiles to serve as effective professional showcases. The session was highly practical and hands-on, featuring interactive question-and-answer segments that enhanced engagement and made the experience especially valuable. She did it volunteering helping our alumni leveling up their LinkedIn presence for which I would like to express my sincere gratitude. I highly recommend working with Mariam if you're looking to enhance your LinkedIn presence and professional visibility.",
+      "rating": 0,
+      "published": true
+    },
+    {
+      "name": "Brenda Irala",
+      "role": "MBA Graduate · Entrepreneur · Social Media Manager",
+      "text": "Mariam is part of our Female Entrepreneurs & Creatives community in Leipzig, and it's always great to have our members sharing their knowledge and supporting others. Her LinkedIn workshop was practical, insightful, and full of useful tips to help entrepreneurs grow their professional networks and build their personal brands. We're grateful for her willingness to share her expertise!",
+      "rating": 0,
+      "published": true
+    },
+    {
+      "name": "Alejandro Estrella",
+      "role": "Business Development & Project Management",
+      "text": "Mariam helped me with the final steps to review my content and personal brand strategy. Her audit helped reassure me where I was doing things right and where I needed improvement. Her workshop provided tips and tools we could implement in real time. My profile now feels like a super-expensive business card and helps remind me of all the value I can bring to my clients. I highly recommend her.",
+      "rating": 0,
+      "published": true
+    },
+    {
+      "name": "Marine Simonyan",
+      "role": "Managing Strategic Partnerships · MBA",
+      "text": "I had the pleasure of working closely with Mariam on optimizing our LinkedIn page, and I must say, her expertise was invaluable. Mariam demonstrated a deep understanding of LinkedIn strategies and shared all the necessary details with clarity and precision. Her insights not only enhanced our page but also contributed significantly to our overall social media presence. I highly recommend Mariam for her exceptional skills in LinkedIn optimization and her ability to deliver results. It was a pleasure collaborating with her!",
+      "rating": 0,
+      "published": true
+    },
+    {
+      "name": "Kanwara Sirisophonwit",
+      "role": "MBA Candidate · Founder, ResetWorks",
+      "text": "The techniques I learned on the LinkedIn training session was very insightful. Mariam is an excellent trainer, she navigated the class with ease and always a smile. I'd definitely recommend her.",
+      "rating": 0,
+      "published": true
+    },
+    {
+      "name": "Ryo Hiratoko",
+      "role": "Web Designer & Developer · Founder, Kehl Japan",
+      "text": "Mariam explained LinkedIn strategies and made it easy to understand! Thanks to her, I learned a lot and feel more confident in using LinkedIn for my business. I highly recommend Mariam to anyone who wants to improve their LinkedIn presence!",
+      "rating": 0,
+      "published": true
+    },
+    {
+      "name": "Narek Hakobyan",
+      "role": "Co-Founder & CEO at HR Drone",
+      "text": "It was really helpful when Mariam mentioned our startup, HR Drone, on LinkedIn. Our idea is simple: make hiring fairer by focusing on skills, not backgrounds. Mariam's post made many people aware of us, and we're grateful for that. Her support was timely and appreciated. It's great to have acknowledgment from someone who understands the importance of what we're trying to do. Thanks, Mariam, for helping so many people know about our vision.",
+      "rating": 5,
+      "published": true
+    }
+  ],
   "text": {},
   "prices": {}
 }

@@ -1097,6 +1097,7 @@ html[lang="hy"] .hero__title {
 .testimonials { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 .testimonial {
   display: grid;
+  grid-template-rows: auto 1fr auto;   /* names line up along the bottom */
   gap: 16px;
   margin: 0;
   padding: 28px;
