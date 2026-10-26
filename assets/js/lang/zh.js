@@ -188,11 +188,13 @@ window.I18N.zh = {
   "tr.9.name": "4u.am",
   "tr.9.detail": "企业 LinkedIn 培训",
 
-  "testimonials.title": "会员评价",
+  "testimonials.title": "大家怎么说",
   "testimonials.lead": "与 Mariam 合作过或加入社群的创始人与专业人士的真实反馈。",
   "testimonials.empty.title": "你的故事可以成为第一个",
   "testimonials.empty.text": "与 Mariam 合作过、参加过 LinkedIn 培训或直播？欢迎分享你的体验。",
   "testimonials.button": "留下评价",
+  "testimonials.more": "展开全文",
+  "testimonials.less": "收起",
 
   "feedback.title": "分享你的评价",
   "feedback.name": "你的姓名",

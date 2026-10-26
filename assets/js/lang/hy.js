@@ -188,11 +188,13 @@ window.I18N.hy = {
   "tr.9.name": "4u.am",
   "tr.9.detail": "Կորպորատիվ LinkedIn դասընթաց",
 
-  "testimonials.title": "Ինչ են ասում անդամները",
+  "testimonials.title": "Ինչ են ասում մարդիկը",
   "testimonials.lead": "Պատմություններ հիմնադիրներից և մասնագետներից, ովքեր աշխատել են Մարիամի հետ կամ միացել են համայնքին։",
   "testimonials.empty.title": "Ձեր պատմությունը կարող է առաջինը լինել",
   "testimonials.empty.text": "Աշխատե՞լ եք Մարիամի հետ, մասնակցե՞լ եք LinkedIn դասընթացի կամ հանդիպման։ Կիսվեք ձեր փորձով։",
   "testimonials.button": "Թողնել կարծիք",
+  "testimonials.more": "Կարդալ ավելին",
+  "testimonials.less": "Կրճատել",
 
   "feedback.title": "Կիսվեք ձեր կարծիքով",
   "feedback.name": "Ձեր անունը",

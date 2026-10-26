@@ -188,11 +188,13 @@ window.I18N.vi = {
   "tr.9.name": "4u.am",
   "tr.9.detail": "Đào tạo LinkedIn cho doanh nghiệp",
 
-  "testimonials.title": "Thành viên nói gì",
+  "testimonials.title": "Mọi người nói gì",
   "testimonials.lead": "Câu chuyện từ những nhà sáng lập và chuyên gia đã làm việc với Mariam hoặc tham gia cộng đồng.",
   "testimonials.empty.title": "Câu chuyện của bạn có thể là đầu tiên",
   "testimonials.empty.text": "Bạn từng làm việc với Mariam, tham gia khóa đào tạo LinkedIn hay một buổi trực tiếp? Hãy chia sẻ trải nghiệm.",
   "testimonials.button": "Gửi nhận xét",
+  "testimonials.more": "Xem thêm",
+  "testimonials.less": "Thu gọn",
 
   "feedback.title": "Chia sẻ nhận xét của bạn",
   "feedback.name": "Tên của bạn",

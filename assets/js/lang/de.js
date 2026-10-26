@@ -188,11 +188,13 @@ window.I18N.de = {
   "tr.9.name": "4u.am",
   "tr.9.detail": "LinkedIn-Firmentraining",
 
-  "testimonials.title": "Das sagen unsere Mitglieder",
+  "testimonials.title": "Das sagen andere",
   "testimonials.lead": "Erfahrungen von Gründern und Fachleuten, die mit Mariam gearbeitet haben oder Teil der Community sind.",
   "testimonials.empty.title": "Ihre Geschichte könnte die erste hier sein",
   "testimonials.empty.text": "Sie haben mit Mariam gearbeitet, ein LinkedIn-Training besucht oder an einer Session teilgenommen? Teilen Sie Ihre Erfahrung.",
   "testimonials.button": "Feedback geben",
+  "testimonials.more": "Mehr lesen",
+  "testimonials.less": "Weniger anzeigen",
 
   "feedback.title": "Teilen Sie Ihr Feedback",
   "feedback.name": "Ihr Name",

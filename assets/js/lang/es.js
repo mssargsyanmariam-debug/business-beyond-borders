@@ -188,11 +188,13 @@ window.I18N.es = {
   "tr.9.name": "4u.am",
   "tr.9.detail": "Formación de LinkedIn para empresa",
 
-  "testimonials.title": "Lo que dicen los miembros",
+  "testimonials.title": "Lo que dice la gente",
   "testimonials.lead": "Historias de fundadores y profesionales que han trabajado con Mariam o forman parte de la comunidad.",
   "testimonials.empty.title": "Tu historia puede ser la primera",
   "testimonials.empty.text": "¿Has trabajado con Mariam, asistido a una formación de LinkedIn o a una sesión? Cuenta tu experiencia.",
   "testimonials.button": "Dejar una opinión",
+  "testimonials.more": "Leer más",
+  "testimonials.less": "Mostrar menos",
 
   "feedback.title": "Comparte tu opinión",
   "feedback.name": "Tu nombre",

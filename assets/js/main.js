@@ -478,17 +478,23 @@ function renderTestimonials() {
   items.forEach((item) => {
     const card = document.createElement("figure");
     card.className = "testimonial";
-    const stars = "★".repeat(Math.max(0, Math.min(5, item.rating || 0)));
+    const rating = Math.max(0, Math.min(5, Math.round(item.rating || 0)));
     card.innerHTML =
-      '<svg class="icon testimonial__quote" aria-hidden="true"><use href="#i-quote"/></svg>' +
-      "<blockquote></blockquote>" +
-      '<figcaption class="testimonial__person">' +
+      '<header class="testimonial__person">' +
       '<span class="testimonial__avatar"></span>' +
       '<span class="testimonial__who"><strong></strong><span></span></span>' +
-      "</figcaption>";
-    card.querySelector("blockquote").textContent = item.text;
+      "</header>" +
+      '<p class="testimonial__stars" role="img"></p>' +
+      '<blockquote class="testimonial__text"></blockquote>' +
+      '<button type="button" class="testimonial__more" data-i18n="testimonials.more" hidden></button>';
+    card.querySelector(".testimonial__text").textContent = item.text;
     card.querySelector(".testimonial__who strong").textContent = item.name;
-    card.querySelector(".testimonial__who span").textContent = [item.role, stars].filter(Boolean).join("  ");
+    card.querySelector(".testimonial__who span").textContent = item.role || "";
+
+    const starline = card.querySelector(".testimonial__stars");
+    starline.hidden = rating === 0;
+    starline.textContent = "★".repeat(rating);
+    starline.setAttribute("aria-label", rating + "/5");
 
     // Their face when we have one, their initials when we don't.
     const avatar = card.querySelector(".testimonial__avatar");
@@ -503,7 +509,21 @@ function renderTestimonials() {
       avatar.classList.add("testimonial__avatar--initials");
       avatar.textContent = initials(item.name);
     }
+
+    // Long quotes are cut to five lines; the button appears only when there
+    // is something left to show.
+    const more = card.querySelector(".testimonial__more");
+    more.textContent = t("testimonials.more");
+    more.addEventListener("click", () => {
+      const open = card.classList.toggle("is-open");
+      more.dataset.i18n = open ? "testimonials.less" : "testimonials.more";
+      more.textContent = t(more.dataset.i18n);
+    });
     list.appendChild(card);
+    const body = card.querySelector(".testimonial__text");
+    requestAnimationFrame(() => {
+      if (body.scrollHeight - body.clientHeight > 4) more.hidden = false;
+    });
   });
   list.hidden = items.length === 0;
   empty.hidden = items.length > 0;

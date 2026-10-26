@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Sans+Armenian:wght@400..800&display=swap">
   <!-- Bump ?v= on every deploy so browsers fetch fresh files -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=21">
+  <link rel="stylesheet" href="assets/css/styles.css?v=23">
 
 </head>
 <body data-fixed-meta>
@@ -40,14 +40,14 @@
         <a href="index.html#about" data-i18n="nav.about">About</a>
         <a href="membership.html" data-i18n="nav.membership">Membership</a>
         <a href="speaking.html" data-i18n="nav.speaking">Speaking</a>
-        <a href="resources.html" data-i18n="nav.resources">Free resources</a>
-        <a href="speaking.html#contact" class="nav-contact" data-i18n="nav.contact">Contact us</a>
+        <a href="resources.html" data-i18n="nav.resources">Free Resources</a>
+        <a href="speaking.html#contact" class="nav-contact" data-i18n="nav.contact">Contact Us</a>
       </nav>
 
       <div class="header-actions">
         <div class="lang-picker">
           <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
-          <label class="sr-only" for="lang-select" data-i18n="nav.lang">Change language</label>
+          <label class="sr-only" for="lang-select" data-i18n="nav.lang">Change Language</label>
           <select id="lang-select" data-lang-select>
             <option value="en" lang="en">English</option>
             <option value="hy" lang="hy">Հայերեն</option>
@@ -63,7 +63,7 @@
         <a class="icon-link" href="members/" data-i18n-aria="nav.login" aria-label="Member login">
           <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>
         </a>
-        <a class="btn btn--primary btn--sm header-cta" href="membership.html" data-i18n="nav.join">Join now</a>
+        <a class="btn btn--primary btn--sm header-cta" href="membership.html" data-i18n="nav.join">Join Now</a>
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" data-i18n-aria="nav.menu" aria-label="Menu">
           <svg class="icon icon--open" aria-hidden="true"><use href="#i-menu"/></svg>
           <svg class="icon icon--close" aria-hidden="true"><use href="#i-x"/></svg>
@@ -76,20 +76,20 @@
     <section class="page-hero">
       <div class="page-hero__glow" aria-hidden="true"></div>
       <div class="container">
-        <h1 data-i18n="plans.title">Choose your plan</h1>
+        <h1 data-i18n="plans.title">Choose Your Plan</h1>
         <p class="section-lead" data-i18n="plans.lead"></p>
       </div>
     </section>
 
     <section class="section section--plans section--tight" id="plans" aria-labelledby="plans-title">
       <div class="container">
-        <h2 class="sr-only" id="plans-title" data-i18n="plans.title">Choose your plan</h2>
+        <h2 class="sr-only" id="plans-title" data-i18n="plans.title">Choose Your Plan</h2>
 
         <div class="plan-controls plan-controls--row">
           <div class="billing" role="group" data-i18n-aria="plans.billing" aria-label="Billing period">
             <button type="button" data-billing="month" aria-pressed="true" data-i18n="plans.monthly">Monthly</button>
             <button type="button" data-billing="quarter" aria-pressed="false">
-              <span data-i18n="plans.quarterly">3 months</span>
+              <span data-i18n="plans.quarterly">3 Months</span>
               <span class="save-badge" data-i18n="plans.save">Save 16%</span>
             </button>
           </div>
@@ -124,7 +124,7 @@
               <p class="plan__perday"><span class="plan__perday-amount" data-perday-amount>&#8364;0.67</span><span class="plan__perday-label" data-i18n="plans.perdayLabel">a day</span></p>
               <p class="plan__price"><span class="plan__amount" data-amount>&#8364;19.99</span> <span class="plan__period" data-period>/ month</span></p>
               <p class="plan__saving" data-saving hidden></p>
-              <a class="btn btn--primary btn--block" data-checkout href="#plans" data-i18n="plan1.cta">Join The Mastermind</a>
+              <a class="btn btn--primary btn--block" data-checkout href="#plans" data-i18n="plan1.cta">Join the Mastermind</a>
             </div>
           </article>
 
@@ -155,7 +155,7 @@
           </p>
           <p class="plans-note">
             <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
-            <span data-i18n="plans.refund">14-day full refund guarantee.</span>
+            <span data-i18n="plans.refund">14-day full refund guarantee. <a href="terms.html#refunds">Conditions apply</a>.</span>
           </p>
         </div>
       </div>
@@ -228,7 +228,7 @@
           </div>
           <a class="btn btn--light" href="speaking.html#contact">
             <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
-            <span data-i18n="events.cta">Ask about upcoming events</span>
+            <span data-i18n="events.cta">Ask About Upcoming Events</span>
           </a>
         </div>
       </div>
@@ -237,7 +237,7 @@
     <section class="section section--deep" id="faq" aria-labelledby="faq-title">
       <div class="container container--narrow">
         <header class="section-head section-head--tight">
-          <h2 id="faq-title" data-i18n="faq.title">Frequently asked questions</h2>
+          <h2 id="faq-title" data-i18n="faq.title">Frequently Asked Questions</h2>
         </header>
         <div class="faq">
           <details><summary><span data-i18n="faq.q1"></span><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary><p data-i18n="faq.a1"></p></details>
@@ -256,7 +256,7 @@
       <div class="container final-cta__inner">
         <h2 data-i18n="cta.title"></h2>
         <p data-i18n="cta.text"></p>
-        <a class="btn btn--primary btn--lg" href="#plans" data-i18n="cta.button">Choose your plan</a>
+        <a class="btn btn--primary btn--lg" href="#plans" data-i18n="cta.button">Choose Your Plan</a>
       </div>
     </section>
   </main>
@@ -273,9 +273,9 @@
       <nav class="footer-links" aria-label="Footer">
         <a href="membership.html" data-i18n="nav.membership">Membership</a>
         <a href="speaking.html" data-i18n="nav.speaking">Speaking</a>
-        <a href="resources.html" data-i18n="nav.resources">Free resources</a>
+        <a href="resources.html" data-i18n="nav.resources">Free Resources</a>
         <a href="speaking.html#contact" data-i18n="footer.contact">Contact</a>
-        <a href="members/" data-i18n="nav.login">Member login</a>
+        <a href="members/" data-i18n="nav.login">Member Login</a>
         <a href="privacy.html" data-i18n="footer.privacy">Privacy</a>
         <a href="terms.html" data-i18n="footer.terms">Terms</a>
         <a data-linkedin href="#" target="_blank" rel="noopener">LinkedIn</a>
@@ -289,7 +289,7 @@
   </footer>
 
   <dialog class="modal" id="checkout-soon" aria-labelledby="soon-title">
-    <h2 id="soon-title" data-i18n="soon.title">Online sign-up opens soon</h2>
+    <h2 id="soon-title" data-i18n="soon.title">Online Sign-up Opens Soon</h2>
     <p data-soon-text></p>
     <form method="dialog">
       <button type="submit" class="btn btn--navy" data-i18n="soon.close">Close</button>
@@ -297,7 +297,7 @@
   </dialog>
 
   <dialog class="modal modal--dark" id="feedback-dialog" aria-labelledby="feedback-title">
-    <h2 id="feedback-title" data-i18n="feedback.title">Share your feedback</h2>
+    <h2 id="feedback-title" data-i18n="feedback.title">Share Your Feedback</h2>
     <form class="dialog-form" data-form="feedback" novalidate>
       <div class="field-row">
         <div class="field">
@@ -330,7 +330,7 @@
       <p class="form-status" data-status role="status" aria-live="polite"></p>
       <div class="modal__actions">
         <button type="button" class="btn btn--ghost" data-close-feedback data-i18n="feedback.cancel">Cancel</button>
-        <button type="submit" class="btn btn--primary"><span data-i18n="feedback.submit">Send feedback</span></button>
+        <button type="submit" class="btn btn--primary"><span data-i18n="feedback.submit">Send Feedback</span></button>
       </div>
     </form>
   </dialog>
@@ -345,6 +345,6 @@
   <script src="assets/js/lang/zh.js?v=20"></script>
   <script src="assets/js/lang/vi.js?v=20"></script>
   <script src="assets/js/lang/ar.js?v=20"></script>
-  <script src="assets/js/main.js?v=21"></script>
+  <script src="assets/js/main.js?v=23"></script>
 </body>
 </html>

@@ -188,11 +188,13 @@ window.I18N.ar = {
   "tr.9.name": "4u.am",
   "tr.9.detail": "تدريب LinkedIn للشركات",
 
-  "testimonials.title": "ماذا يقول الأعضاء",
+  "testimonials.title": "ماذا يقول الناس",
   "testimonials.lead": "تجارب مؤسسين ومهنيين عملوا مع مريم أو انضموا إلى المجتمع.",
   "testimonials.empty.title": "قد تكون قصتك هي الأولى هنا",
   "testimonials.empty.text": "هل عملت مع مريم أو حضرت تدريبًا على LinkedIn أو جلسة؟ شاركنا تجربتك.",
   "testimonials.button": "اترك رأيك",
+  "testimonials.more": "اقرأ المزيد",
+  "testimonials.less": "عرض أقل",
 
   "feedback.title": "شاركنا رأيك",
   "feedback.name": "اسمك",

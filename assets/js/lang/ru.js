@@ -188,11 +188,13 @@ window.I18N.ru = {
   "tr.9.name": "4u.am",
   "tr.9.detail": "Корпоративный тренинг по LinkedIn",
 
-  "testimonials.title": "Отзывы участников",
+  "testimonials.title": "Что говорят люди",
   "testimonials.lead": "Истории основателей и специалистов, которые работали с Мариам или участвовали в сообществе.",
   "testimonials.empty.title": "Ваша история может стать первой",
   "testimonials.empty.text": "Работали с Мариам, были на тренинге по LinkedIn или на сессии? Поделитесь впечатлениями.",
   "testimonials.button": "Оставить отзыв",
+  "testimonials.more": "Читать полностью",
+  "testimonials.less": "Свернуть",
 
   "feedback.title": "Поделитесь отзывом",
   "feedback.name": "Ваше имя",

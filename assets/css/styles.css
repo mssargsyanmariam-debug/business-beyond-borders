@@ -1094,19 +1094,60 @@ html[lang="hy"] .hero__title {
   max-width: none;
 }
 .section-head--split > div { max-width: 700px; }
-.testimonials { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.testimonials { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
 .testimonial {
   display: grid;
-  grid-template-rows: auto 1fr auto;   /* names line up along the bottom */
-  gap: 16px;
+  align-content: start;
+  gap: 12px;
   margin: 0;
-  padding: 28px;
+  padding: 24px;
   border: 1px solid var(--line);
   border-radius: var(--r-xl);
   background: var(--glass);
 }
-.testimonial__quote { width: 28px; height: 28px; color: var(--accent-light); }
-.testimonial blockquote { margin: 0; color: var(--text-soft); font-size: 1.05rem; }
+.testimonial__stars { margin: 0; color: #f0b429; font-size: 0.95rem; letter-spacing: 3px; }
+.testimonial__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;          /* the rest sits behind "Read more" */
+  line-clamp: 5;
+  overflow: hidden;
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 1rem;
+}
+.testimonial.is-open .testimonial__text {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+.testimonial__more {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-light);
+  font: inherit;
+  font-size: 0.925rem;
+  cursor: pointer;
+}
+.testimonial__more:hover { text-decoration: underline; }
+
+/* On a phone eight cards stacked ran to three screens, so they become one
+   swipeable row instead - the same gesture as the training photos. */
+@media (max-width: 640px) {
+  .testimonials {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 86%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .testimonials::-webkit-scrollbar { display: none; }
+  .testimonial { scroll-snap-align: start; }
+}
 .testimonial__person { display: flex; align-items: center; gap: 14px; }
 .testimonial__avatar {
   flex: 0 0 auto;
@@ -1898,8 +1939,22 @@ body::after {
   .tile { padding: 24px; }
 }
 
-@media (max-width: 520px) {
+/* Between a small phone and a large one the brand name and the header
+   controls together outran the screen, which gave the whole page a
+   sideways scroll. Let the name shrink instead. */
+@media (max-width: 560px) {
+  .header-inner { gap: 12px; }
+  .brand { min-width: 0; }
+  .brand__text { overflow: hidden; text-overflow: ellipsis; }
+  .header-actions { gap: 8px; }
+  .lang-picker select { max-width: 84px; padding-right: 26px; }
+}
+
+@media (max-width: 600px) {
   .header-cta { display: none; }
+}
+
+@media (max-width: 520px) {
   .brand__text { font-size: 1rem; }
   .hero__actions .btn { width: 100%; }
   .float-card { font-size: 0.8rem; padding: 8px 12px; }
@@ -1908,7 +1963,7 @@ body::after {
   .news-form__row { flex-direction: column; }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .brand__text { display: none; }
 }
 
